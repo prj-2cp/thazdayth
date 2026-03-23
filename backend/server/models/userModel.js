@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     address: { type: String, trim: true },
     role: { type: String, enum: ['customer', 'owner'], default: 'customer' },
     is_subscribed: { type: Boolean, default: false },
+    is_blacklisted: { type: Boolean, default: false },//we add an black list in the front
     
     //those we need them when i do the auth/forget_password route 
     //that why i added them
