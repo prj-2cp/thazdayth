@@ -18,7 +18,7 @@ router.get('/',auth.authenticate,auth.ownerOnly,async(req,res)/*the request will
 
 //here the owner can block or unblock a customr
 router.patch('/:id/blacklist',auth.authenticate,auth.ownerOnly,async(req,res) => {
-
+//we used patch because we change only one field
     try{
         const user = await User.findById(req.params.id);//we find the user by his id 
 
@@ -33,6 +33,7 @@ router.patch('/:id/blacklist',auth.authenticate,auth.ownerOnly,async(req,res) =>
         //return the new status
         res.json({is_blacklisted : user.is_blacklisted }) ;
     } catch(error) {
+        console.log(error) ;
         console.error('Error toggling blacklist status: ' , error) ;
         res.status(500).json({message : 'Erreur serveur '}) ;
     }
