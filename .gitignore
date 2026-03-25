@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Project isolation (Teacher/Team Review)
+# Ignore the entire backend
+server/
+
+# Ignore all pages EXCEPT the Home page (Index.tsx)
+src/pages/*
+!src/pages/Index.tsx
+!src/pages/NotFound.tsx

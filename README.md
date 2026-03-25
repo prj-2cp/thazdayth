@@ -9,6 +9,12 @@ To run the project for the first time, follow these steps:
 ### 1. **MongoDB Connection**
 Ensure you have **MongoDB** installed and running on your system (`mongodb://127.0.0.1:27017/tazdayth`).
 
+### **Super Easy Mode**
+If you want to start both the Frontend and Backend at the same time:
+```bash
+npm run dev:all
+```
+
 ### 2. **Backend Setup**
 Open a terminal in the `server` directory:
 ```bash

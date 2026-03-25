@@ -50,6 +50,8 @@ const App = () => {
             <AuthProvider>
               <Routes>
                 <Route path="/" element={<Index />} />
+                {/* Isolated for Home Page only view */}
+                {/* 
                 <Route path="/processus" element={<Processus />} />
                 <Route path="/plats" element={<Plats />} />
                 <Route
@@ -60,7 +62,6 @@ const App = () => {
                     </ProtectedRoute>
                   }
                 />
-
                 <Route path="/region" element={<Region />} />
                 <Route path="/a-propos" element={<APropos />} />
                 <Route path="/connexion" element={<Connexion />} />
@@ -82,6 +83,7 @@ const App = () => {
                     </AdminRoute>
                   }
                 />
+                */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AuthProvider>

@@ -24,16 +24,16 @@ import { LogOut, Bell } from "lucide-react";
 import NotificationDrawer from "./NotificationDrawer";
 import API_URL from "@/config";
 
-// Configuration for site-wide links
+// Configuration for site-wide links (Simplified for Home Page only)
 const getLeftLinks = (t: any) => [
   { to: "/", label: t("nav.home") },
-  { to: "/processus", label: t("nav.process") },
-  { to: "/plats", label: t("nav.dishes") },
+  // { to: "/processus", label: t("nav.process") },
+  // { to: "/plats", label: t("nav.dishes") },
 ];
 
 const getRightLinks = (t: any) => [
-  { to: "/region", label: t("nav.region") },
-  { to: "/a-propos", label: t("nav.about") },
+  // { to: "/region", label: t("nav.region") },
+  // { to: "/a-propos", label: t("nav.about") },
 ];
 
 const languages = [
@@ -147,12 +147,13 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
             </div>
           </div>
 
-          {/* Right area: Icons */}
+          {/* Right area: Icons (Simplified for Home Page Only) */}
           <div className="flex items-center justify-end gap-4 z-10 flex-1">
-
+            {/* 
             <Link to="/boutique" className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors hover:scale-110 duration-200">
               <ShoppingBag className="w-4 h-4 stroke-[2.5]" />
-            </Link>
+            </Link> 
+            */}
 
             {isAuthenticated && (
               <button
@@ -189,6 +190,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
               </DropdownMenuContent>
             </DropdownMenu>
 
+            {/* 
             {isAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -214,7 +216,8 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
               <Link to="/connexion" className="hidden lg:flex items-center gap-1 text-foreground/70 hover:text-primary transition-colors">
                 <User className="w-4 h-4 stroke-[2.2]" />
               </Link>
-            )}
+            )} 
+            */}
 
             <button onClick={() => setMenuOpen(true)} className="lg:hidden text-foreground">
               <Menu className="w-5 h-5" />
