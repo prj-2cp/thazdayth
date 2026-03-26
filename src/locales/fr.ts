@@ -417,24 +417,24 @@ export const fr = {
     },
     region: {
         hero: {
-            title: "Notre Région"
+            title: "Bouira & Le Djurdjura"
         },
         earth: {
-            badge: "La Terre",
-            title: "Kabylie, terre d'olives millénaire",
-            desc1: "La Kabylie est une région montagneuse du nord de l'Algérie, où les oliveraies s'étendent à perte de vue sur les flancs du Djurdjura. Le microclimat unique — entre mer Méditerranée et sommets enneigés — offre aux oliviers des conditions de croissance exceptionnelles.",
-            desc2: "Les sols argileux et calcaires, enrichis par des siècles de culture traditionnelle, donnent naissance à des olives d'une richesse aromatique incomparable. Chaque arbre est un témoin vivant de l'histoire de notre peuple."
+            badge: "Notre Terroir",
+            title: "Haizer et la Vallée du Sahel",
+            desc1: "Au pied du majestueux massif du Djurdjura, la région de Haizer et la vallée du Sahel offrent un terroir d'exception. C'est ici, entre sommets enneigés et plaines fertiles, que nos oliviers millénaires puisent leur force.",
+            desc2: "Le climat de Bouira, marqué par des hivers rigoureux et des étés généreux, forge le caractère unique de notre huile. L'altitude et la pureté de l'air de montagne garantissent une qualité d'olive incomparable."
         },
         people: {
-            title: "Un peuple, un savoir-faire",
-            desc1: "Les Kabyles cultivent l'olivier depuis des millénaires. Ce n'est pas seulement un arbre — c'est un symbole de résilience, de générosité et de lien à la terre. L'huile d'olive est au cœur de la culture kabyle : elle accompagne chaque repas, chaque célébration, chaque geste de bienvenue.",
-            desc2: "Nos familles d'oléiculteurs perpétuent un art transmis de mère en fille, de père en fils. Chaque récolte est une fête, chaque pressage un rituel sacré."
+            title: "L'Héritage de nos Montagnes",
+            desc1: "À Bouira, la récolte est un art de vivre. Les familles de Haizer perpétuent des rituels ancestraux où l'entraide et la solidarité sont les maîtres-mots. Chaque goutte d'huile raconte le courage des hommes et des femmes du Djurdjura.",
+            desc2: "Le savoir-faire se transmet de génération en génération. Nous honorons cet héritage en préservant les méthodes traditionnelles de pressage qui font la renommée de notre terroir."
         },
         history: {
             badge: "Histoire",
-            title: "Un héritage profondément ancré",
-            desc1: "L'histoire de l'olivier en Kabylie remonte à l'Antiquité. L'arbre a survécu aux empires et aux civilisations, devenant le témoin silencieux des évolutions de notre peuple. Il représente bien plus qu'une ressource agricole, il est au cœur de l'identité kabyle.",
-            desc2: "Des pressoirs traditionnels en pierre, préservés à travers les siècles, témoignent de l'ingéniosité de nos ancêtres pour extraire cet or liquide. Aujourd'hui, nous perpétuons cet héritage en combinant savoir-faire ancestral et techniques modernes."
+            title: "Un Carrefour Stratégique",
+            desc1: "Ancienne cité médiévale et carrefour commercial majeur, Bouira a toujours été un centre d'échange vital. Son histoire est marquée par son rôle de 'Souk' rayonnant sur toute la Kabylie, protégé autrefois par son fort ottoman stratégique.",
+            desc2: "Depuis la période romaine jusqu'à nos jours, l'olivier a été le pilier de l'économie locale. Haizer, véritable balcon sur le Djurdjura, demeure le gardien de ce patrimoine oléicole inestimable."
         },
         gallery: {
             title: "Galerie"
