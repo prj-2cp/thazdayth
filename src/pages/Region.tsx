@@ -11,11 +11,12 @@ import SectionReveal from "@/components/SectionReveal";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
-import heroImg from "@/assets/background-main-image.jpg";
+// import heroImg from "@/assets/background-main-image.jpg";
 import oliveImg2 from "@/assets/olive-img-2.jpg";
 import oliveImg5 from "@/assets/olive-img-5.jpg";
 
 const Region = () => {
+  const heroImg = "/region-background.jpg";
   const { t } = useTranslation();
   
   // State to manage the currently enlarged image in the gallery
