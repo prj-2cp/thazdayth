@@ -417,18 +417,24 @@ export const en = {
     },
     region: {
         hero: {
-            title: "Our Region"
+            title: "Bouira & The Djurdjura"
         },
         earth: {
-            badge: "The Land",
-            title: "Kabylia, millennial land of olives",
-            desc1: "Kabylia is a mountainous region in northern Algeria, where olive groves stretch as far as the eye can see on the slopes of the Djurdjura. The unique microclimate — between the Mediterranean Sea and snow-capped peaks — offers olive trees exceptional growing conditions.",
-            desc2: "The clay and limestone soils, enriched by centuries of traditional cultivation, give birth to olives of incomparable aromatic richness. Each tree is a living witness to the history of our people."
+            badge: "Our Terroir",
+            title: "Haizer and the Sahel Valley",
+            desc1: "At the foot of the majestic Djurdjura massif, the Haizer region and the Sahel valley offer an exceptional terroir. It is here, between snowy peaks and fertile plains, that our millennial olive trees draw their strength.",
+            desc2: "The climate of Bouira, marked by rigorous winters and generous summers, forges the unique character of our oil. The altitude and purity of the mountain air guarantee an incomparable olive quality."
         },
         people: {
-            title: "A people, a know-how",
-            desc1: "Kabyles have cultivated the olive tree for millennia. It is not just a tree — it is a symbol of resilience, generosity and connection to the land. Olive oil is at the heart of Kabyle culture: it accompanies every meal, every celebration, every gesture of welcome.",
-            desc2: "Our families of olive growers perpetuate an art passed down from mother to daughter, from father to son. Each harvest is a celebration, each pressing a sacred ritual."
+            title: "Heritage of our Mountains",
+            desc1: "In Bouira, the harvest is an art of living. The families of Haizer perpetuate ancestral rituals where mutual aid and solidarity are the watchwords. Each drop of oil tells the courage of the men and women of the Djurdjura.",
+            desc2: "Know-how is passed down from generation to generation. We honor this heritage by preserving the traditional pressing methods that make our terroir famous."
+        },
+        history: {
+            badge: "History",
+            title: "A Strategic Crossroads",
+            desc1: "An ancient medieval city and major commercial crossroads, Bouira has always been a vital center of exchange. Its history is marked by its role as a 'Souk' radiating across all Kabylie, once protected by its strategic Ottoman fort.",
+            desc2: "From the Roman period to the present day, the olive tree has been the pillar of the local economy. Haizer, a true balcony over the Djurdjura, remains the guardian of this invaluable olive heritage."
         },
         gallery: {
             title: "Gallery"
