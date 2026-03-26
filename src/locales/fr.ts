@@ -218,27 +218,28 @@ export const fr = {
                 }
             },
             {
-                name: "Thiboulalin",
-                desc: "Galette aux herbes sauvages de montagne, pétrie à la main et cuite sur la pierre. Servie avec un filet d'huile d'olive TAZDAYTH.",
-                history: "Thiboulalin tire son nom du mot kabyle pour « crêpes » ou « galettes ». Ce plat ancien est intimement lié à la vie pastorale des montagnes du Djurdjura. Les bergers kabyles préparaient ces galettes fines avec les herbes sauvages qu'ils trouvaient sur les pâturages d'altitude — menthe sauvage, thym, et fenouil. Pendant les siècles de résistance, thiboulalin était un aliment de survie, facile à préparer avec peu de moyens. Aujourd'hui, il est devenu un mets raffiné qui célèbre la richesse botanique de la Kabylie.",
+                name: "Seksou s ivawen",
+                desc: "Le couscous traditionnel aux fèves fraîches et à l'huile d'olive, un plat de printemps par excellence.",
+                history: "Le Seksou s ivawen (couscous aux fèves) est le témoin du lien indéfectible entre le Kabyle et sa terre. Ce plat, généralement préparé au printemps lorsque les fèves sont tendres, célèbre le renouveau de la nature. Contrairement au couscous au bouillon, celui-ci est cuit à la vapeur avec les fèves et les herbes, puis généreusement arrosé d'huile d'olive nouvelle. C'est un plat de partage, souvent dégusté lors des grands travaux agricoles ou des fêtes de village.",
                 recipe: {
                     ingredients: [
-                        "300g de semoule fine",
-                        "200g d'herbes sauvages mélangées (menthe, thym, coriandre)",
-                        "1 oignon finement haché",
-                        "2 cuillères à soupe d'huile d'olive TAZDAYTH",
-                        "Sel et poivre",
-                        "Eau tiède pour lier",
+                        "500g de couscous fin ou moyen",
+                        "500g de fèves fraîches tendres",
+                        "1 botte de coriandre et de menthe",
+                        "4 cuillères à soupe d'huile d'olive TAZDAYTH",
+                        "Sel, poivre, piment rouge (facultatif)",
+                        "Lait caillé (Iɣi) pour l'accompagnement"
                     ],
                     steps: [
-                        "Laver et hacher finement les herbes sauvages.",
-                        "Mélanger la semoule, les herbes, l'oignon, le sel et l'huile d'olive.",
-                        "Ajouter l'eau tiède petit à petit jusqu'à obtenir une pâte malléable.",
-                        "Former des galettes fines d'environ 5 mm d'épaisseur.",
-                        "Cuire sur une pierre chaude ou une poêle sèche à feu vif, 3 minutes par côté.",
-                        "Arroser d'un filet d'huile d'olive TAZDAYTH avant de servir.",
+                        "Nettoyer les fèves et les couper en petits morceaux si nécessaire.",
+                        "Mettre les fèves à cuire à la vapeur dans la partie haute du couscoussier.",
+                        "Préparer le couscous (mouiller, laisser reposer, puis égrener).",
+                        "Placer le couscous par-dessus les fèves et laisser cuire à la vapeur une deuxième fois.",
+                        "Une fois cuit, verser le mélange dans une guessaâ.",
+                        "Ajouter les herbes hachées et arroser généreusement d'huile d'olive TAZDAYTH.",
+                        "Mélanger délicatement pour ne pas écraser les fèves."
                     ],
-                    chef_tip: "Les herbes sauvages se marient à merveille avec notre huile Vierge. Son caractère équilibré souligne la fraîcheur de la menthe et du thym."
+                    chef_tip: "Accompagnez ce plat d'un grand verre de lait caillé (Iɣi) bien frais pour une expérience kabyle authentique."
                 }
             },
             {

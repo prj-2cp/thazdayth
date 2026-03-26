@@ -217,27 +217,28 @@ export const kab = {
                 }
             },
             {
-                name: "Tibulalin",
-                desc: "Taɣerfit s leḥcawec n yidurar, tettwaḥecc s ufus tettewwa ɣef uẓru. Tettunefk s tiqqit n zzit n uzemmur TAZDAYTH.",
-                history: "Tibulalin tewwi-d isem-is seg wawal n leqbayel i « tiɣerfin » neɣ « aɣrum ». Učči-a aqbur yeqqen s lqedd ar tmeddurt n yidurar n Ǧerǧer. Iksawen n leqbayel heyyiyen tiɣerfin-a tirqaqin s leḥcawec nutni ufan deg yidurar - fliyu, zaɛter, d ubesbas. Deg yiseggasen n ttrad, tibulalin d učči n tudert, fessus i uheyyi s drus n yisufar. Ass-a, tuɣal d učči afellay i d-isbanayen cbaḥa n tebḥirin n leqbayel.",
+                name: "Seksou s ivawen",
+                desc: "Seksou n teqbaylit s yivawen d zith n uzemmur, lmakla n tefsut s lmeɛna-ines.",
+                history: "Seksou s ivawen d azamul n ddukkli gar uqbayli d tmurt-is. Lmakla-agi, i d-aheggin amur ameqqran deg tefsut asm'akken llan yivawen d iṛqiqen, d tameɣra n tlalit n nniya n nniya. Ur yelli am seksou n lmerqa, wagi ițewway deg lbuhaṛ d yivawen d leḥcic, deffir-as ișebbebi-as zith n uzemmur tajdidt. D lmakla n ddukkli, asmi llan lecɣal n tferka neɣ tameɣra n taddart.",
                 recipe: {
                     ingredients: [
-                        "300g n smid arqaq",
-                        "200g n leḥcawec imxallafen (fliyu, zaɛter, leqsber)",
-                        "1 n tbeslet yettwagzel cwiṭ",
-                        "2 tɣenjawin tiqbayliyin n zzit n uzemmur TAZDAYTH",
-                        "Lmelḥ d lfilfel",
-                        "Aman yeḥman i uqen",
+                        "500g n seksou uṛqiq neɣ d amassa",
+                        "500g n yivawen iḥercawen",
+                        "Ugni n lkuzbur d nneɛneɛ",
+                        "4 tɣenjawin n zith n uzemmur TAZDAYTH",
+                        "Lmelḥ, lkammun, hris (ma tebɣiḍ)",
+                        "Iɣi iwakken ad t-id-tesnegleḍ"
                     ],
                     steps: [
-                        "Ssired d gzel leḥcawec s ddeqs.",
-                        "Xleḍ smid, leḥcawec, tabeslet, lmelḥ d zzit n uzemmur.",
-                        "Rnu aman yeḥman cwiṭ cwiṭ armi tɣellteḍ taɛejjint.",
-                        "Xdem tiɣerfin tirqaqin n 5 mm.",
-                        "Seww ɣef uẓru yeḥman neɣ tmaqlet yekkawen ɣef tmes tqerḥant, 3 n tesdatin ɣer mkul tama.",
-                        "Wesseɛ s zzit n uzemmur TAZDAYTH qbel ad tefkeḍ.",
+                        "Sseddeg ivawen, gzem-iten d imecta ma yella lqedd-nsen meqqer.",
+                        "Sseww ivawen deg lkeṣkaṣ (afella n tgeṣat).",
+                        "Heggi seksou (ssebleɛ-it, eǧǧ-it ad yars, sakin fsex-it).",
+                        "Ssers seksou afella n yivawen, eǧǧ-it ad yali lbuhaṛ i tikelt tis snat.",
+                        "Mi yewwa, sserreḥ-it deg tgeṣat.",
+                        "Rnu-as leḥcic yejdan, ssebleɛ-it s zith n uzemmur TAZDAYTH.",
+                        "Sexleḍ-it ciṭ ciṭ iwakken ur ttedqiḍ ara ivawen."
                     ],
-                    chef_tip: "Lḥcic n wedrar d zzit-nneɣ Vierge d dacu i d-imeclaqen. Lbenna-s tessejhiz rriḥa n nneɛnaɛ d uzaɛtar."
+                    chef_tip: "Ssew-it d lkas n yiɣi iṣemḍen iwakken ad d-taf-ḍ lbenna n teqbaylit n ṣṣeḥ."
                 }
             },
             {

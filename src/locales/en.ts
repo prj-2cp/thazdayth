@@ -218,27 +218,28 @@ export const en = {
                 }
             },
             {
-                name: "Thiboulalin",
-                desc: "Mountain wild herb flatbread, kneaded by hand and baked on stone. Served with a drizzle of TAZDAYTH olive oil.",
-                history: "Thiboulalin takes its name from the Kabyle word for 'pancakes' or 'flatbreads'. This ancient dish is intimately linked to the pastoral life of the Djurdjura mountains. Kabyle shepherds prepared these thin flatbreads with wild herbs they found on the high altitude pastures — wild mint, thyme, and fennel. During the centuries of resistance, thiboulalin was a survival food, easy to prepare with few means. Today, it has become a refined dish that celebrates the botanical richness of Kabylia.",
+                name: "Seksou s ivawen",
+                desc: "Traditional couscous with fresh broad beans and olive oil, the quintessential spring dish.",
+                history: "Seksou s ivawen (broad bean couscous) is a testament to the unbreakable bond between the Kabyle people and their land. This dish, generally prepared in spring when the beans are tender, celebrates the renewal of nature. Unlike bouillon-based couscous, this one is steamed with the beans and herbs, then generously drizzled with new olive oil. It is a dish for sharing, often enjoyed during major agricultural work or village festivals.",
                 recipe: {
                     ingredients: [
-                        "300g fine semolina",
-                        "200g mixed wild herbs (mint, thyme, coriander)",
-                        "1 finely chopped onion",
-                        "2 tablespoons TAZDAYTH olive oil",
-                        "Salt and pepper",
-                        "Lukewarm water to bind",
+                        "500g fine or medium couscous",
+                        "500g fresh tender broad beans",
+                        "1 bunch of coriander and mint",
+                        "4 tablespoons of TAZDAYTH olive oil",
+                        "Salt, pepper, red chili (optional)",
+                        "Curdled milk (Iɣi) for serving"
                     ],
                     steps: [
-                        "Wash and finely chop the wild herbs.",
-                        "Mix the semolina, herbs, onion, salt and olive oil.",
-                        "Add lukewarm water little by little until you obtain a malleable dough.",
-                        "Form thin patties about 5 mm thick.",
-                        "Cook on a hot stone or a dry pan over high heat, 3 minutes per side.",
-                        "Drizzle with TAZDAYTH olive oil before serving.",
+                        "Clean the beans and cut them into small pieces if necessary.",
+                        "Steam the beans in the upper part of the couscoussier.",
+                        "Prepare the couscous (moisten, let rest, then loosen grains).",
+                        "Place the couscous over the beans and steam a second time.",
+                        "Once cooked, pour the mixture into a guessaâ.",
+                        "Add the chopped herbs and generously drizzle with TAZDAYTH olive oil.",
+                        "Mix gently so as not to crush the beans."
                     ],
-                    chef_tip: "Wild herbs pair beautifully with our Virgin oil. Its balanced character highlights the freshness of mint and thyme."
+                    chef_tip: "Accompany this dish with a large glass of chilled curdled milk (Iɣi) for an authentic Kabyle experience."
                 }
             },
             {
