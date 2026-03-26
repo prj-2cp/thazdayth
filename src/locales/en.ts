@@ -420,21 +420,21 @@ export const en = {
             title: "Bouira & The Djurdjura"
         },
         earth: {
-            badge: "Our Terroir",
-            title: "Haizer and the Sahel Valley",
-            desc1: "At the foot of the majestic Djurdjura massif, the Haizer region and the Sahel valley offer an exceptional terroir. It is here, between snowy peaks and fertile plains, that our millennial olive trees draw their strength.",
-            desc2: "The climate of Bouira, marked by rigorous winters and generous summers, forges the unique character of our oil. The altitude and purity of the mountain air guarantee an incomparable olive quality."
+            badge: "The Land",
+            title: "Haizer, at the Mountain's Foot",
+            desc1: "This is where it all begins, in Haizer. Between the Djurdjura mountains and the Sahel valley, the soil is rich and perfect for our olive trees.",
+            desc2: "The cold winters and sunny summers give our olives a unique taste. The fresh mountain air is what makes the difference."
         },
         people: {
-            title: "Heritage of our Mountains",
-            desc1: "In Bouira, the harvest is an art of living. The families of Haizer perpetuate ancestral rituals where mutual aid and solidarity are the watchwords. Each drop of oil tells the courage of the men and women of the Djurdjura.",
-            desc2: "Know-how is passed down from generation to generation. We honor this heritage by preserving the traditional pressing methods that make our terroir famous."
+            title: "A Family Passion",
+            desc1: "In Bouira, we live for olives. During harvest time, families come together to pick the fruit with joy and teamwork.",
+            desc2: "We learn the secrets of olive oil from our parents. It's a treasure we protect and share with you."
         },
         history: {
-            badge: "History",
-            title: "A Strategic Crossroads",
-            desc1: "An ancient medieval city and major commercial crossroads, Bouira has always been a vital center of exchange. Its history is marked by its role as a 'Souk' radiating across all Kabylie, once protected by its strategic Ottoman fort.",
-            desc2: "From the Roman period to the present day, the olive tree has been the pillar of the local economy. Haizer, a true balcony over the Djurdjura, remains the guardian of this invaluable olive heritage."
+            badge: "In Short",
+            title: "A Meeting Place",
+            desc1: "Bouira has always been a big market where everyone meets. It's the heart of Kabylia, a place of trade for a very long time.",
+            desc2: "We've been pressing olives here for centuries. Haizer is like a balcony overlooking the mountains, guarding our ancestors' story."
         },
         gallery: {
             title: "Gallery"

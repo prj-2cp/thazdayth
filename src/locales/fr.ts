@@ -417,24 +417,24 @@ export const fr = {
     },
     region: {
         hero: {
-            title: "Bouira & Le Djurdjura"
+            title: "Bouira et le Djurdjura"
         },
         earth: {
-            badge: "Notre Terroir",
-            title: "Haizer et la Vallée du Sahel",
-            desc1: "Au pied du majestueux massif du Djurdjura, la région de Haizer et la vallée du Sahel offrent un terroir d'exception. C'est ici, entre sommets enneigés et plaines fertiles, que nos oliviers millénaires puisent leur force.",
-            desc2: "Le climat de Bouira, marqué par des hivers rigoureux et des étés généreux, forge le caractère unique de notre huile. L'altitude et la pureté de l'air de montagne garantissent une qualité d'olive incomparable."
+            badge: "La Terre",
+            title: "Haizer, au pied des montagnes",
+            desc1: "C'est ici, à Haizer, que tout commence. Entre les montagnes du Djurdjura et la vallée du Sahel, la terre est riche et parfaite pour nos oliviers.",
+            desc2: "Le froid de l'hiver et le soleil de l'été donnent à nos olives un goût unique. C'est l'air pur de la montagne qui fait toute la différence."
         },
         people: {
-            title: "L'Héritage de nos Montagnes",
-            desc1: "À Bouira, la récolte est un art de vivre. Les familles de Haizer perpétuent des rituels ancestraux où l'entraide et la solidarité sont les maîtres-mots. Chaque goutte d'huile raconte le courage des hommes et des femmes du Djurdjura.",
-            desc2: "Le savoir-faire se transmet de génération en génération. Nous honorons cet héritage en préservant les méthodes traditionnelles de pressage qui font la renommée de notre terroir."
+            title: "Une Passion de Famille",
+            desc1: "À Bouira, on vit pour l'olivier. Pendant la récolte, toutes les familles se retrouvent pour ramasser les fruits ensemble dans la joie et l'entraide.",
+            desc2: "On apprend les secrets de l'huile d'olive de nos parents. C'est un trésor de notre terroir que l'on protège pour le partager avec vous."
         },
         history: {
-            badge: "Histoire",
-            title: "Un Carrefour Stratégique",
-            desc1: "Ancienne cité médiévale et carrefour commercial majeur, Bouira a toujours été un centre d'échange vital. Son histoire est marquée par son rôle de 'Souk' rayonnant sur toute la Kabylie, protégé autrefois par son fort ottoman stratégique.",
-            desc2: "Depuis la période romaine jusqu'à nos jours, l'olivier a été le pilier de l'économie locale. Haizer, véritable balcon sur le Djurdjura, demeure le gardien de ce patrimoine oléicole inestimable."
+            badge: "En Bref",
+            title: "Un Lieu de Rencontre",
+            desc1: "Bouira a toujours été un grand marché où tout le monde se croisait. C'est le cœur de la Kabylie, un endroit où l'on échange depuis très longtemps.",
+            desc2: "Depuis des siècles, on presse l'olive ici. Haizer est comme un balcon sur les montagnes, gardant précieusement l'histoire de nos ancêtres."
         },
         gallery: {
             title: "Galerie"
