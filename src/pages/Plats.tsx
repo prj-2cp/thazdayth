@@ -89,8 +89,6 @@ const Plats = () => {
                     src={dish.image}
                     alt={dish.name}
                     className="w-full h-[300px] lg:h-[400px] object-cover"
-                    whileHover={{ scale: 1.06 }}
-                    transition={{ duration: 0.6 }}
                   />
                 </div>
                 <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
