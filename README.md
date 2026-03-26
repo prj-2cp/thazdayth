@@ -1,76 +1,45 @@
-# 🌿 Project: TAZDAYTH - Kabyle Gold
+#  Projet TAZDAYTH - L'Or de Kabylie
 
-This project is a full-stack e-commerce website for Kabyle olive oil. It includes a modern Vite/React frontend and a robust Node/Express/TypeScript backend.
+Ceci est mon projet de site web pour l'huilerie familiale **TAZDAYTH**. J'ai voulu créer une interface moderne et esthétique pour présenter notre huile d'olive traditionnelle et notre savoir-faire.
 
-## 🚀 Quick Start (Local Development)
+##  Mes Pages
 
-To run the project for the first time, follow these steps:
+Le site est composé de plusieurs pages que j'ai développées pour présenter différents aspects de l'huilerie :
 
-### 1. **MongoDB Connection**
-Ensure you have **MongoDB** installed and running on your system (`mongodb://127.0.0.1:27017/tazdayth`).
+- **Accueil** : Une présentation visuelle avec une vidéo de fond et des animations au défilement.
+- **Processus** : Une page interactive qui explique les 8 étapes de fabrication de l'huile, de la récolte jusqu'au stockage.
+- **Nos Plats** : Une liste de recettes traditionnelles kabyles avec une liste d'ingrédients interactive.
+- **Notre Région** : Une page dédiée à la Kabylie et au Djurdjura avec une galerie de photos.
+- **À Propos** : L'histoire de l'huilerie, nos valeurs et notre mission.
 
-### **Super Easy Mode**
-If you want to start both the Frontend and Backend at the same time:
-```bash
-npm run dev:all
-```
+> **Note** : Pour l'instant, les parties Boutique et Dashboard sont en cours de développement. Les données des avis sont pour le moment statiques pour la démonstration.
 
-### 2. **Backend Setup**
-Open a terminal in the `server` directory:
-```bash
-cd server
-npm install
-npm run seed   # This populates wilayas and oil prices
-npm run dev    # This starts the backend on port 5000
-```
+##  Technologies utilisées
 
-### 3. **Frontend Setup**
-Open another terminal in the root directory:
-```bash
-npm install
-npm run dev    # This starts the frontend, usually on port 8080 or 5173
-```
+- **Frontend** : React 18 avec TypeScript.
+- **Style** : Tailwind CSS et un peu de CSS classique pour les détails comme la barre de défilement.
+- **Animations** : Framer Motion pour les effets de transition et d'apparition.
+- **Icônes** : Lucide React.
+- **Langues** : i18next pour le support du Français, de l'Anglais et du Kabyle.
 
----
+## Comment lancer le projet
 
-## 🔑 Key Features
+1. **Installation** :
+   ```bash
+   npm install
+   ```
+2. **Lancer le serveur de dev** :
+   ```bash
+   npm run dev
+   ```
+3. **Voir le site** : Le site est accessible sur `http://localhost:8081`.
 
-### 🔓 Authentication & Forgotten Passwords
-- **Registration**: Store user name, phone, and email.
-- **Login**: Secure login with JWT tokens.
-- **Reset PIN**: If forgot password, a 6-digit numeric code is sent via email (SMTP). Current SMTP settings are in `server/.env`.
-- **Reset Logic**: Verification code expires after 15 minutes.
+## Structure du dossier
 
-### 🛒 Boutique & Orders
-- **Multi-item Cart**: Users can add different oils and quantities.
-- **Shipping**: Automatically calculated based on the selected Wilaya.
-- **Orders**: Stored in a database with states: `pending`, `confirmed`, `completed`, `cancelled`.
-
-### 🌿 Trituration (Pressing)
-- Users can request pressing for their own olives.
-- Choice of payment: **Money (DA/kg)** or **Oil Percentage (30%)**.
-- Minimum quantity: 50 kg.
+- `src/assets` : Images et vidéos du projet.
+- `src/components` : Mes composants réutilisables (Navbar, Footer, etc.).
+- `src/pages` : Toutes les pages du site.
+- `src/locales` : Les fichiers de traduction.
 
 ---
-
-## 🌐 Deployment to Vercel (Frontend)
-
-1. Sign in to [Vercel](https://vercel.com).
-2. Click **"Add New"** > **"Project"**.
-3. Import your GitHub repository.
-4. Set the **Framework Preset** to Vite.
-5. In **Environment Variables**, add:
-   - `VITE_API_URL`: Your deployed backend URL (e.g., `https://api.tazdayth.com/api`).
-6. Click **Deploy**.
-
-## 🏗️ Deployment to Render/Railway (Backend)
-
-1. Choose a **Web Service** on Render or a **Service** on Railway.
-2. Build command: `cd server && npm install && npm run build`.
-3. Start command: `cd server && npm start`.
-4. Copy all variables from `server/.env` to the host's **Environment Variables** dashboard.
-
----
-
-### **Need Help?**
-If you have any issues, please refer to the project documentation or contact the development team.
+*Projet réalisé avec passion pour préserver notre patrimoine.*

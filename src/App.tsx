@@ -1,8 +1,8 @@
 /**
- * MAIN APPLICATION COMPONENT
- * This file handles the routing of my website.
- * I created these pages one by one to ensure everything works perfectly before moving forward.
- * For this submission, I have enabled only the informational pages; the backend and shop will be integrated later.
+ * COMPOSANT PRINCIPAL DE L'APPLICATION
+ * Ce fichier gère tout le routage de mon site.
+ * J'ai créé ces pages une par une pour m'assurer que tout fonctionne parfaitement.
+ * Pour cette version, j'ai activé uniquement les pages d'information ; le backend et la boutique seront intégrés plus tard.
  */
 
 import { useState, useCallback } from "react";

@@ -16,7 +16,7 @@ interface IComment {
     created_at: string;
 }
 
-// MOCK DATA FOR STATIC FRONTEND
+// Liste des avis (données en dur pour la démo)
 const MOCK_COMMENTS: IComment[] = [
     {
         _id: "1",
@@ -41,7 +41,7 @@ const MOCK_COMMENTS: IComment[] = [
     }
 ];
 
-// MOCKED AUTH FOR STATIC VERSION
+// Gestion de l'auth pour la version statique
 const useAuth = () => ({
     user: null,
     token: null,
@@ -56,11 +56,11 @@ const Testimonials = () => {
     const [rating, setRating] = useState(5);
     const [hoverRating, setHoverRating] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [fetching, setFetching] = useState(false); // No more fetching
+    const [fetching, setFetching] = useState(false); 
     const [error, setError] = useState<string | null>(null);
 
     const fetchComments = async () => {
-        // No-op for static version
+        // Chargement des données locales
         setComments(MOCK_COMMENTS);
         setFetching(false);
     };
