@@ -195,26 +195,26 @@ export const en = {
         },
         list: [
             {
-                name: "Aghroum n'tzemmurin",
-                desc: "Traditional Kabyle bread, golden and crispy, drizzled with virgin olive oil. A classic on Kabyle tables.",
-                history: "Aghroum is the fundamental bread of Kabyle culture, with origins dating back to Berber antiquity. Baked on a terracotta tagine called 'kanoun', this flat round bread was the basis of every family meal. The ritual of its preparation — from kneading to baking over coals — brought the women of the house together. Drizzled with fresh olive oil, it symbolizes abundance and Kabyle hospitality. Each village had its own variant, passed down from mother to daughter for millennia.",
+                name: "Aghrum s zith",
+                desc: "Traditional Kabyle flatbread with olive oil, crispy on the outside and soft on the inside.",
+                history: "Aghrum s zith is the pillar of the Kabyle table. A symbol of hospitality and simplicity, this flatbread accompanies every meal, from breakfast to dinner. Its preparation is a skill passed down from mother to daughter, where the technique of rubbing the semolina with olive oil (sabler) is crucial to obtaining its unique texture, both firm and crumbly.",
                 recipe: {
                     ingredients: [
-                        "500g fine durum wheat semolina",
-                        "1 teaspoon salt",
-                        "1 teaspoon baker's yeast",
-                        "250ml lukewarm water",
-                        "TAZDAYTH extra virgin olive oil to serve",
+                        "500g durum wheat semolina (fine or medium)",
+                        "150ml TAZDAYTH extra virgin olive oil",
+                        "1 teaspoon of salt",
+                        "About 200ml warm water",
+                        "A pinch of baker's yeast (optional)"
                     ],
                     steps: [
-                        "Mix the semolina, salt and yeast in a large bowl.",
-                        "Add the lukewarm water gradually while kneading until you get a soft and homogeneous dough.",
-                        "Let the dough rest for 30 minutes under a clean cloth.",
-                        "Form a thick disk about 2 cm thick.",
-                        "Cook on an earthen tagine or a pan over medium heat, 10 minutes on each side.",
-                        "Serve hot, generously drizzled with TAZDAYTH olive oil.",
+                        "In a large bowl (guessaâ), mix the semolina and salt.",
+                        "Pour in the olive oil and rub the mixture between your hands for several minutes.",
+                        "Gradually add the water without over-kneading, to form a homogeneous ball.",
+                        "Flatten the dough to form round cakes about 1 cm thick.",
+                        "Prick the entire surface with a fork.",
+                        "Cook on a tajine or a hot pan over medium heat until golden on both sides.",
                     ],
-                    chef_tip: "For perfect crunch, use our Extra Virgin oil. Pour it after cooking to preserve all the woody aromas."
+                    chef_tip: "The secret lies in the quality of the oil. Use our Extra Virgin oil for an intense fragrance and an incomparable golden color."
                 }
             },
             {

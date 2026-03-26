@@ -195,26 +195,26 @@ export const fr = {
         },
         list: [
             {
-                name: "Aghroum n'tzemmurin",
-                desc: "Pain kabyle traditionnel, doré et croustillant, arrosé d'huile d'olive vierge. Un classique des tables de Kabylie.",
-                history: "L'aghroum est le pain fondamental de la culture kabyle, dont les origines remontent à l'Antiquité berbère. Cuit sur un tajine en terre cuite appelé « kanoun », ce pain rond et plat était la base de chaque repas familial. Le rituel de sa préparation — du pétrissage à la cuisson sur braises — réunissait les femmes de la maison. Arrosé d'huile d'olive fraîche, il symbolise l'abondance et l'hospitalité kabyle. Chaque village avait sa propre variante, transmise de mère en fille depuis des millénaires.",
+                name: "Aghrum s zith",
+                desc: "La galette kabyle traditionnelle à l'huile d'olive, croustillante à l'extérieur et fondante à l'intérieur.",
+                history: "L'Aghrum s zith est le pilier de la table kabyle. Symbole d'hospitalité et de simplicité, cette galette accompagne tous les repas, du petit-déjeuner au dîner. Sa préparation est un savoir-faire transmis de mère en fille, où le geste de sabler la semoule avec l'huile d'olive est crucial pour obtenir cette texture unique, à la fois ferme et friable.",
                 recipe: {
                     ingredients: [
-                        "500g de semoule fine de blé dur",
+                        "500g de semoule de blé dur (fine ou moyenne)",
+                        "150ml d'huile d'olive TAZDAYTH extra vierge",
                         "1 cuillère à café de sel",
-                        "1 cuillère à café de levure boulangère",
-                        "250ml d'eau tiède",
-                        "Huile d'olive TAZDAYTH extra vierge pour servir",
+                        "Environ 200ml d'eau tiède",
+                        "Une pincée de levure boulangère (facultatif)"
                     ],
                     steps: [
-                        "Mélanger la semoule, le sel et la levure dans un grand saladier.",
-                        "Ajouter l'eau tiède progressivement en pétrissant jusqu'à obtenir une pâte souple et homogène.",
-                        "Laisser reposer la pâte 30 minutes sous un linge propre.",
-                        "Former un disque épais d'environ 2 cm d'épaisseur.",
-                        "Cuire sur un tajine en terre ou une poêle à feu moyen, 10 minutes de chaque côté.",
-                        "Servir chaud, généreusement arrosé d'huile d'olive TAZDAYTH.",
+                        "Dans une jatte (guessaâ), mélanger la semoule et le sel.",
+                        "Verser l'huile d'olive et sabler longuement le mélange entre les mains.",
+                        "Ajouter l'eau progressivement sans trop pétrir, pour former une boule homogène.",
+                        "Aplatir la pâte pour former des galettes rondes d'environ 1 cm d'épaisseur.",
+                        "Piquer toute la surface avec une fourchette.",
+                        "Cuire sur un tajine ou une poêle chaude à feu moyen jusqu'à dorure des deux côtés.",
                     ],
-                    chef_tip: "Pour un croquant parfait, utilisez notre huile Extra Vierge. Versez-la après la cuisson pour préserver tous les arômes boisés."
+                    chef_tip: "Le secret réside dans la qualité de l'huile. Utilisez notre huile Extra Vierge pour un parfum intense et une couleur dorée incomparable."
                 }
             },
             {

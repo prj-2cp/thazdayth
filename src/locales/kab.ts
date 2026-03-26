@@ -194,26 +194,26 @@ export const kab = {
         },
         list: [
             {
-                name: "Aɣrum n tzemmurin",
-                desc: "Aɣrum n leqbayel n zik, yewwa u yenzez, yettwawesseɛ s zzit n uzemmur. Yiwen n učči n ṭṭwabel n leqbayel.",
-                history: "Aɣrum d aɣrum n lsas n yidles n leqbayel, s yixfawen-is yuɣal-d ar zzman n yimaziɣen iqdimen. Yettewwa ɣef uṭajin n wakal isem-is « lkanun », aɣrum-a d lsas n mkul tiram n twacult. Lɛaddat n uheyyi-s — seg uḥecci ar tewwut ɣef yirẓa — tesdukal tilawin n uxxam. Imzewweq s zzit d waman, d azamul n lbaraka akked lḥerma n leqbayel. Mkul taddart tesɛa aɣrum-is, yettwaceddi seg tyemmat ɣer yelli-s seg luluf n yiseggasen.",
+                name: "Aghrum s zith",
+                desc: "Aghrum n teqbaylit s zith n uzemmur, yemmizeḍ yerna d amesran.",
+                history: "Aghrum s zith d llsas n lmakla n teqbaylit. D rremi n tmenna d tmusni, aghrum-agi ițara-d liser deg yal lmakla, seg sbeḥ alamma d lmegreb. Aheggi-ines d tamsirt i d-ițeddun seg yemma-s ɣer yell-is, anda asabel n ssmid s zith d ayen icudden i uḍelleɛ n lmacna-ines.",
                 recipe: {
                     ingredients: [
-                        "500g n smid n yirden",
-                        "1 tɣenjawt tameẓyant n lmelḥ",
-                        "1 tɣenjawt tameẓyant n yiɣes",
-                        "250ml n waman yeḥman",
-                        "Zzit n uzemmur TAZDAYTH afellay i ussewwi",
+                        "500g n ssmid (uṛqiq neɣ d amassa)",
+                        "150ml n zith n uzemmur TAZDAYTH",
+                        "Tamtunt n lmelḥ",
+                        "Ahat 200ml n waman iḥman",
+                        "Ciṭuḥ n tmtunt n temsict (ma tebɣiḍ)"
                     ],
                     steps: [
-                        "Xleḍ smid, lmelḥ akked yiɣes deg uḍebsi ameqqran.",
-                        "Rnu aman yeḥman cwiṭ cwiṭ s uḥecci armi tuɣal tɛejjint d tabaɣurt.",
-                        "Eǧǧ taɛejjint ad testuɣal 30 n tesdatin ddaw uceṭṭiḍ zeddigen.",
-                        "Xdem aḥarqar azuran n 2 cm.",
-                        "Seww ɣef uṭajin n wakal neɣ tmaqlet ɣef tmes talemmast, 10 n tesdatin ɣer mkul tama.",
-                        "Fk-it-id d aḥmayan, yeččur d zzit n uzemmur TAZDAYTH.",
+                        "Deg tgeṣat (guessaâ), sexleḍ ssmid d lmelḥ.",
+                        "Sserreḥ zith n uzemmur, ssebleɛ ssmid-nni s yifassen-ik mliḥ.",
+                        "Rnu aman ciṭ ciṭ mbla ma teɛrek-eḍ mliḥ, iwakken ad d-tefkeḍ takurt n rbeḥ.",
+                        "Ssemsawa rbeḥ-nni iwakken ad d-tefkeḍ tibeḥbuḥin n 1 cm deg lqedd.",
+                        "Ssexdem lfeṛciṭa iwakken ad-t-id-tenqeḍ akk.",
+                        "Sseḥmu tajin, sseww-it deg tmes tamassayt alamma yeṛwa lqedd.",
                     ],
-                    chef_tip: "Iwakken ad d-iffeɣ iqerrec, sseqdec zzit-nneɣ Extra Vierge. Degger-itt deffir uṣraɛ akken ad teḥrez rriḥa-s n lkanun."
+                    chef_tip: "Sser n weghrum d lquality n zith. Ssexdem zith n uzemmur 'Extra Vierge' iwakken ad d-tettunecfaḍ rriḥa d lquwa-ines."
                 }
             },
             {
