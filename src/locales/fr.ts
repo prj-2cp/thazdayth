@@ -267,27 +267,27 @@ export const fr = {
                 }
             },
             {
-                name: "Salade Kabyle",
-                desc: "Tomates, poivrons, oignons et olives du jardin, généreusement nappés d'huile d'olive extra vierge.",
-                history: "La salade kabyle, ou « chlada », est l'expression la plus pure de la cuisine de terroir. Née de la nécessité de nourrir les familles avec les produits du potager, elle est devenue un incontournable de la table kabyle, surtout pendant les chaleurs de l'été. Chaque famille a sa version, mais le dénominateur commun reste l'huile d'olive — toujours en quantité généreuse. Dans les villages, les légumes sont cueillis le matin même dans les jardins en terrasse accrochés aux flancs des montagnes. Cette salade incarne la philosophie culinaire kabyle : des ingrédients simples, frais, et sublimés par l'or liquide de l'olive.",
+                name: "Aghrum s lahwal",
+                desc: "La galette aux herbes aromatiques et épices, une explosion de parfums montagnards.",
+                history: "L'Aghrum s lahwal est une variante parfumée de la galette traditionnelle. 'Lahwal' désigne ici un mélange subtil d'herbes aromatiques (menthe, pouliot, coriandre) et d'épices que les femmes kabyles incorporent à la semoule avant le pétrissage. Ce pain était autrefois préparé pour les grandes occasions ou pour redonner de la force aux travailleurs des champs. Chaque bouchée est un voyage sensoriel à travers les maquis de Kabylie, sublimé par l'onctuosité de l'huile d'olive qui lie tous ces arômes.",
                 recipe: {
                     ingredients: [
-                        "4 tomates mûres",
-                        "2 poivrons verts",
-                        "1 oignon rouge",
-                        "100g d'olives vertes et noires",
-                        "3 cuillères à soupe d'huile d'olive TAZDAYTH",
-                        "Jus d'un demi-citron, sel, poivre",
+                        "500g de semoule moyenne",
+                        "1 bouquet de menthe et de pouliot (Fliou)",
+                        "1 oignon rouge finement haché",
+                        "1 cuillère à café de piment rouge séché",
+                        "150ml d'huile d'olive TAZDAYTH",
+                        "Sel, eau tiède"
                     ],
                     steps: [
-                        "Couper les tomates en dés, les poivrons en fines lamelles et l'oignon en rondelles.",
-                        "Disposer les légumes dans un plat large et plat.",
-                        "Ajouter les olives entières ou dénoyautées.",
-                        "Assaisonner de sel, poivre et jus de citron.",
-                        "Arroser généreusement d'huile d'olive TAZDAYTH extra vierge.",
-                        "Laisser mariner 10 minutes à température ambiante avant de servir.",
+                        "Hacher très finement les herbes et l'oignon.",
+                        "Dans une guessaâ, mélanger la semoule, le sel, les herbes, l'oignon et le piment.",
+                        "Ajouter l'huile d'olive et sabler le mélange jusqu'à ce que la semoule absorbe les parfums.",
+                        "Mouiller progressivement avec l'eau tiède en ramassant la pâte sans la pétrir vigoureusement.",
+                        "Former une galette ronde et la piquer à la fourchette.",
+                        "Cuire sur un tajine en fonte ou une poêle épaisse jusqu'à ce qu'elle soit bien dorée et odorante."
                     ],
-                    chef_tip: "Pour cette salade de crudités, l'huile Extra Vierge est indispensable. Elle agit comme un révélateur de saveurs pour les légumes du jardin."
+                    chef_tip: "Cette galette est meilleure dégustée tiède. Versez un dernier filet d'huile d'olive Extra Vierge sur les morceaux rompus pour exalter le goût des herbes."
                 }
             }
         ],

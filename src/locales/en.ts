@@ -267,27 +267,27 @@ export const en = {
                 }
             },
             {
-                name: "Kabyle Salad",
-                desc: "Tomatoes, peppers, onions and garden olives, generously coated in extra virgin olive oil.",
-                history: "Kabyle salad, or 'chlada', is the purest expression of local cuisine. Born out of the necessity to feed families with products from the vegetable garden, it has become a staple of the Kabyle table, especially during the heat of summer. Each family has its version, but the common denominator remains olive oil — always in generous quantities. In the villages, the vegetables are picked that very morning in the terraced gardens clinging to the mountain slopes. This salad embodies the Kabyle culinary philosophy: simple, fresh ingredients, enhanced by the liquid gold of the olive.",
+                name: "Aghrum s lahwal",
+                desc: "Flatbread with aromatic herbs and spices, an explosion of mountain fragrances.",
+                history: "Aghrum s lahwal is a fragrant variant of the traditional flatbread. 'Lahwal' here refers to a subtle blend of aromatic herbs (mint, pennyroyal, coriander) and spices that Kabyle women incorporate into the semolina before kneading. This bread was once prepared for special occasions or to restore strength to field workers. Each bite is a sensory journey through the Kabyle maquis, enhanced by the smoothness of the olive oil that binds all these aromas.",
                 recipe: {
                     ingredients: [
-                        "4 ripe tomatoes",
-                        "2 green bell peppers",
-                        "1 red onion",
-                        "100g green and black olives",
-                        "3 tablespoons TAZDAYTH olive oil",
-                        "Juice of half a lemon, salt, pepper",
+                        "500g medium semolina",
+                        "1 bunch of mint and pennyroyal (Fliou)",
+                        "1 red onion, finely chopped",
+                        "1 teaspoon dried red pepper",
+                        "150ml TAZDAYTH olive oil",
+                        "Salt, warm water"
                     ],
                     steps: [
-                        "Dice the tomatoes, cut the peppers into thin strips and the onion into rings.",
-                        "Arrange the vegetables in a large shallow dish.",
-                        "Add the whole or pitted olives.",
-                        "Season with salt, pepper and lemon juice.",
-                        "Generously drizzle with extra virgin TAZDAYTH olive oil.",
-                        "Let marinate 10 minutes at room temperature before serving.",
+                        "Finely chop the herbs and onion.",
+                        "In a guessaâ, mix the semolina, salt, herbs, onion, and pepper.",
+                        "Add the olive oil and rub the mixture until the semolina absorbs the fragrances.",
+                        "Gradually moisten with warm water while gathering the dough without vigorous kneading.",
+                        "Form a round cake and prick it with a fork.",
+                        "Cook on a cast iron tajine or a thick pan until it is well browned and fragrant."
                     ],
-                    chef_tip: "For this raw vegetable salad, Extra Virgin oil is essential. It acts as a flavor enhancer for garden vegetables."
+                    chef_tip: "This flatbread is best enjoyed warm. Pour a final drizzle of extra virgin olive oil over the broken pieces to exalt the taste of the herbs."
                 }
             }
         ],

@@ -266,27 +266,27 @@ export const kab = {
                 }
             },
             {
-                name: "Taclada n leqbayel",
-                desc: "Timuṭicin, ifelfel, tibuslin d uzemmur n tebḥirt, yettwawesseɛ s zzit n uzemmur yufraren.",
-                history: "Taclada n leqbayel, neɣ « clada », d inwit iṣeffan n učči n wakal. Tlured-d seg tḥawact n wučči i twacilin s isufar n tebḥirt, tuɣal d lsas n ṭṭabla n leqbayel, lada deg tegrest n unebdu. Mkul tawacult tesɛa aṭerri-s, maca d zzit n uzemmur i d lsas ameqqran — s tṭuqqet. Deg tudrin, lxedṛa tettwakkes deg ṣbeḥ n wass-nni deg tebḥirin n yidurar. Taclada-a d azamul n tkuzint n leqbayel: isufar ifessasen, izegzawen, i tzewwiqed s wureɣ abelkem n uzemmur.",
+                name: "Aghrum s lahwal",
+                desc: "Aghrum s leḥcawec d lqaṛes, d lbenna n yidurar n teqbaylit s lmeɛna-ines.",
+                history: "Aghrum s lahwal d anaw n weghrum n teqbaylit yeččuren d rriḥa. 'Lahwal' dagi d rremi n leḥcawec (nneɛneɛ, fliyu, lkuzbur) d isufar i d-ițerri uqbayli deg ssmid qbel ad t-yɛerek. Aghrum-agi nnan-d zik as-t-id-aheggin i lecɣal meqqren neɣ iwakken ad d-yerr lquwa i wid yeffɣen ɣer tferka. Yal tbeḥbuḥa d abrid ɣer tebḥirin n tmurt, s rremi n zith n uzemmur i d-islemdayen akk rriḥat-agi.",
                 recipe: {
                     ingredients: [
-                        "4 n tmuṭicin yewwan",
-                        "2 n yifelfel azegzaw",
-                        "1 n tbeslet tazeggaɣt",
-                        "100g n uzemmur azegzaw d uberkan",
-                        "3 tɣenjawin n zzit n uzemmur TAZDAYTH",
-                        "Aman n nnefṣ n lqares, lmelḥ, lfilfel",
+                        "500g n ssmid alemmas",
+                        "Ugni n nneɛneɛ d fliyu",
+                        "Tebselt tazeggaɣt yejdan mliḥ",
+                        "Tɣenjawt n lfilfel azeggaɣ",
+                        "150ml n zith n uzemmur TAZDAYTH",
+                        "Lmelḥ, aman iḥman"
                     ],
                     steps: [
-                        "Gzem timuṭicin d rbeɛ, ifelfel d ijeqquqen d tbeslet d tizeqqa.",
-                        "Sers lxedṛa deg uḍebsi ameqqran.",
-                        "Rnu azemmur akk.",
-                        "Dir lmelḥ, lfilfel d waman n lqares.",
-                        "Wesseɛ s zzit n uzemmur yufraren n TAZDAYTH.",
-                        "Eǧǧ ad iserreḥ 10 n tesdatin qbel ad tefkeḍ.",
+                        "Gzem leḥcawec d tebselt d imecta mliḥ.",
+                        "Deg tgeṣat, sexleḍ ssmid, lmelḥ, leḥcawec, tabselt d lfilfel.",
+                        "Rnu zith n uzemmur, ssebleɛ ssmid-nni mliḥ alamma yeṭṭef rriḥa n leḥcawec.",
+                        "Rnu aman ciṭ ciṭ mbla ma teɛrek-eḍ mliḥ.",
+                        "Heyyi-d tibeḥbuḥin, sakin nqeḍ-asent s lfeṛciṭa.",
+                        "Sseww-it deg tajin n wuzzal neɣ deg tmaqlet alamma yeṛwa lqedd-is."
                     ],
-                    chef_tip: "I cclada-agi n tferki, zzit Extra Vierge d dacu ixuṣṣen. Tettarra-d lbenna n lxedṛa n nniyya."
+                    chef_tip: "Aghrum-agi yif mi ara yili d aḥmayan. Sers tiqqit n zith n uzemmur Extra Vierge afella-as iwakken ad d-tefkeḍ lmacna i leḥcawec-nni."
                 }
             }
         ],
