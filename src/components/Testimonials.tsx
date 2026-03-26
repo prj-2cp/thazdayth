@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Star, MessageSquare, User, Send, StarHalf, Trash2, AlertCircle } from "lucide-react";
-import { useAuth } from "@/Context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import API_URL from "@/config";
 
 interface IComment {
     _id: string;
@@ -18,38 +16,53 @@ interface IComment {
     created_at: string;
 }
 
+// MOCK DATA FOR STATIC FRONTEND
+const MOCK_COMMENTS: IComment[] = [
+    {
+        _id: "1",
+        user_id: { _id: "u1", first_name: "Amine", last_name: "B." },
+        content: "Une huile d'exception qui nous rappelle les saveurs authentiques de notre enfance en Kabylie.",
+        rating: 5,
+        created_at: new Date().toISOString()
+    },
+    {
+        _id: "2",
+        user_id: { _id: "u2", first_name: "Sarah", last_name: "L." },
+        content: "Le processus traditionnel à la meule fait vraiment la différence sur le goût. Je recommande !",
+        rating: 4,
+        created_at: new Date(Date.now() - 86400000).toISOString()
+    },
+    {
+        _id: "3",
+        user_id: { _id: "u3", first_name: "Karim", last_name: "M." },
+        content: "Service de pressage impeccable. On repart avec sa propre huile, un vrai bonheur.",
+        rating: 5,
+        created_at: new Date(Date.now() - 172800000).toISOString()
+    }
+];
+
+// MOCKED AUTH FOR STATIC VERSION
+const useAuth = () => ({
+    user: null,
+    token: null,
+    isAuthenticated: false
+});
+
 const Testimonials = () => {
-    const { user, token } = useAuth();
+    const { user } = useAuth();
     const { toast } = useToast();
-    const [comments, setComments] = useState<IComment[]>([]);
+    const [comments, setComments] = useState<IComment[]>(MOCK_COMMENTS);
     const [newComment, setNewComment] = useState("");
     const [rating, setRating] = useState(5);
     const [hoverRating, setHoverRating] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [fetching, setFetching] = useState(true);
+    const [fetching, setFetching] = useState(false); // No more fetching
     const [error, setError] = useState<string | null>(null);
 
     const fetchComments = async () => {
-        setFetching(true);
-        setError(null);
-        try {
-            const res = await fetch(`${API_URL}/comments`);
-            
-            if (!res.ok) {
-                if (res.status === 429) {
-                    throw new Error("Trop de requêtes. Veuillez patienter.");
-                }
-                throw new Error("Erreur de chargement des avis.");
-            }
-            
-            const data = await res.json();
-            setComments(data);
-        } catch (err: any) {
-            console.error("Error fetching comments:", err);
-            setError(err.message || "Impossible de charger les avis.");
-        } finally {
-            setFetching(false);
-        }
+        // No-op for static version
+        setComments(MOCK_COMMENTS);
+        setFetching(false);
     };
 
     useEffect(() => {
@@ -58,60 +71,11 @@ const Testimonials = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!user) {
-            toast({ title: "Connexion requise", description: "Vous devez être connecté pour laisser un avis.", variant: "destructive" });
-            return;
-        }
-        if (!newComment.trim()) return;
-
-        setLoading(true);
-        try {
-            const res = await fetch(`${API_URL}/comments`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({ content: newComment, rating }),
-            });
-
-            if (res.ok) {
-                toast({ title: "Merci !", description: "Votre avis a été publié avec succès." });
-                setNewComment("");
-                setRating(5);
-                fetchComments();
-            } else {
-                const data = await res.json();
-                throw new Error(data.message || "Erreur lors de la publication.");
-            }
-        } catch (err: any) {
-            toast({ title: "Erreur", description: err.message, variant: "destructive" });
-        } finally {
-            setLoading(false);
-        }
+        toast({ title: "Mode Démo", description: "Les commentaires sont désactivés dans cette version statique.", variant: "default" });
     };
 
     const handleDelete = async (id: string) => {
-        if (!window.confirm("Voulez-vous vraiment supprimer ce commentaire ?")) return;
-
-        try {
-            const res = await fetch(`${API_URL}/comments/${id}`, {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (res.ok) {
-                toast({ title: "Supprimé", description: "Le commentaire a été supprimé." });
-                fetchComments();
-            } else {
-                const data = await res.json();
-                throw new Error(data.message || "Erreur lors de la suppression.");
-            }
-        } catch (err: any) {
-            toast({ title: "Erreur", description: err.message, variant: "destructive" });
-        }
+        toast({ title: "Mode Démo", description: "La suppression est désactivée dans cette version statique.", variant: "default" });
     };
 
     const renderStars = (count: number, interactive = false) => {
