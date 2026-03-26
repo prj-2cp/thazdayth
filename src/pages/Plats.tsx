@@ -84,12 +84,12 @@ const Plats = () => {
                 className="group cursor-pointer bg-background border border-foreground/5 shadow-sm hover:shadow-md transition-all duration-300 rounded-3xl p-6"
                 onClick={() => setSelectedDish(dish)}
               >
-                <div className="overflow-hidden rounded-2xl mb-6 aspect-[16/10]">
+                <div className="overflow-hidden rounded-2xl mb-6 aspect-[16/10] bg-muted/20">
                   <motion.img
                     src={dish.image}
                     alt={dish.name}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.06 }}
+                    className="w-full h-full object-contain"
+                    whileHover={{ scale: 1.04 }}
                     transition={{ duration: 0.6 }}
                   />
                 </div>
@@ -135,11 +135,11 @@ const Plats = () => {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image d'en-tête */}
-              <div className="relative aspect-video overflow-hidden">
+              <div className="relative aspect-video overflow-hidden bg-muted/20">
                 <img
                   src={selectedDish.image}
                   alt={selectedDish.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
                 <button
                   onClick={() => setSelectedDish(null)}
