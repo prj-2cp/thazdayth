@@ -27,10 +27,10 @@ interface Dish {
 const getDishes = (t: any) => {
   const list = t("plats.list", { returnObjects: true }) as any[];
   return [
-    { ...list[0], image: "/recette1.jpg" },
-    { ...list[1], image: "/recette2.jpg" },
-    { ...list[2], image: "/recette3.jpg" },
-    { ...list[3], image: "/recette5.jpg" },
+    { ...list[0], image: "/aghrum.jpg" },
+    { ...list[1], image: "/seksou-sivawen.jpg" },
+    { ...list[2], image: "/hmis.jpg" },
+    { ...list[3], image: "/recette4.jpg" },
   ];
 };
 
