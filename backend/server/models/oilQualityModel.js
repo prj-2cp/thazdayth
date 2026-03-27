@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const oilQualitySettingSchema = new mongoose_1.Schema({
+const oilQualitySettingSchema = new mongoose.Schema({
     quality_name: {type: String,enum: ['extra_virgin', 'virgin', 'third_quality'],required: true,unique: true,},
 
     liters_per_kg: { type: Number, required: true },
