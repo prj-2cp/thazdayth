@@ -6,3 +6,4 @@ query
 .env.production
 node_modules/
 backend_backup/
+*.env
