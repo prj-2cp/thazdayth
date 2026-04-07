@@ -1,7 +1,7 @@
 const authenticate = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        res.status(401).json({ message: 'Accès non autorisé. Veuillez vous connecter.' });
+        res.status(401).json({ message: 'Accès non autorisé. Veuillez vous \er.' });
         return;
     }
     const jwt = require("jsonwebtoken");

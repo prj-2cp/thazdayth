@@ -21,14 +21,16 @@ mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("MONGO DB IS CONNECTED"))
   .catch(error => console.log(`MONGO DB CONNECTION FAILURE ${error}`));
 
-//authoration routes
+//register your routes here 
 const authRoutes = require("./routes/auth").default;
-app.use("/api/auth", authRoutes);
+const users = require("./routes/users").default;
+const products = require("./routes/products").default
 
 //users routes (the owner can see the list of his customers and block them )
-const users = require("./routes/users").default;
-app.use("/api/users",users);
 
+app.use("/api/users",users);
+app.use("/api/auth", authRoutes);
+app.use("/api/products", products)
 
 
 //sent the server to the port to listen to requests
