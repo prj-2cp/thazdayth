@@ -137,23 +137,38 @@ router.post("/google", [body('credential').notEmpty().withMessage('Token Google 
         }
         const { credential } = req.body;
         try {
-            //verufy the token with google
-            const ticket = await client.verifyIdToken({
-                idToken: credential,
-                audience: process.env.GOOGLE_CLIENT_ID,
-            });
+            let email, name, googleId, picture;
 
-            //extract the information
-            const payload = ticket.getPayload();
-            const email = payload.email;
-            const name = payload.name;
-            const googleId = payload.sub;
-            const picture = payload.picture;
+            // Determine if the token is a JWT (ID Token) or an Access Token
+            // JWTs have 3 parts separated by dots
+            if (credential.split('.').length === 3) {
+                console.log("[AUTH] Processing as ID Token (JWT)");
+                const ticket = await client.verifyIdToken({
+                    idToken: credential,
+                    audience: process.env.GOOGLE_CLIENT_ID,
+                });
+                const payload = ticket.getPayload();
+                email = payload.email;
+                name = payload.name;
+                googleId = payload.sub;
+                picture = payload.picture;
+            } else {
+                console.log("[AUTH] Processing as Access Token");
+                // Fetch info from Google UserInfo API
+                const response = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${credential}`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch user info from Google");
+                }
+                const payload = await response.json();
+                email = payload.email;
+                name = payload.name;
+                googleId = payload.sub;
+                picture = payload.picture;
+            }
 
-            //creat the user in the database or find it
+            // Create the user in the database or find it
             let user = await User.findOne({ email });
             if (!user) {
-                // Split name into first and last name if possible
                 const nameParts = (name || "").split(" ");
                 const firstName = nameParts[0] || "User";
                 const lastName = nameParts.slice(1).join(" ") || "Google";
@@ -162,13 +177,13 @@ router.post("/google", [body('credential').notEmpty().withMessage('Token Google 
                     email,
                     first_name: firstName,
                     last_name: lastName,
-                    phone: "N/A", // Google doesn't provide phone by default
+                    phone: "N/A",
                     googleId,
                     picture,
-                    role: 'customer' // Explicitly set default
+                    role: 'customer'
                 });
             }
-            //generate the jwt
+            // Generate the jwt
             const jwtToken = jsonwebtoken.sign(
                 { 
                     id: user._id, 
@@ -179,7 +194,6 @@ router.post("/google", [body('credential').notEmpty().withMessage('Token Google 
                 process.env.JWT_SECRET,
                 { expiresIn: '7d' }
             );
-            //the respond
             res.status(200).json({
                 success: true,
                 token: jwtToken,
