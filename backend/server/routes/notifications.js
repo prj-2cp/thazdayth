@@ -46,7 +46,7 @@ router.get("/unread-count", authenticate,
 router.patch("/:id/read", authenticate, 
     async (req, res) => {
         try {
-            const notification = await Notifications.findOneAndUpdate({ _id: req.params.id, user_id: req.user.id }, {is_read: true}, {new: true});
+            const notification = await Notifications.findOneAndUpdate({ _id: req.params.id, user_id: req.user.id }, {is_read: true}, {returnDocument: true});
             if(!notification) {
                 res.status(404).json({ message: 'Notification non trouvée' })
                 return
@@ -57,3 +57,5 @@ router.patch("/:id/read", authenticate,
         }
     }
 )
+
+exports.default = router
