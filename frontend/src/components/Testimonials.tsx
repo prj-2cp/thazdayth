@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Star, MessageSquare, User, Send, StarHalf, Trash2, AlertCircle } from "lucide-react";
+import { Star, MessageSquare, User, Send, Trash2, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/Context/AuthContext";
+import API_URL from "@/config";
 
 interface IComment {
     _id: string;
@@ -13,56 +15,33 @@ interface IComment {
     };
     content: string;
     rating: number;
-    created_at: string;
+    createdAt: string;
 }
 
-// Liste des avis (données en dur pour la démo)
-const MOCK_COMMENTS: IComment[] = [
-    {
-        _id: "1",
-        user_id: { _id: "u1", first_name: "Amine", last_name: "B." },
-        content: "Une huile d'exception qui nous rappelle les saveurs authentiques de notre enfance en Kabylie.",
-        rating: 5,
-        created_at: new Date().toISOString()
-    },
-    {
-        _id: "2",
-        user_id: { _id: "u2", first_name: "Sarah", last_name: "L." },
-        content: "Le processus traditionnel à la meule fait vraiment la différence sur le goût. Je recommande !",
-        rating: 4,
-        created_at: new Date(Date.now() - 86400000).toISOString()
-    },
-    {
-        _id: "3",
-        user_id: { _id: "u3", first_name: "Karim", last_name: "M." },
-        content: "Service de pressage impeccable. On repart avec sa propre huile, un vrai bonheur.",
-        rating: 5,
-        created_at: new Date(Date.now() - 172800000).toISOString()
-    }
-];
-
-// Gestion de l'auth pour la version statique
-const useAuth = () => ({
-    user: null,
-    token: null,
-    isAuthenticated: false
-});
-
 const Testimonials = () => {
-    const { user } = useAuth();
+    const { user, token } = useAuth();
     const { toast } = useToast();
-    const [comments, setComments] = useState<IComment[]>(MOCK_COMMENTS);
+    const [comments, setComments] = useState<IComment[]>([]);
     const [newComment, setNewComment] = useState("");
     const [rating, setRating] = useState(5);
     const [hoverRating, setHoverRating] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [fetching, setFetching] = useState(false); 
+    const [fetching, setFetching] = useState(true); 
     const [error, setError] = useState<string | null>(null);
 
     const fetchComments = async () => {
-        // Chargement des données locales
-        setComments(MOCK_COMMENTS);
-        setFetching(false);
+        setFetching(true);
+        setError(null);
+        try {
+            const res = await fetch(`${API_URL}/comments`);
+            if (!res.ok) throw new Error("Impossible de charger les commentaires.");
+            const data = await res.json();
+            setComments(data);
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setFetching(false);
+        }
     };
 
     useEffect(() => {
@@ -71,11 +50,56 @@ const Testimonials = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        toast({ title: "Mode Démo", description: "Les commentaires sont désactivés dans cette version statique.", variant: "default" });
+        if (!newComment.trim() || !token) return;
+
+        setLoading(true);
+        try {
+            const res = await fetch(`${API_URL}/comments`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    content: newComment,
+                    rating
+                })
+            });
+
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.message || "Erreur lors de la publication.");
+            }
+
+            toast({ title: "Avis publié !", description: "Merci pour votre retour." });
+            setNewComment("");
+            setRating(5);
+            fetchComments();
+        } catch (err: any) {
+            toast({ title: "Erreur", description: err.message, variant: "destructive" });
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleDelete = async (id: string) => {
-        toast({ title: "Mode Démo", description: "La suppression est désactivée dans cette version statique.", variant: "default" });
+        if (!token) return;
+
+        try {
+            const res = await fetch(`${API_URL}/comments/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (!res.ok) throw new Error("Erreur lors de la suppression.");
+
+            toast({ title: "Supprimé", description: "Votre commentaire a été retiré." });
+            fetchComments();
+        } catch (err: any) {
+            toast({ title: "Erreur", description: err.message, variant: "destructive" });
+        }
     };
 
     const renderStars = (count: number, interactive = false) => {
@@ -204,7 +228,7 @@ const Testimonials = () => {
                                                 </div>
                                                 <div>
                                                     <h4 className="font-bold text-base">{c.user_id?.first_name} {c.user_id?.last_name}</h4>
-                                                    <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest">{new Date(c.created_at).toLocaleDateString()}</p>
+                                                    <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest">{new Date(c.createdAt).toLocaleDateString()}</p>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-3">
