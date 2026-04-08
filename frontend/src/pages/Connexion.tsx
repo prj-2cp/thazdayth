@@ -39,7 +39,7 @@ const Connexion = () => {
                 await googleLogin(tokenResponse.access_token);
                 toast({ title: t("auth.login.success_title"), description: t("auth.login.google_success") });
 
-                const redirect = searchParams.get("redirect") || "/boutique";
+                const redirect = searchParams.get("redirect") || "/";
                 navigate(redirect, { replace: true });
             } catch (err: any) {
                 toast({ title: t("auth.login.error_title"), description: err.message || t("auth.login.google_error"), variant: "destructive" });
@@ -71,7 +71,7 @@ const Connexion = () => {
             toast({ title: t("auth.login.success_title"), description: t("auth.login.success_desc") });
 
             // Redirect to the page the user originally wanted (e.g. checkout), or /boutique
-            const redirect = searchParams.get("redirect") || "/boutique";
+            const redirect = searchParams.get("redirect") || "/";
             navigate(redirect, { replace: true });
         } catch (err: any) {
             toast({ title: t("auth.login.error_title"), description: err.message || t("auth.login.error_invalid"), variant: "destructive" });

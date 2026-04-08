@@ -35,7 +35,7 @@ const Inscription = () => {
             try {
                 await googleLogin(tokenResponse.access_token);
                 toast({ title: t("auth.register.success_title"), description: t("auth.register.google_success") });
-                navigate("/boutique", { replace: true });
+                navigate("/", { replace: true });
             } catch (err: any) {
                 toast({ title: t("auth.register.error_title"), description: err.message || t("auth.register.google_error"), variant: "destructive" });
             } finally {
@@ -76,7 +76,7 @@ const Inscription = () => {
                 password: form.password,
             });
             toast({ title: t("auth.register.success_title"), description: t("auth.register.success_desc") });
-            navigate("/boutique", { replace: true });
+            navigate("/", { replace: true });
         } catch (err: any) {
             toast({ title: t("auth.register.error_title"), description: err.message || t("auth.register.error_general"), variant: "destructive" });
         } finally {
