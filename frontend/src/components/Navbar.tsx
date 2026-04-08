@@ -9,7 +9,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, User, Globe, Check, ShoppingBag } from "lucide-react";
+import { Menu, X, User, Globe, Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { LogOut, Bell } from "lucide-react";
 import { useAuth } from "@/Context/AuthContext";
@@ -117,9 +117,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
           {/* Right area: Icons */}
           <div className="flex items-center justify-end gap-4 z-10 flex-1">
 
-            <Link to="/boutique" className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors hover:scale-110 duration-200">
-              <ShoppingBag className="w-4 h-4 stroke-[2.5]" />
-            </Link>
+
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
