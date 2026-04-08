@@ -498,12 +498,10 @@ export const kab = {
         },
         values: {
             title: "Lqima-nneɣ",
-            items: [
-                "Tidett — Leqder i tarrayin tiqburin n uxdem",
-                "Lqima — Afran iwatan d weɛṣar s uṣmid kan",
-                "Tidderwul — Tayerza iqadren agama",
-                "Tiddukla — Tallelt i twacilin n yifellaḥen n leqbayel"
-            ]
+            "1": { title: "Tidett", desc: "Leqder i tarrayin tiqburin n uxdem" },
+            "2": { title: "Lqima", desc: "Afran iwatan d weɛṣar s uṣmid kan" },
+            "3": { title: "Tidderwul", desc: "Tayerza iqadren agama" },
+            "4": { title: "Tiddukla", desc: "Tallelt i twacilin n yifellaḥen n leqbayel" }
         }
     },
     loading: {

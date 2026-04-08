@@ -534,12 +534,10 @@ export const fr = {
         },
         values: {
             title: "Nos Valeurs",
-            items: [
-                "Authenticité — Fidélité aux méthodes ancestrales de production",
-                "Qualité — Sélection rigoureuse et pressage à froid exclusivement",
-                "Durabilité — Agriculture respectueuse de l'environnement",
-                "Communauté — Soutien aux familles d'oléiculteurs kabyles"
-            ]
+            "1": { title: "Authenticité", desc: "Fidélité aux méthodes ancestrales de production" },
+            "2": { title: "Qualité", desc: "Sélection rigoureuse et pressage à froid exclusivement" },
+            "3": { title: "Durabilité", desc: "Agriculture respectueuse de l'environnement" },
+            "4": { title: "Communauté", desc: "Soutien aux familles d'oléiculteurs kabyles" }
         }
     },
     loading: {

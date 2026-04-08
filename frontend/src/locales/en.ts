@@ -527,12 +527,10 @@ export const en = {
         },
         values: {
             title: "Our Values",
-            items: [
-                "Authenticity — Fidelity to ancestral production methods",
-                "Quality — Rigorous selection and cold pressing exclusively",
-                "Sustainability — Environmentally friendly agriculture",
-                "Community — Support for Kabyle olive farming families"
-            ]
+            "1": { title: "Authenticity", desc: "Fidelity to ancestral production methods" },
+            "2": { title: "Quality", desc: "Rigorous selection and cold pressing exclusively" },
+            "3": { title: "Sustainability", desc: "Environmentally friendly agriculture" },
+            "4": { title: "Community", desc: "Support for Kabyle olive farming families" }
         }
     },
     loading: {
