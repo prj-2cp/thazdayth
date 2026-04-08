@@ -9,7 +9,7 @@ const app = express();
 const cors = require('cors');
 
 app.use(cors({
-  origin: 'http://localhost:8080', // your React dev URL
+  origin: ['http://localhost:8080', 'http://localhost:5173'], // support both common Vite ports
   credentials: true,
 }));
 
