@@ -148,7 +148,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
             {isAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110 focus:outline-none bg-primary/10 p-2 rounded-full border border-primary/20">
+                  <button className="flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110 focus:outline-none">
                     <User className="w-4 h-4 stroke-[2.2]" />
                   </button>
                 </DropdownMenuTrigger>
@@ -167,7 +167,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link to="/connexion" className="flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110 p-2 rounded-full hover:bg-primary/5">
+              <Link to="/connexion" className="flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110">
                 <User className="w-4 h-4 stroke-[2.2]" />
               </Link>
             )}
