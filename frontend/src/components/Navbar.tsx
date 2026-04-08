@@ -62,9 +62,6 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
   const leftLinks = getLeftLinks(t);
   const rightLinks = getRightLinks(t);
   const allLinks = [...leftLinks, ...rightLinks];
-  if (isAuthenticated) {
-    allLinks.push({ to: "/suivi", label: t("nav.tracking") });
-  }
 
   // Language switching function via i18next
   const handleLanguageChange = (langCode: string) => {

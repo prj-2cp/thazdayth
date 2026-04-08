@@ -53,7 +53,6 @@ const App = () => {
                 <Route path="/connexion" element={<Connexion />} />
                 <Route path="/inscription" element={<Inscription />} />
                 <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
-                <Route path="/suivi" element={<NotFound />} />
                 <Route path="/dashboard" element={<NotFound />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
