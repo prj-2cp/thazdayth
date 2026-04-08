@@ -7,3 +7,4 @@ query
 node_modules/
 backend_backup/
 *.env
+LINKING_CHANGES.md
