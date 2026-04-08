@@ -1,7 +1,7 @@
-require("dotenv").config()
 const express = require("express");
 const { body, validationResult } = require("express-validator");
 const { authenticate } = require("../middleware/auth");
+const { checkOrderHistory } = require("../middleware/checkOrderHistory");
 const Comment = require("../models/commentsModel")
 const router = express.Router();
 
@@ -19,7 +19,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post('/', 
-    authenticate, 
+    authenticate,
+    checkOrderHistory,
     [
         body("content").notEmpty().withMessage('Le contenu du commentaire est requis'),
         body("rating").isInt({min: 1, max: 5}).withMessage("La note doit être entre 1 et 5"),
