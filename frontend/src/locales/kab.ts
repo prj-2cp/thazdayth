@@ -11,6 +11,7 @@ export const kab = {
         tracking: "Tuḍfi",
         my_activities: "Axeddim-iw",
         logout: "Ffeɣ",
+        profile: "Amiḍan-iw",
     },
     notifications: {
         title: "Isallen",
@@ -420,28 +421,42 @@ export const kab = {
             email: "Imayl",
             password: "Awal uffir",
             submit: "Kcem",
+            google_btn: "Kcem s Google",
+            forgot_password: "Tettuḍ awal uffir?",
+            or_email: "Neɣ s ubrid n imayl",
             no_account: "Ur tesɛiḍ ara amiḍan?",
             signup_link: "Jerred",
+            loading: "Akcum...",
             success_title: "Ansuf yis-k!",
             success_desc: "Tekcmeḍ akken iwata.",
+            google_success: "Ukcum n Google iṛwa.",
+            google_error: "Ukcum n Google yugi.",
             error_title: "Tucḍa",
-            error_empty: "Ččar akk imukan."
+            error_empty: "Ččar akk imukan.",
+            error_invalid: "Imayl neɣ awal uffir tucḍa."
         },
         register: {
             title: "Ajerred",
             subtitle: "Xdem amiḍan-inek n TAZDAYTH",
             nom: "Isem",
             prenom: "Isem wis sin",
+            telephone: "Tilifun",
             email: "Imayl",
             password: "Awal uffir",
+            google_btn: "Jerred s Google",
             submit: "Xdem amiḍan-iw",
+            or_email: "Neɣ jerred s imayl",
             has_account: "Tesɛiḍ yakan amiḍan?",
             login_link: "Kcem",
+            loading: "Asnulfu...",
             success_title: "Ansuf yis-k!",
             success_desc: "Amiḍan-inek yettwaxdem yakan.",
+            google_success: "Ajerred n Google iṛwa.",
+            google_error: "Ajerred n Google yugi.",
             error_title: "Tucḍa",
             error_empty: "Ččar akk imukan.",
-            error_password: "Awal uffir ilaq ad yesɛu ugar n 6 n isekkilen."
+            error_password: "Awal uffir ilaq ad yesɛu ugar n 6 n isekkilen.",
+            error_general: "Tucḍa deg usnulfu n umiḍan."
         }
     },
     delivery: {

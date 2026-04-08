@@ -11,6 +11,7 @@ export const en = {
         tracking: "Tracking",
         my_activities: "My Activities",
         logout: "Logout",
+        profile: "My Profile",
     },
     notifications: {
         title: "Notifications",
@@ -449,6 +450,7 @@ export const en = {
             email: "Email address",
             password: "Password",
             submit: "Login",
+            google_btn: "Continue with Google",
             forgot_password: "Forgot password?",
             or_email: "Or continue with email",
             no_account: "No account yet?",
@@ -470,6 +472,7 @@ export const en = {
             telephone: "Phone",
             email: "Email address",
             password: "Password",
+            google_btn: "Register with Google",
             submit: "Create my account",
             or_email: "Or register with email",
             has_account: "Already have an account?",
