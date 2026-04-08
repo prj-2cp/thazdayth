@@ -145,9 +145,32 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link to="/connexion" className="hidden lg:flex items-center gap-1 text-foreground/70 hover:text-primary transition-colors">
-              <User className="w-4 h-4 stroke-[2.2]" />
-            </Link>
+            {isAuthenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110 focus:outline-none bg-primary/10 p-2 rounded-full border border-primary/20">
+                    <User className="w-4 h-4 stroke-[2.2]" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48 p-2 rounded-2xl border-border/50 backdrop-blur-xl bg-background/80">
+                  <div className="px-2 py-2 mb-1 border-b border-border/50">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("nav.profile") || "Mon Compte"}</p>
+                    <p className="text-xs font-bold truncate">{user?.first_name} {user?.last_name}</p>
+                  </div>
+                  <DropdownMenuItem
+                    onClick={logout}
+                    className="flex items-center gap-2 cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 rounded-xl py-2.5 transition-all"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span className="font-semibold">{t("nav.logout") || "Déconnexion"}</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link to="/connexion" className="flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110 p-2 rounded-full hover:bg-primary/5">
+                <User className="w-4 h-4 stroke-[2.2]" />
+              </Link>
+            )}
 
             <button onClick={() => setMenuOpen(true)} className="lg:hidden text-foreground">
               <Menu className="w-5 h-5" />
@@ -217,7 +240,28 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
                     </button>
                   ))}
                 </div>
-                <Link to="/connexion" className="text-lg text-foreground/60">{t("nav.login")}</Link>
+                {isAuthenticated ? (
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="flex flex-col items-center">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">{t("nav.profile") || "Mon Compte"}</p>
+                      <p className="text-lg font-bold">{user?.first_name} {user?.last_name}</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setMenuOpen(false);
+                      }}
+                      className="flex items-center gap-2 text-destructive font-bold text-xl py-2 px-6 rounded-full bg-destructive/5"
+                    >
+                      <LogOut className="w-5 h-5" />
+                      {t("nav.logout") || "Déconnexion"}
+                    </button>
+                  </div>
+                ) : (
+                  <Link to="/connexion" className="text-xl font-bold text-foreground/60 hover:text-primary transition-colors">
+                    {t("nav.login")}
+                  </Link>
+                )}
               </motion.div>
             </div>
           </motion.div>
