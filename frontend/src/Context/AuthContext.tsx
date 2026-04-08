@@ -32,6 +32,8 @@ interface AuthContextType {
         password: string;
     }) => Promise<void>;
     googleLogin: (credential: string) => Promise<void>;
+    forgotPassword: (email: string) => Promise<void>;
+    resetPassword: (data: { email: string; code: string; newPassword: string }) => Promise<void>;
     logout: () => void;
 }
 
@@ -143,6 +145,42 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.setItem('isAuthenticated', 'true');
     }, []);
 
+    const forgotPassword = useCallback(async (email: string) => {
+        let res: Response;
+        try {
+            res = await fetch(`${API_URL}/auth/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+        } catch {
+            throw new Error('Impossible de joindre le serveur.');
+        }
+
+        const json = await res.json();
+        if (!res.ok) {
+            throw new Error(json.message || "Erreur lors de l'envoi du code");
+        }
+    }, []);
+
+    const resetPassword = useCallback(async (data: { email: string; code: string; newPassword: string }) => {
+        let res: Response;
+        try {
+            res = await fetch(`${API_URL}/auth/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+        } catch {
+            throw new Error('Impossible de joindre le serveur.');
+        }
+
+        const json = await res.json();
+        if (!res.ok) {
+            throw new Error(json.message || "Erreur lors de la réinitialisation");
+        }
+    }, []);
+
     const logout = useCallback(() => {
         setUser(null);
         setToken(null);
@@ -161,6 +199,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 login,
                 register,
                 googleLogin,
+                forgotPassword,
+                resetPassword,
                 logout,
             }}
         >

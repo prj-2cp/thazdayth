@@ -11,21 +11,14 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, User, Globe, Check, ShoppingBag } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { LogOut, Bell } from "lucide-react";
+import { useAuth } from "@/Context/AuthContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { LogOut, Bell } from "lucide-react";
-
-// MOCKED AUTH FOR CLEANUP (Teacher-only view)
-const useAuth = () => ({
-  isAuthenticated: false,
-  user: null,
-  token: null,
-  logout: () => {},
-});
 
 // Configuration for site-wide links
 const getLeftLinks = (t: any) => [
