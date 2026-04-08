@@ -24,13 +24,15 @@ mongoose.connect(process.env.MONGO_URL)
 //register your routes here 
 const authRoutes = require("./routes/auth").default;
 const users = require("./routes/users").default;
-const products = require("./routes/products").default
+const products = require("./routes/products").default;
+const comments = require("./routes/comments").default;
 
 //users routes (the owner can see the list of his customers and block them )
 
 app.use("/api/users",users);
 app.use("/api/auth", authRoutes);
 app.use("/api/products", products)
+app.use("/api/comments", comments)
 
 
 //sent the server to the port to listen to requests
