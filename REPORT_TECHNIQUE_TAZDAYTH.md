@@ -1,10 +1,4 @@
-# Software Architecture & Engineering Report: TAZDAYTH
-**A Full-Stack Technical Documentation**  
-**Developer**: Ayaka  
-**Date**: April 8, 2026  
-**Status**: Core Infrastructure & High-Security Auth Finalized
 
----
 
 ## 1. Global Architecture Topology
 The **TAZDAYTH** platform is architected using the **MERN** stack (MongoDB, Express, React, Node.js). This separation of concerns ensures that the "Face" (Frontend) and the "Brain" (Backend) can work and scale independently.
