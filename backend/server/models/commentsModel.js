@@ -5,7 +5,7 @@ const commentSchema = new mongoose.Schema({
     content:{type:String , required : true },
     rating:{type:Number , required:true , min:1 , max : 5 , default : 5 },
 },
-{timestamps :true,}
+{timestamps :true},
 );
 
 module.exports= mongoose.model('comment' , commentSchema) ;

@@ -5,7 +5,7 @@ const availabilitySchema = new mongoose.Schema({
     is_blocked : {type : Booleen , default : true } ,
 },
 
-{timestamps:true ,}
+{timestamps:true },
 ) ;
 
 module.exports = mongoose.model ('availability',availabilitySchema) ;
