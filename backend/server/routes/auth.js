@@ -9,7 +9,7 @@ const { OAuth2Client } = require('google-auth-library');
 
 const router = express.Router();
 const User = require("../models/userModel");
-const sendEmail = require("../../utils/sendEmail");
+const { sendResetEmail, sendWelcomeEmail } = require('../utils/sendEmail');
 
 
 //here i register new user
@@ -49,6 +49,10 @@ router.post('/register', [
             role: 'customer', // Always customer to prevent  creating an other owner
         });
 
+            // Send Welcome Email
+            sendWelcomeEmail(email, user.first_name).catch(err => console.error('[AUTH] Google Welcome email fail:', err));
+
+        
         const token = jsonwebtoken.sign({ id: user._id/* i not sur about this one here */, role: user.role, is_subscribed: user.is_subscribed }, process.env.JWT_SECRET, { expiresIn: '7d' });
         res.status(201).json({
             token,
@@ -183,7 +187,10 @@ router.post("/google", [body('credential').notEmpty().withMessage('Token Google 
                     role: 'customer'
                 });
             }
-            // Generate the jwt
+            
+            sendWelcomeEmail(email, user.first_name).catch(err => console.error('[AUTH] Google Welcome email fail:', err));
+           
+            //generate the jwt
             const jwtToken = jsonwebtoken.sign(
                 { 
                     id: user._id, 
@@ -240,7 +247,7 @@ router.post('/forgot-password',
 
             try {
                 //this sends the code to the email
-                sendEmail.sendVerification(email, code);
+                await sendResetEmail(email, code);
                 console.log('\x1b[32m%s\x1b[0m', `[AUTH] Email envoyé à ${email}`);
             } catch (mailError) {
 
