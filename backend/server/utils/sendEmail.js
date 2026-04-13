@@ -62,7 +62,7 @@ const sendWelcomeEmail = async (email, name) => {
         subject: 'Bienvenue chez TAZDAYTH ! 🌿',
         attachments: [{
             filename: 'logo.png',
-            path: path.join(__dirname, '../../../public/logo.png'),
+            path: path.join(__dirname, '../../../frontend/public/logo.png'),
             cid: 'tazdayth_logo'
         }],
         html: `
