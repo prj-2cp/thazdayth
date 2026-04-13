@@ -2,8 +2,12 @@ require("dotenv").config()
 const express = require("express")
 const Notifications = require("../models/notificationsModel")
 const {authenticate} = require("../middleware/auth")
+const { createNotificationRoute } = require("../controllers/notificationController")
 
 const router = express.Router()
+
+//create a notification (owner only)
+router.post("/", authenticate, createNotificationRoute);
 
 //get all notifications of a user   
 router.get("/", authenticate, 
