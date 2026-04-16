@@ -36,7 +36,7 @@ const orderSchema = new mongoose.Schema ({
     status:{type: String,
     enum: ['pending', 'in-progress', 'completed', 'delivered','cancelled'],default: 'pending',},
     owner_notes:{type:String , default:""},
-    is_achived:{type:Boolean , deefault : false},
+    is_achived:{type:Boolean , default : false},
 
 },
 {timestamps : true },

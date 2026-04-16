@@ -27,13 +27,16 @@ const users = require("./routes/users").default;
 const comments = require("./routes/comments").default;
 const notifications = require("./routes/notifications").default
 
+const orders = require("./routes/orders").default;
+
 //use routes
 
 app.use("/api/users", users);
 app.use("/api/auth", authRoutes);
 
-app.use("/api/comments", comments)
-app.use("/api/notifications", notifications)
+app.use("/api/comments", comments);
+app.use("/api/notifications", notifications);
+app.use("/api/orders", orders);
 
 //connection to mongo atlas 
 mongoose.connect(process.env.MONGO_URL)
