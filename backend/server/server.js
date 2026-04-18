@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const mongoSanitize = require('express-mongo-sanitize');//This package strips out keys that begin with $ or contain a . from user inputs (like forms or URLs).
 
 //here i created the server 
 const app = express();
@@ -16,10 +17,8 @@ app.use(cors({
 //to make our server able to read json data
 app.use(express.json());
 
-//connection to mongo atlas 
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log("MONGO DB IS CONNECTED"))
-  .catch(error => console.log(`MONGO DB CONNECTION FAILURE ${error}`));
+//security middeleware every request that comes to our  server will be automatically sanitized (install the pacage here before you run )
+app.use(mongoSanitize());
 
 //register your routes here 
 const authRoutes = require("./routes/auth").default;
@@ -30,11 +29,16 @@ const notifications = require("./routes/notifications").default
 
 //use routes
 
-app.use("/api/users",users);
+app.use("/api/users", users);
 app.use("/api/auth", authRoutes);
 
 app.use("/api/comments", comments)
 app.use("/api/notifications", notifications)
+
+//connection to mongo atlas 
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log("MONGO DB IS CONNECTED"))
+  .catch(error => console.log(`MONGO DB CONNECTION FAILURE ${error}`));
 
 
 //sent the server to the port to listen to requests
