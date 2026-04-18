@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const shippingRateSchema = new mongoose.Schema(
   {
+    wilaya_code: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
     wilaya: {
       type: String,
       required: true,
