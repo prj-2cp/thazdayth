@@ -4,7 +4,11 @@ const Order = require("../models/ordersModel")
 const Notification = require("../models/notificationsModel")
 require("../models/pressingServiceModel")
 const { authenticate, ownerOnly } = require("../middleware/auth")
-
+const Product = require("../models/productsModel")
+const OliveCategory = require("../models/oliveCategoryModel")
+const crypto = require("crypto")
+const { createNotification } = require("../controllers/notificationController")
+const Users = require("../models/userModel")
 
 
 const router = express.Router()
@@ -40,7 +44,80 @@ router.get("/my", authenticate,
     }
 )
 
+// Add an order as a customer
+router.post("/", authenticate, [
+    body("items").isArray({ min: 1 }).withMessage("The cart must have at least 1 item"),
+    body("item.*.quantity").isNumeric().withMessage("Quantity must be a number"),
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.status(400).json({ errors: errors.array() });
+        return;
+    }
 
+    try {
+        const { items, shipping, total } = req.body;
+
+        // Check stock for each item in the cart
+        for (const item of items) {
+            const model = (item.model_type === "Product" ? Product : OliveCategory);
+            const itemData = await model.findById(item.olive_category_id || item.product_id);
+            if (!itemData) {
+                res.status(404).json({ message: "Article introuvable." });
+                return;
+            }
+            if (itemData.stock_liters < item.quantity) {
+                res.status(400).json({ message: `Stock insuffisant pour ${itemData.name}` });
+                return;
+            }
+        }
+
+        // Generate the tracking code for the order
+        const tracking_code = crypto.randomBytes(3).toString('hex').toUpperCase();
+
+        // Create the order in the database
+        const order = await Order.create({
+            user_id: req.user.id,
+            items,
+            shipping,
+            total,
+            tracking_code,
+            status: 'pending'
+        });
+
+        const orderRef = order._id.toString().slice(-6).toUpperCase();
+
+        // Update stock
+        for (const item of items) {
+            if (item.olive_category_id) {
+                const model = (item.model_type === 'Product' ? Product : OliveCategory);
+                await model.findByIdAndUpdate(item.olive_category_id, {
+                    $inc: { stock_liters: -item.quantity }
+                });
+            }
+        }
+
+        // Populate data for response
+        const populatedOrder = await order.populate([
+            { path: 'user_id', select: 'first_name last_name email phone address' },
+            { path: 'items.olive_category_id' },
+            { path: 'items.pressing_service_id' }
+        ]);
+
+        // Create a notification
+        const notifTitle = "🛒 Nouvelle commande reçue !";
+        const notifContent = `Une nouvelle commande #${orderRef} vient d'être passée. Montant total : ${total} DA.`;
+        const owners = await Users.find({ role: "owner" }, '_id');
+        for (const owner of owners) {
+            await createNotification(owner._id, notifTitle, notifContent, order._id);
+        }
+
+        res.status(201).json({ message: "Commande créée avec succès", populatedOrder });
+    } catch (err) {
+        console.log("Order creation error: ", err);
+        res.status(500).json({ message: "Erreur serveur." });
+    }
+});
 
 
 

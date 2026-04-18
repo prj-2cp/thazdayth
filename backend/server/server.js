@@ -23,25 +23,25 @@ app.use(mongoSanitize());
 //register your routes here 
 const authRoutes = require("./routes/auth").default;
 const users = require("./routes/users").default;
-
 const comments = require("./routes/comments").default;
 const notifications = require("./routes/notifications").default
-
+const products = require("./routes/products").default
 const orders = require("./routes/orders").default;
 
 //use routes
 
 app.use("/api/users", users);
 app.use("/api/auth", authRoutes);
-
 app.use("/api/comments", comments);
 app.use("/api/notifications", notifications);
+app.use("/api/products", products);
 app.use("/api/orders", orders);
 
 //connection to mongo atlas 
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("MONGO DB IS CONNECTED"))
   .catch(error => console.log(`MONGO DB CONNECTION FAILURE ${error}`));
+
 
 
 //sent the server to the port to listen to requests
