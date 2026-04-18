@@ -7,4 +7,4 @@ const oliveCategorySchema = new mongoose.Schema({
 }, {
     timestamps: true ,
 });
-module.exports= mongoose_1.default.model('OliveCategory', oliveCategorySchema);
+module.exports= mongoose.default.model('OliveCategory', oliveCategorySchema);

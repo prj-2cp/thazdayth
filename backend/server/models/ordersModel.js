@@ -1,14 +1,14 @@
 const mongoose = require("mongoose") ;
 
 const orderSchema = new mongoose.Schema ({
-    user_id:{type : mongoose.Types.ObjectId,ref:'user',required : true } ,
+    user_id:{type : mongoose.Schema.Types.ObjectId, ref:'user', required : true } ,
     total:{type : Number , required : true } ,
     delivery_requested:{type:Boolean} ,
     items: [{
             olive_category_id: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
-                refPath: 'model_type'
+                refPath: 'OliveCategory'
             },
             model_type: {
                 type: String,
@@ -32,8 +32,9 @@ const orderSchema = new mongoose.Schema ({
         pickup_hours:{type : String} ,
         pickup_status:{type:String,enum:['pending', 'proposed' ,'accepted', 'rejected', 'collected'],default: 'pending'},
     },
+
     status:{type: String,
-        enum: ['pending', 'in-progress', 'completed', 'delivered','cancelled'],default: 'pending',},
+    enum: ['pending', 'in-progress', 'completed', 'delivered','cancelled'],default: 'pending',},
     owner_notes:{type:String , default:""},
     is_achived:{type:Boolean , deefault : false},
 
