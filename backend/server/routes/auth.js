@@ -49,10 +49,10 @@ router.post('/register', [
             role: 'customer', // Always customer to prevent  creating an other owner
         });
 
-            // Send Welcome Email
-            sendWelcomeEmail(email, user.first_name).catch(err => console.error('[AUTH] Google Welcome email fail:', err));
+        // Send Welcome Email
+        sendWelcomeEmail(email, user.first_name).catch(err => console.error('[AUTH] Google Welcome email fail:', err));
 
-        
+
         const token = jsonwebtoken.sign({ id: user._id/* i not sur about this one here */, role: user.role, is_subscribed: user.is_subscribed }, process.env.JWT_SECRET, { expiresIn: '7d' });
         res.status(201).json({
             token,
@@ -107,7 +107,7 @@ router.post('/login', [
                 role: user.role,
                 is_subscribed: user.is_subscribed,
             }, process.env.JWT_SECRET, {
-                expiresIn: '7d'
+            expiresIn: '7d'
         });
 
         res.json({
@@ -176,7 +176,7 @@ router.post("/google", [body('credential').notEmpty().withMessage('Token Google 
                 const nameParts = (name || "").split(" ");
                 const firstName = nameParts[0] || "User";
                 const lastName = nameParts.slice(1).join(" ") || "Google";
-                
+
                 user = await User.create({
                     email,
                     first_name: firstName,
@@ -187,13 +187,13 @@ router.post("/google", [body('credential').notEmpty().withMessage('Token Google 
                     role: 'customer'
                 });
             }
-            
+
             sendWelcomeEmail(email, user.first_name).catch(err => console.error('[AUTH] Google Welcome email fail:', err));
-           
+
             //generate the jwt
             const jwtToken = jsonwebtoken.sign(
-                { 
-                    id: user._id, 
+                {
+                    id: user._id,
                     email: user.email,
                     role: user.role,
                     is_subscribed: user.is_subscribed
@@ -291,6 +291,35 @@ router.post('/reset-password', [
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Erreur serveur.' });
+    }
+});
+
+// we will use this one  when we need to force the user who  registered with google to enter his phone number 
+
+router.patch('/me', authenticate, async (req, res) => {
+    try {
+        const updates = req.body;
+        const allowUpdates = ['phone', 'first_name', 'last_name'];//this limites the field we this route can change for database security
+        const actualUpdates = {}; // here we put the object we want to update
+
+        for (const key of allowUpdates) {
+            if (updates[key] !== undefined) { //the field that already has a value stays the same 
+                actualUpdates[key] = updates[key];
+            }
+        }
+
+        const user = await/*pauses the code until the database operations answers */ User.findByIdAndUpdate(
+            req.user?.id,//the id of the user making the request 
+            { $set: actualUpdates },//this tlls the db to only update the specific field
+            { new: true, runValidators: true }//tells the mongo to return the new updated document  (because by defult it return the old one)
+        ).select('-password');//this prevent the password from being returned
+
+        if (!user) {
+            res.status(404).json({ message: 'utilisateur non trouve.' });
+        }
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ message: 'erreur serveur' });
     }
 });
 
