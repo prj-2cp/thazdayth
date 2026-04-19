@@ -56,6 +56,13 @@ router.post("/", authenticate, [
     }
 
     try {
+        const user = await Users.findById(req.user.id);
+        if (user && user.is_blacklisted) {
+            res.status(403).json({ message: 'Votre compte est restreint. Vous ne pouvez pas passer de commande.' });
+            return;
+        }
+        
+
         const { items, shipping, total } = req.body;
 
         // Check stock for each item in the cart
