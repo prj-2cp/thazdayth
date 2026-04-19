@@ -6,6 +6,15 @@ const mongoSanitize = require('express-mongo-sanitize');//This package strips ou
 //here i created the server 
 const app = express();
 
+app.use((req, res, next) => {
+  Object.defineProperty(req, 'query', {
+    value: { ...req.query },
+    writable: true,
+    configurable: true,
+    enumerable: true,
+  });
+  next();
+});
 // server.js — add this near the top
 const cors = require('cors');
 

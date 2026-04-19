@@ -6,7 +6,7 @@ const { body, validationResult } = require("express-validator");
 const jsonwebtoken = require("jsonwebtoken");
 //so i can use the google auth 
 const { OAuth2Client } = require('google-auth-library');
-
+const {authenticate, ownerOnly} = require("../middleware/auth")
 const router = express.Router();
 const User = require("../models/userModel");
 const { sendResetEmail, sendWelcomeEmail } = require('../utils/sendEmail');
