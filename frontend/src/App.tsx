@@ -22,6 +22,9 @@ import APropos from "./pages/APropos";
 import Connexion from "./pages/Connexion";
 import Inscription from "./pages/Inscription";
 import MotDePasseOublie from "./pages/MotDePasseOublie";
+import Boutique from "./pages/Boutique";
+import Suivi from "./pages/Suivi";
+import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -53,6 +56,9 @@ const App = () => {
                 <Route path="/connexion" element={<Connexion />} />
                 <Route path="/inscription" element={<Inscription />} />
                 <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
+                <Route path="/boutique" element={<Boutique />} />
+                <Route path="/suivi" element={<Suivi />} />
+                <Route path="/notifications" element={<Notifications />} />
                 <Route path="/dashboard" element={<NotFound />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
