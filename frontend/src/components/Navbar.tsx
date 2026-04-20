@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import NotificationDrawer from "./NotificationDrawer";
 
 // Configuration for site-wide links
 const getLeftLinks = (t: any) => [
@@ -44,6 +45,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
   const [scrolled, setScrolled] = useState(false); // Controls background transparency on scroll
   const [menuOpen, setMenuOpen] = useState(false); // Mobile menu state
   const [unreadCount, setUnreadCount] = useState(0);
+  const [isNotificationDrawerOpen, setIsNotificationDrawerOpen] = useState(false);
   const location = useLocation();
 
   // Change navbar appearance when user scrolls down
@@ -157,9 +159,9 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
             </Link>
 
             {isAuthenticated && (
-              <Link
-                to="/notifications"
-                className="relative flex items-center justify-center text-foreground/70 hover:text-primary transition-all hover:scale-110"
+              <button
+                onClick={() => setIsNotificationDrawerOpen(true)}
+                className="relative flex items-center justify-center text-foreground/70 hover:text-primary transition-all hover:scale-110 focus:outline-none"
               >
                 <Bell className="w-4 h-4 stroke-[2.2]" />
                 {unreadCount > 0 && (
@@ -171,7 +173,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
                     {unreadCount > 9 ? "9+" : unreadCount}
                   </motion.span>
                 )}
-              </Link>
+              </button>
             )}
 
             <DropdownMenu>
@@ -288,9 +290,11 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
                   </Link>
 
                   {isAuthenticated && (
-                    <Link
-                      to="/notifications"
-                      onClick={() => setMenuOpen(false)}
+                    <button
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setIsNotificationDrawerOpen(true);
+                      }}
                       className="relative p-2 bg-secondary/50 rounded-full text-foreground"
                     >
                       <Bell className="w-6 h-6" />
@@ -299,7 +303,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
                           {unreadCount}
                         </span>
                       )}
-                    </Link>
+                    </button>
                   )}
                   {languages.map((lang) => (
                     <button
@@ -339,7 +343,12 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
           </motion.div>
         )}
       </AnimatePresence>
-      {/* Cleanup: NotificationDrawer removed for this push */}
+      <NotificationDrawer 
+        isOpen={isNotificationDrawerOpen} 
+        onClose={() => setIsNotificationDrawerOpen(false)} 
+        token={token}
+        onUnreadChange={setUnreadCount}
+      />
     </>
   );
 };
