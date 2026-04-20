@@ -48,7 +48,7 @@ app.use("/api/products", products);
 app.use("/api/orders", orders);
 app.use("/api/availability", availability);
 //connection to mongo atlas 
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("MONGO DB IS CONNECTED"))
   .catch(error => console.log(`MONGO DB CONNECTION FAILURE ${error}`));
 

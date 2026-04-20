@@ -14,6 +14,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { AuthProvider } from "./Context/AuthContext";
 import LoadingScreen from "./components/LoadingScreen";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Index from "./pages/Index";
 import Processus from "./pages/Processus";
 import Plats from "./pages/Plats";
@@ -57,7 +58,14 @@ const App = () => {
                 <Route path="/inscription" element={<Inscription />} />
                 <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
                 <Route path="/boutique" element={<Boutique />} />
-                <Route path="/suivi" element={<Suivi />} />
+                <Route 
+                  path="/suivi" 
+                  element={
+                    <ProtectedRoute>
+                      <Suivi />
+                    </ProtectedRoute>
+                  } 
+                />
                 <Route path="/notifications" element={<Notifications />} />
                 <Route path="/dashboard" element={<NotFound />} />
                 <Route path="*" element={<NotFound />} />

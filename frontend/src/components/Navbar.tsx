@@ -11,7 +11,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, User, Globe, Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { LogOut, Bell } from "lucide-react";
+import { LogOut, Bell, ShoppingBag } from "lucide-react";
 import { useAuth } from "@/Context/AuthContext";
 import {
   DropdownMenu,
@@ -25,13 +25,11 @@ const getLeftLinks = (t: any) => [
   { to: "/", label: t("nav.home") },
   { to: "/processus", label: t("nav.process") },
   { to: "/plats", label: t("nav.dishes") },
-  { to: "/boutique", label: t("nav.shop") || "Boutique" },
 ];
 
 const getRightLinks = (t: any) => [
   { to: "/region", label: t("nav.region") },
   { to: "/a-propos", label: t("nav.about") },
-  { to: "/suivi", label: t("nav.tracking") || "Suivi" },
 ];
 
 const languages = [
@@ -88,7 +86,14 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
   const currentLang = i18n.language || "fr";
   const leftLinks = getLeftLinks(t);
   const rightLinks = getRightLinks(t);
-  const allLinks = [...leftLinks, ...rightLinks];
+  const mainLinks = [...leftLinks, ...rightLinks];
+  
+  // Suivi is only for authenticated users
+  if (isAuthenticated) {
+    mainLinks.push({ to: "/suivi", label: t("nav.tracking") || "Suivi" });
+  }
+
+  const allLinks = mainLinks;
 
   // Language switching function via i18next
   const handleLanguageChange = (langCode: string) => {
@@ -143,8 +148,13 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
 
           {/* Right area: Icons */}
           <div className="flex items-center justify-end gap-4 z-10 flex-1">
-
-
+            <Link
+              to="/boutique"
+              className="relative flex items-center justify-center text-foreground/70 hover:text-primary transition-all hover:scale-110"
+              title={t("nav.shop") || "Boutique"}
+            >
+              <ShoppingBag className="w-4 h-4 stroke-[2.2]" />
+            </Link>
 
             {isAuthenticated && (
               <Link
@@ -269,6 +279,14 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
                 className="flex flex-col items-center gap-6 mt-3 w-full"
               >
                 <div className="flex gap-5 mt-3 items-center">
+                  <Link
+                    to="/boutique"
+                    onClick={() => setMenuOpen(false)}
+                    className="relative p-2 bg-secondary/50 rounded-full text-foreground"
+                  >
+                    <ShoppingBag className="w-6 h-6" />
+                  </Link>
+
                   {isAuthenticated && (
                     <Link
                       to="/notifications"
