@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Star, MessageSquare, User, Send, Trash2, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/Context/AuthContext";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import API_URL from "@/config";
 
 interface IComment {
@@ -192,72 +193,97 @@ const Testimonials = () => {
                     </motion.div>
 
                     {/* Comments List */}
-                    <div className="lg:col-span-2 space-y-6">
-                        {fetching ? (
-                            <div className="grid gap-6">
-                                {[1, 2, 3].map(i => (
-                                    <div key={i} className="h-40 bg-secondary/20 animate-pulse rounded-[2.5rem]" />
-                                ))}
-                            </div>
-                        ) : error ? (
-                            <div className="text-center py-16 bg-red-500/5 rounded-[2.5rem] border border-red-500/10">
-                                <AlertCircle className="w-12 h-12 text-red-500/50 mx-auto mb-4" />
-                                <p className="text-red-600 font-bold mb-4">{error}</p>
-                                <button 
-                                    onClick={fetchComments}
-                                    className="px-6 py-2 bg-primary text-white rounded-full text-xs font-bold hover:scale-105 transition-transform"
-                                >
-                                    Faire une autre tentative
-                                </button>
-                            </div>
-                        ) : comments.length > 0 ? (
-                            <div className="grid gap-6">
-                                {comments.map((c, idx) => (
-                                    <motion.div
-                                        key={c._id}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: idx * 0.1 }}
-                                        className="bg-secondary/10 border border-border/50 p-8 rounded-[2.5rem] hover:bg-secondary/20 transition-all group"
-                                    >
-                                        <div className="flex justify-between items-start mb-6">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
-                                                    <User className="w-6 h-6" />
+                    <div className="lg:col-span-2">
+                        <ScrollArea className="h-[750px] w-full rounded-[3rem] border-2 border-primary/5 bg-secondary/5 shadow-inner">
+                            <div className="p-8 md:p-12 space-y-8">
+                                <div className="flex items-center justify-between mb-2">
+                                    <h3 className="text-xl font-bold tracking-tight">Tous les avis</h3>
+                                    <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 bg-background/50 px-3 py-1.4 rounded-full border border-border/50">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                        {comments.length} Avis vérifiés
+                                    </div>
+                                </div>
+
+                                {fetching ? (
+                                    <div className="grid gap-6">
+                                        {[1, 2, 3].map(i => (
+                                            <div key={i} className="h-40 bg-background/50 animate-pulse rounded-[2.5rem] border border-border/20" />
+                                        ))}
+                                    </div>
+                                ) : error ? (
+                                    <div className="text-center py-16 bg-red-500/5 rounded-[2.5rem] border border-red-500/10 mb-6">
+                                        <AlertCircle className="w-12 h-12 text-red-500/50 mx-auto mb-4" />
+                                        <p className="text-red-600 font-bold mb-4">{error}</p>
+                                        <button 
+                                            onClick={fetchComments}
+                                            className="px-6 py-2 bg-primary text-white rounded-full text-xs font-bold hover:scale-105 transition-transform shadow-lg shadow-primary/20"
+                                        >
+                                            Faire une autre tentative
+                                        </button>
+                                    </div>
+                                ) : comments.length > 0 ? (
+                                    <div className="grid gap-6">
+                                        {comments.map((c, idx) => (
+                                            <motion.div
+                                                key={c._id}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ delay: idx * 0.1 }}
+                                                className="bg-background border border-border/80 p-8 rounded-[2.5rem] hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 group relative overflow-hidden"
+                                            >
+                                                {/* Subtle decorative background element */}
+                                                <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors" />
+                                                
+                                                <div className="flex justify-between items-start mb-6 relative z-10">
+                                                    <div className="flex items-center gap-4">
+                                                        <div className="w-14 h-14 rounded-2xl bg-secondary/50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500 shadow-sm">
+                                                            <User className="w-7 h-7" />
+                                                        </div>
+                                                        <div>
+                                                            <h4 className="font-bold text-lg text-foreground">{c.user_id?.first_name} {c.user_id?.last_name}</h4>
+                                                            <div className="flex items-center gap-2 mt-0.5">
+                                                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{new Date(c.createdAt).toLocaleDateString()}</p>
+                                                                <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
+                                                                <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-widest">Acheteur vérifié</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center gap-3 relative z-10">
+                                                        <div className="px-4 py-1.5 bg-secondary/30 rounded-full border border-border/50 shadow-sm backdrop-blur-sm">
+                                                            {renderStars(c.rating)}
+                                                        </div>
+                                                        {(user?._id === c.user_id?._id || user?.role === 'owner') && (
+                                                            <button
+                                                                onClick={() => handleDelete(c._id)}
+                                                                className="p-2.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-xl transition-all border border-transparent hover:border-destructive/20"
+                                                                title="Supprimer"
+                                                            >
+                                                                <Trash2 className="w-4.5 h-4.5" />
+                                                            </button>
+                                                        )}
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <h4 className="font-bold text-base">{c.user_id?.first_name} {c.user_id?.last_name}</h4>
-                                                    <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest">{new Date(c.createdAt).toLocaleDateString()}</p>
+                                                <div className="relative">
+                                                    <MessageSquare className="absolute -left-2 -top-2 w-8 h-8 text-primary/5 -z-10 group-hover:text-primary/10 transition-colors" />
+                                                    <p className="text-foreground/90 text-base leading-relaxed font-medium pl-2">
+                                                        {c.content}
+                                                    </p>
                                                 </div>
-                                            </div>
-                                            <div className="flex items-center gap-3">
-                                                <div className="px-3 py-1 bg-background rounded-full border border-border/50 shadow-sm">
-                                                    {renderStars(c.rating)}
-                                                </div>
-                                                {(user?._id === c.user_id?._id || user?.role === 'owner') && (
-                                                    <button
-                                                        onClick={() => handleDelete(c._id)}
-                                                        className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-full transition-all"
-                                                        title="Supprimer"
-                                                    >
-                                                        <Trash2 className="w-4 h-4" />
-                                                    </button>
-                                                )}
-                                            </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-center py-32 bg-background/50 rounded-[3rem] border-2 border-dashed border-border/50">
+                                        <div className="w-20 h-20 bg-secondary/50 rounded-full flex items-center justify-center mx-auto mb-6">
+                                            <MessageSquare className="w-10 h-10 text-muted-foreground/20" />
                                         </div>
-                                        <p className="text-foreground/80 text-sm leading-relaxed italic border-l-2 border-primary/20 pl-6 py-2">
-                                            "{c.content}"
-                                        </p>
-                                    </motion.div>
-                                ))}
+                                        <h4 className="text-lg font-bold mb-2">Aucun avis pour le moment</h4>
+                                        <p className="text-muted-foreground text-sm max-w-xs mx-auto">Soyez le premier à partager votre expérience et aidez nos futurs clients !</p>
+                                    </div>
+                                )}
                             </div>
-                        ) : (
-                            <div className="text-center py-24 bg-secondary/5 rounded-[3rem] border border-dashed border-border/50">
-                                <MessageSquare className="w-16 h-16 text-muted-foreground/10 mx-auto mb-6" />
-                                <p className="text-muted-foreground font-bold text-lg">Soyez le premier à partager votre expérience !</p>
-                            </div>
-                        )}
+                        </ScrollArea>
                     </div>
                 </div>
             </div>
