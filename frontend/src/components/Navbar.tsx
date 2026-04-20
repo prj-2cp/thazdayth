@@ -25,11 +25,13 @@ const getLeftLinks = (t: any) => [
   { to: "/", label: t("nav.home") },
   { to: "/processus", label: t("nav.process") },
   { to: "/plats", label: t("nav.dishes") },
+  { to: "/boutique", label: t("nav.shop") || "Boutique" },
 ];
 
 const getRightLinks = (t: any) => [
   { to: "/region", label: t("nav.region") },
   { to: "/a-propos", label: t("nav.about") },
+  { to: "/suivi", label: t("nav.tracking") || "Suivi" },
 ];
 
 const languages = [
@@ -43,6 +45,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
   const { isAuthenticated, user, token, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false); // Controls background transparency on scroll
   const [menuOpen, setMenuOpen] = useState(false); // Mobile menu state
+  const [unreadCount, setUnreadCount] = useState(0);
   const location = useLocation();
 
   // Change navbar appearance when user scrolls down
@@ -53,7 +56,31 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
   }, []);
 
   // Set up the notification checker (olls every 30 seconds)
-  // Cleanup: Removed notification polling as backend is ignored for this push.
+  useEffect(() => {
+    if (!isAuthenticated || !token) {
+      setUnreadCount(0);
+      return;
+    }
+
+    const fetchUnreadCount = async () => {
+      try {
+        const API_URL = (await import("@/config")).default;
+        const res = await fetch(`${API_URL}/notifications/unread-count`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setUnreadCount(data.count || 0);
+        }
+      } catch (err) {
+        console.error("Error fetching unread count:", err);
+      }
+    };
+
+    fetchUnreadCount();
+    const interval = setInterval(fetchUnreadCount, 30000);
+    return () => clearInterval(interval);
+  }, [isAuthenticated, token]);
 
   // Close mobile menu when user clicks a link (navigates)
   useEffect(() => setMenuOpen(false), [location]);
@@ -118,6 +145,24 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
           <div className="flex items-center justify-end gap-4 z-10 flex-1">
 
 
+
+            {isAuthenticated && (
+              <Link
+                to="/notifications"
+                className="relative flex items-center justify-center text-foreground/70 hover:text-primary transition-all hover:scale-110"
+              >
+                <Bell className="w-4 h-4 stroke-[2.2]" />
+                {unreadCount > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-primary text-[8px] font-black text-white"
+                  >
+                    {unreadCount > 9 ? "9+" : unreadCount}
+                  </motion.span>
+                )}
+              </Link>
+            )}
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -223,7 +268,21 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
                 transition={{ delay: allLinks.length * 0.08 }}
                 className="flex flex-col items-center gap-6 mt-3 w-full"
               >
-                <div className="flex gap-5 mt-3">
+                <div className="flex gap-5 mt-3 items-center">
+                  {isAuthenticated && (
+                    <Link
+                      to="/notifications"
+                      onClick={() => setMenuOpen(false)}
+                      className="relative p-2 bg-secondary/50 rounded-full text-foreground"
+                    >
+                      <Bell className="w-6 h-6" />
+                      {unreadCount > 0 && (
+                        <span className="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white border-2 border-background">
+                          {unreadCount}
+                        </span>
+                      )}
+                    </Link>
+                  )}
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
