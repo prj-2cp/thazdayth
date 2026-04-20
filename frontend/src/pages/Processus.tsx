@@ -88,6 +88,12 @@ const Processus = () => {
 
     const [selectedVideo, setSelectedVideo] = useState<{ src: string; title: string, desc: string } | null>(null);
     const [activeStep, setActiveStep] = useState(0);
+    const [hasCompletedProcess, setHasCompletedProcess] = useState(false);
+    const [isProcessLocked, setIsProcessLocked] = useState(false);
+    
+    // Track global scroll to detect when user is back at the top
+    const { scrollY } = useScroll();
+
     const currentStep = steps[activeStep];
 
     // I synchronize the active step index with the scroll position
@@ -98,9 +104,30 @@ const Processus = () => {
                 steps.length - 1
             );
             setActiveStep(index);
+
+            // Lock the section as soon as the user reaches the end (Step 8)
+            // This collapses the 800vh height immediately, so scrolling back up is fast.
+            if (v > 0.98) {
+                setHasCompletedProcess(true);
+                setIsProcessLocked(true);
+            }
         });
         return () => unsubscribe();
     }, [scaleX, steps.length]);
+
+    // RESET LOGIC: When the user is back at the top, unlock the section 
+    // so they can see the steps again if they scroll down.
+    useEffect(() => {
+        const unsubscribe = scrollY.on("change", (v) => {
+            if (v < 50 && isProcessLocked) {
+                setIsProcessLocked(false);
+                setHasCompletedProcess(false);
+            }
+        });
+        return () => unsubscribe();
+    }, [isProcessLocked, scrollY]);
+
+    // Removal of the redundant "back-at-top" listener as we now lock immediately
 
     const openVideo = (src: string, titleKey: string, descKey: string) => {
         setSelectedVideo({
@@ -146,8 +173,11 @@ const Processus = () => {
 
 
             {/* 8-Step Sticky Scroll Section */}
-            <section ref={containerRef} className="relative h-[800vh]">
-                <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+            <section 
+                ref={containerRef} 
+                className={`relative transition-all duration-1000 ${isProcessLocked ? "h-auto py-20 bg-secondary/5" : "h-[800vh]"}`}
+            >
+                <div className={`${isProcessLocked ? "relative" : "sticky top-0 h-screen"} flex items-center overflow-hidden`}>
                     <div className="container px-6 mx-auto">
                         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
                             {/* Text Panel */}
