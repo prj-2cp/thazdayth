@@ -128,5 +128,27 @@ router.post("/", authenticate, [
 
 
 
+router.patch('/:id/status', authenticate, ownerOnly, async (req, res) => {
+    const { status } = req.body;
+    const valid = ['pending', 'in-progress', 'completed', 'delivered', 'cancelled'];
+    if (!valid.includes(status)) {
+        res.status(400).json({ message: 'Statut invalide.' });
+        return;
+    }
+    try {
+        const order = await Order.findByIdAndUpdate(req.params.id, { status }, { new: true });
+        if (!order) {
+            res.status(404).json({ message: 'Commande introuvable.' });
+            return;
+        }
+        //notify the user
+        const notifTitle = "Mise à jour de votre commande";
+        const notifContent = `Le statut de votre commande est maintenant : ${status}.`;
+        await createNotification(order.user_id, notifContent, notifTitle, order._id);
+        res.json(order);
+    } catch(err) {
+        res.status(500).json({ message: "Erreur serveur." });
+    }
+});
 
 exports.default = router

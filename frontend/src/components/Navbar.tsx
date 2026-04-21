@@ -55,28 +55,27 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Set up the notification checker (olls every 30 seconds)
-  useEffect(() => {
+  const fetchUnreadCount = async () => {
     if (!isAuthenticated || !token) {
       setUnreadCount(0);
       return;
     }
-
-    const fetchUnreadCount = async () => {
-      try {
-        const API_URL = (await import("@/config")).default;
-        const res = await fetch(`${API_URL}/notifications/unread-count`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setUnreadCount(data.count || 0);
-        }
-      } catch (err) {
-        console.error("Error fetching unread count:", err);
+    try {
+      const config = (await import("@/config")).default;
+      const res = await fetch(`${config}/notifications/unread-count`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setUnreadCount(data.count || 0);
       }
-    };
+    } catch (err) {
+      console.error("Error fetching unread count:", err);
+    }
+  };
 
+  // Set up the notification checker (polls every 30 seconds)
+  useEffect(() => {
     fetchUnreadCount();
     const interval = setInterval(fetchUnreadCount, 30000);
     return () => clearInterval(interval);
@@ -346,6 +345,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
       <NotificationDrawer 
         isOpen={isNotificationDrawerOpen} 
         onClose={() => setIsNotificationDrawerOpen(false)} 
+        onRefresh={fetchUnreadCount}
         unreadCount={unreadCount}
         setUnreadCount={setUnreadCount}
         onNotificationClick={onNotificationClick}
