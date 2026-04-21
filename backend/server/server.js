@@ -38,6 +38,7 @@ const products = require("./routes/products").default
 const orders = require("./routes/orders").default;
 const availability = require("./routes/availability").default;
 const shippingRates = require("./routes/shippingRates").default;
+const prices = require("./routes/prices").default;
 
 //use routes
 
@@ -48,7 +49,8 @@ app.use("/api/notifications", notifications);
 app.use("/api/products", products);
 app.use("/api/orders", orders);
 app.use("/api/availability", availability);
-app.use("/api/shipping-rates", shippingRates)
+app.use("/api/shipping-rates", shippingRates);
+app.use("/api/prices", prices);
 
 //connection to mongo atlas 
 mongoose.connect(process.env.MONGODB_URI)
