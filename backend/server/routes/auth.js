@@ -311,7 +311,7 @@ router.patch('/me', authenticate, async (req, res) => {
         const user = await/*pauses the code until the database operations answers */ User.findByIdAndUpdate(
             req.user?.id,//the id of the user making the request 
             { $set: actualUpdates },//this tlls the db to only update the specific field
-            { new: true, runValidators: true }//tells the mongo to return the new updated document  (because by defult it return the old one)
+            { returnDocument: 'after', runValidators: true }
         ).select('-password');//this prevent the password from being returned
 
         if (!user) {

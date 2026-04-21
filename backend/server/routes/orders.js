@@ -136,7 +136,7 @@ router.patch('/:id/status', authenticate, ownerOnly, async (req, res) => {
         return;
     }
     try {
-        const order = await Order.findByIdAndUpdate(req.params.id, { status }, { new: true });
+        const order = await Order.findByIdAndUpdate(req.params.id, { status }, { returnDocument: 'after' });
         if (!order) {
             res.status(404).json({ message: 'Commande introuvable.' });
             return;

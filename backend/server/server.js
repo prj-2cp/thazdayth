@@ -53,7 +53,7 @@ app.use("/api/shipping-rates", shippingRates);
 app.use("/api/prices", prices);
 
 //connection to mongo atlas 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("MONGO DB IS CONNECTED"))
   .catch(error => console.log(`MONGO DB CONNECTION FAILURE ${error}`));
 

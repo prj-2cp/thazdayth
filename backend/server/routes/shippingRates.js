@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 // PUT /api/shipping-rates/:wilaya — Owner only
 router.put('/:wilaya', authenticate, ownerOnly, async (req, res) => {
     try {
-        const rate = await ShippingRate.findOneAndUpdate({ wilaya: req.params.wilaya }, { price: req.body.price }, { new: true });
+        const rate = await ShippingRate.findOneAndUpdate({ wilaya: req.params.wilaya }, { price: req.body.price }, { returnDocument: 'after' });
         if (!rate) {
             res.status(404).json({ message: 'Wilaya introuvable.' });
             return;

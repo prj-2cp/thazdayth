@@ -91,7 +91,7 @@ router.patch("/:id",
             const product = await Product.findByIdAndUpdate(
                 req.params.id,
                 req.body,
-                { new: true, runValidators: true }
+                { returnDocument: 'after', runValidators: true }
             );
             if (!product) {
                 res.status(404).json({ message: "Produit non trouvé." });

@@ -51,7 +51,7 @@ router.patch('/olives/:id', authenticate, ownerOnly, [
     body('active').optional().isBoolean().withMessage('Actif doit être un booléen'),
 ], async (req, res) => {
     try {
-        const category = await OliveCategory.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const category = await OliveCategory.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
         if (!category) {
             res.status(404).json({ message: 'Catégorie introuvable.' });
             return;
@@ -122,7 +122,7 @@ router.patch('/pressing/:id', authenticate, ownerOnly, [
     body('active').optional().isBoolean().withMessage('Actif doit être un booléen'),
 ], async (req, res) => {
     try {
-        const service = await PressingService.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const service = await PressingService.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
         if (!service) {
             res.status(404).json({ message: 'Service introuvable.' });
             return;
