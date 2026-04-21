@@ -36,7 +36,8 @@ const comments = require("./routes/comments").default;
 const notifications = require("./routes/notifications").default
 const products = require("./routes/products").default
 const orders = require("./routes/orders").default;
-const availability = require("./routes/availability");
+const availability = require("./routes/availability").default;
+const shippingRates = require("./routes/shippingRates").default;
 
 //use routes
 
@@ -47,6 +48,8 @@ app.use("/api/notifications", notifications);
 app.use("/api/products", products);
 app.use("/api/orders", orders);
 app.use("/api/availability", availability);
+app.use("/api/shipping-rates", shippingRates)
+
 //connection to mongo atlas 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("MONGO DB IS CONNECTED"))
