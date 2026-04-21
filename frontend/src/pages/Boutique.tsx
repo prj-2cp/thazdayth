@@ -119,9 +119,9 @@ const Boutique = () => {
       const failed = checks.filter(c => !c.res.ok);
       if (failed.length > 0) {
         if (failed.some(f => f.res.status === 429)) {
-          throw new Error("Trop de requêtes. Veuillez patienter un instant avant de réessayer.");
+          throw new Error(t("boutique.errors.too_many_requests"));
         }
-        throw new Error("Erreur lors de la récupération des données.");
+        throw new Error(t("boutique.errors.fetch_error"));
       }
 
       const [wilayasData, oliveData, pressingData, settingsData, productsData] = await Promise.all([
@@ -152,7 +152,7 @@ const Boutique = () => {
       setBlockedDates(blockedData || []);
     } catch (err: any) {
       console.error("Failed to fetch boutique data:", err);
-      setError(err.message || "Une erreur est survenue");
+      setError(err.message || t("boutique.form.error"));
     } finally {
       setLoading(false);
     }
@@ -280,7 +280,7 @@ const Boutique = () => {
       return;
     }
     if (deliveryMethod === "pickup" && !pickupDate) {
-      toast({ title: "Date de retrait manquante", description: "Veuillez sélectionner une date pour le retrait de votre commande.", variant: "destructive" });
+      toast({ title: t("boutique.form.missing_date_title"), description: t("boutique.form.missing_date_desc"), variant: "destructive" });
       return;
     }
     setSubmitting(true);
@@ -311,14 +311,14 @@ const Boutique = () => {
       });
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.message || "Erreur lors de la commande");
+        throw new Error(data.message || t("boutique.form.error"));
       }
       setShowSuccess(true);
       toast({ title: t("boutique.success.buy_title"), description: t("boutique.success.buy_desc") });
       setCart([]);
       setWilayaCode(0);
     } catch (err: any) {
-      toast({ title: "Erreur", description: err.message, variant: "destructive" });
+      toast({ title: t("boutique.form.error"), description: err.message, variant: "destructive" });
     } finally {
       setSubmitting(false);
     }
@@ -359,13 +359,13 @@ const Boutique = () => {
       });
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.message || "Erreur lors de l'envoi");
+        throw new Error(data.message || t("boutique.form.error"));
       }
       setShowSuccess(true);
       toast({ title: t("boutique.success.press_title"), description: t("boutique.success.press_desc") });
       setOliveKg("");
     } catch (err: any) {
-      toast({ title: "Erreur", description: err.message, variant: "destructive" });
+      toast({ title: t("boutique.form.error"), description: err.message, variant: "destructive" });
     } finally {
       setSubmitting(false);
     }
@@ -490,7 +490,7 @@ const Boutique = () => {
                             onClick={fetchBoutiqueData}
                             className="text-xs font-bold text-primary hover:underline"
                           >
-                            Réessayer
+                            {t("boutique.form.retry")}
                           </button>
                         </div>
                       ) : allAvailableItems.length > 0 ? (
@@ -542,7 +542,7 @@ const Boutique = () => {
                         onClick={addToCart}
                         className="flex items-center gap-2 text-xs font-bold text-primary hover:bg-primary/10 px-3 py-1.5 rounded-full transition-all border border-primary/20"
                       >
-                        <Plus className="w-3.5 h-3.5" /> {t("dashboard.common.add") || "Ajouter"}
+                        <Plus className="w-3.5 h-3.5" /> {t("dashboard.common.add")}
                       </button>
                     </div>
                     
@@ -688,9 +688,9 @@ const Boutique = () => {
                            <AlertCircle className="w-6 h-6 text-red-500 shrink-0" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-bold text-red-600 mb-1 tracking-tight">Accès Restreint : Compte Thazdayth</p>
+                          <p className="text-sm font-bold text-red-600 mb-1 tracking-tight">{t("boutique.form.blacklist_title")}</p>
                           <p className="text-[11px] text-red-600/60 leading-relaxed font-medium">
-                            Votre compte a été temporairement suspendu par l'administration. Les commandes et les demandes de trituration sont indisponibles pour le moment. Veuillez contacter le support pour plus d'informations.
+                            {t("boutique.form.blacklist_desc")}
                           </p>
                         </div>
                       </motion.div>
@@ -724,7 +724,7 @@ const Boutique = () => {
 
                         <div className="bg-secondary/30 rounded-2xl p-6 border border-border/50">
                           <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest block mb-4">
-                            Choisir une date de retrait
+                            {t("boutique.form.select_pickup_date")}
                           </label>
                           <div className="flex justify-center bg-background rounded-xl p-2 border border-border/30 shadow-inner">
                             <PickupCalendar
@@ -756,7 +756,7 @@ const Boutique = () => {
                           </div>
                           {pickupDate && (
                             <p className="mt-4 text-xs font-medium text-center text-primary">
-                              Date sélectionnée : {pickupDate.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                              {t("boutique.form.selected_date")} {pickupDate.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                             </p>
                           )}
                         </div>
@@ -774,7 +774,7 @@ const Boutique = () => {
                             : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
                       )}
                     >
-                      {submitting ? "Envoi en cours..." : user?.is_blacklisted ? "Action Non Autorisée" : "Confirmer la commande"}
+                      {submitting ? t("boutique.form.submitting") : user?.is_blacklisted ? t("boutique.form.not_authorized") : t("boutique.form.confirm_order")}
                     </MagneticButton>
                   </form>
                 </div>
@@ -794,9 +794,9 @@ const Boutique = () => {
                     <img src={oliveImg5} alt="Service de trituration" className="w-full h-[400px] lg:h-[550px] object-cover" />
                     <div className="absolute inset-0 bg-foreground/20 flex items-end p-6">
                       <div className="bg-background/90 backdrop-blur-sm rounded-xl p-4 w-full">
-                        <p className="text-xs font-medium text-muted-foreground mb-1">Comment ça marche ?</p>
+                        <p className="text-xs font-medium text-muted-foreground mb-1">{t("boutique.form.how_it_works")}</p>
                         <p className="text-sm text-foreground">
-                          Apportez vos olives, nous les pressons pour vous. Payez en argent ou laissez un pourcentage de l'huile produite.
+                          {t("boutique.form.how_it_works_desc")}
                         </p>
                       </div>
                     </div>
@@ -813,12 +813,12 @@ const Boutique = () => {
                     {/* Pressing method (Fixed to Semi-Automatique) */}
                     <div>
                       <label className="text-sm font-medium mb-3 flex items-center gap-1.5">
-                        Méthode de trituration
+                        {t("boutique.press.method")}
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <Info className="w-3.5 h-3.5 text-muted-foreground cursor-help" />
                           </TooltipTrigger>
-                          <TooltipContent>Nous utilisons exclusivement la méthode semi-automatique avec un tarif unique.</TooltipContent>
+                          <TooltipContent>{t("boutique.press.method_desc")}</TooltipContent>
                         </Tooltip>
                       </label>
                       <div className="flex flex-col gap-2 mt-2">
@@ -827,8 +827,8 @@ const Boutique = () => {
                             className="flex items-center justify-between rounded-xl border-2 border-primary bg-primary/5 px-4 py-3 text-left transition-all duration-300 cursor-default"
                           >
                             <div>
-                              <p className="text-sm font-semibold text-foreground">Méthode Semi-Automatique</p>
-                              <p className="text-xs text-primary font-medium">{pressingServices[0]?.fee || 35} DA/kg (Tarif unique)</p>
+                              <p className="text-sm font-semibold text-foreground">{t("boutique.press.method_name")}</p>
+                              <p className="text-xs text-primary font-medium">{pressingServices[0]?.fee || 35} DA/kg ({t("boutique.press.unique_rate")})</p>
                             </div>
                             <CheckCircle2 className="w-5 h-5 text-primary" />
                           </button>
@@ -838,18 +838,18 @@ const Boutique = () => {
                     {/* Olive quantity */}
                     <div>
                       <label className="text-sm font-medium mb-1.5 flex items-center gap-1.5">
-                        Quantité d'olives (kg)
+                        {t("boutique.press.quantity_kg")}
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <Info className="w-3.5 h-3.5 text-muted-foreground cursor-help" />
                           </TooltipTrigger>
-                          <TooltipContent>Minimum 50 kg.</TooltipContent>
+                          <TooltipContent>{t("boutique.press.quantity_tooltip")}</TooltipContent>
                         </Tooltip>
                       </label>
                       <input
                         type="number"
                         min={50}
-                        placeholder="Ex : 500"
+                        placeholder={t("boutique.press.quantity_placeholder")}
                         value={oliveKg}
                         onChange={(e) => { setOliveKg(e.target.value); setPressError(""); }}
                         className="w-full bg-secondary rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-shadow mt-1"
@@ -860,14 +860,13 @@ const Boutique = () => {
                     {/* Payment method */}
                     <div>
                       <label className="text-sm font-medium mb-3 flex items-center gap-1.5">
-                        Mode de paiement
+                        {t("boutique.press.payment_method")}
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <Info className="w-3.5 h-3.5 text-muted-foreground cursor-help" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            Argent : prix fixe par kg.<br />
-                            Pourcentage : vous cédez une part de l'huile produite.
+                            {t("boutique.press.payment_tooltip")}
                           </TooltipContent>
                         </Tooltip>
                       </label>
@@ -902,7 +901,7 @@ const Boutique = () => {
                     {/* Fixed percentage info */}
                     {paymentMethod === "olives" && (
                       <div className="bg-accent/50 rounded-xl px-4 py-3 text-sm text-muted-foreground">
-                        <span className="font-semibold text-foreground">{producerPercentage}%</span> de l'huile produite sera retenue par le producteur comme paiement du service.
+                        <span className="font-semibold text-foreground">{producerPercentage}%</span> {t("boutique.press.percentage_info")}
                       </div>
                     )}
 
@@ -913,21 +912,21 @@ const Boutique = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="bg-accent/50 rounded-2xl p-6"
                       >
-                        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">Estimation</p>
+                        <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">{t("boutique.press.estimation")}</p>
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
-                            <span className="text-muted-foreground">Production estimée</span>
+                            <span className="text-muted-foreground">{t("boutique.press.est_prod")}</span>
                             <span className="font-semibold">{pressCalc.expectedOil.toFixed(1)} L</span>
                           </div>
                           {paymentMethod === "olives" && (
                             <div className="flex justify-between">
-                              <span className="text-muted-foreground">Part producteur ({producerPercentage}%)</span>
+                              <span className="text-muted-foreground">{t("boutique.press.est_producer_share")} ({producerPercentage}%)</span>
                               <span className="font-semibold">{pressCalc.producerShare.toFixed(1)} L</span>
                             </div>
                           )}
                           <div className="flex justify-between border-t border-foreground/10 pt-2 mt-2">
                             <span className="font-bold">
-                              {paymentMethod === "money" ? "Coût du service" : "Votre huile"}
+                              {paymentMethod === "money" ? t("boutique.press.est_cost") : t("boutique.press.est_your_oil")}
                             </span>
                             <span className="font-bold text-primary text-lg">
                               {paymentMethod === "money"
@@ -942,17 +941,17 @@ const Boutique = () => {
                     {/* Contact info */}
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="text-xs font-medium text-muted-foreground block mb-1.5">Nom</label>
-                        <input value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className="w-full bg-secondary rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-shadow" placeholder="Votre nom" />
+                        <label className="text-xs font-medium text-muted-foreground block mb-1.5">{t("boutique.form.nom")}</label>
+                        <input value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className="w-full bg-secondary rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-shadow" placeholder={t("boutique.form.nom_placeholder")} />
                       </div>
                       <div>
-                        <label className="text-xs font-medium text-muted-foreground block mb-1.5">Prénom</label>
-                        <input value={form.prenom} onChange={(e) => setForm({ ...form, prenom: e.target.value })} className="w-full bg-secondary rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-shadow" placeholder="Votre prénom" />
+                        <label className="text-xs font-medium text-muted-foreground block mb-1.5">{t("boutique.form.prenom")}</label>
+                        <input value={form.prenom} onChange={(e) => setForm({ ...form, prenom: e.target.value })} className="w-full bg-secondary rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-shadow" placeholder={t("boutique.form.prenom_placeholder")} />
                       </div>
                     </div>
                     <div>
-                      <label className="text-xs font-medium text-muted-foreground block mb-1.5">Téléphone</label>
-                      <input value={form.telephone} onChange={(e) => setForm({ ...form, telephone: e.target.value })} className="w-full bg-secondary rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-shadow" placeholder="0555 123 456" />
+                      <label className="text-xs font-medium text-muted-foreground block mb-1.5">{t("boutique.form.telephone")}</label>
+                      <input value={form.telephone} onChange={(e) => setForm({ ...form, telephone: e.target.value })} className="w-full bg-secondary rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-shadow" placeholder={t("boutique.form.telephone_placeholder")} />
                     </div>
 
                     <MagneticButton 
@@ -966,7 +965,7 @@ const Boutique = () => {
                             : "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
                       )}
                     >
-                      {submitting ? t("boutique.form.submitting") : user?.is_blacklisted ? "Action Non Autorisée" : t("boutique.form.submit_press")}
+                      {submitting ? t("boutique.form.submitting") : user?.is_blacklisted ? t("boutique.form.not_authorized") : t("boutique.form.submit_press")}
                     </MagneticButton>
                     <p className="text-[10px] text-center text-muted-foreground italic mt-3 px-4">
                       {t("boutique.press.notice")}

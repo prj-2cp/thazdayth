@@ -157,11 +157,11 @@ const Suivi = () => {
             ]);
 
             if (ordersRes.status === 429 || pressingRes.status === 429) {
-                throw new Error("Trop de requêtes. Veuillez patienter.");
+                throw new Error(t("suivi.too_many_requests") || "Trop de requêtes. Veuillez patienter.");
             }
 
             if (!ordersRes.ok || !pressingRes.ok) {
-                throw new Error("Erreur lors du chargement de vos suivis.");
+                throw new Error(t("suivi.load_error") || "Erreur lors du chargement de vos suivis.");
             }
 
             const [ordersText, pressingText] = await Promise.all([
@@ -176,7 +176,7 @@ const Suivi = () => {
             setPressingRequests(pressingData);
         } catch (err: any) {
             console.error("Suivi fetch error:", err);
-            setError(err.message || "Erreur de chargement");
+            setError(err.message || t("suivi.load_error"));
         } finally {
             setLoading(false);
         }
@@ -290,7 +290,7 @@ const Suivi = () => {
                             className="flex flex-col items-center justify-center py-20"
                         >
                             <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                            <p className="mt-4 text-muted-foreground">Chargement...</p>
+                            <p className="mt-4 text-muted-foreground">{t("suivi.loading")}</p>
                         </motion.div>
                     ) : error ? (
                         <motion.div
@@ -306,7 +306,7 @@ const Suivi = () => {
                                 onClick={fetchData}
                                 className="px-10 py-4 bg-primary text-white rounded-full font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-transform"
                             >
-                                Réessayer le chargement
+                                {t("suivi.retry")}
                             </button>
                         </motion.div>
                     ) : (
@@ -344,7 +344,7 @@ const Suivi = () => {
                                                     </div>
                                                     <div className="flex items-center gap-3">
                                                         <Link to="/boutique" className="hidden sm:flex text-xs font-semibold px-3 py-1.5 rounded-lg border border-primary/20 text-primary hover:bg-primary/5 transition-colors">
-                                                            Commander à nouveau
+                                                            {t("suivi.order_again")}
                                                         </Link>
                                                         <div className="flex items-center gap-2 bg-background/50 px-4 py-2 rounded-full border border-foreground/5">
                                                             {getStatusIcon(order.status)}
@@ -361,7 +361,7 @@ const Suivi = () => {
                                                                 <div className="flex justify-between items-start text-sm py-1 border-b border-border/50 last:border-0 pb-3 last:pb-0" key={idx}>
                                                                     <div className="flex flex-col gap-0.5">
                                                                         <span className="font-bold text-foreground flex items-center gap-2">
-                                                                            {item.olive_category_id?.name || item.pressing_service_id?.name || (item.olive_category_id ? `ID: ${item.olive_category_id}` : (item.pressing_service_id ? `ID: ${item.pressing_service_id}` : "Huile"))}
+                                                                            {item.olive_category_id?.name || item.pressing_service_id?.name || (item.olive_category_id ? `ID: ${item.olive_category_id}` : (item.pressing_service_id ? `ID: ${item.pressing_service_id}` : t("suivi.items_fallback")))}
                                                                             {item.olive_category_id?.category && (
                                                                                 <span className="text-[10px] font-black uppercase opacity-60 px-1.5 py-0.5 bg-primary/5 rounded border border-primary/10">
                                                                                     {t(`suivi.sections.categories.${item.olive_category_id.category}`)}
@@ -406,7 +406,9 @@ const Suivi = () => {
                                                                             </div>
                                                                         ) : (order.shipping?.pickup_range_start ? (
                                                                             <div className="flex flex-col gap-1 mt-1">
-                                                                                <span className="text-amber-600 font-bold text-xs italic">Ancienne commande : Retrait entre le {new Date(order.shipping.pickup_range_start).toLocaleDateString()} et le {new Date(order.shipping.pickup_range_end!).toLocaleDateString()}</span>
+                                                                                <span className="text-amber-600 font-bold text-xs italic">
+                                                                                    {t("suivi.pickup.available_from", { start: new Date(order.shipping.pickup_range_start).toLocaleDateString(), end: new Date(order.shipping.pickup_range_end!).toLocaleDateString() })}
+                                                                                </span>
                                                                             </div>
                                                                         ) : (
                                                                             <span className="text-amber-500 font-medium italic text-xs">{t("suivi.pickup.pending")}</span>
@@ -467,7 +469,7 @@ const Suivi = () => {
                                                     </div>
                                                     <div className="flex items-center gap-3">
                                                         <button onClick={() => navigate("/boutique")} className="hidden sm:flex text-xs font-semibold px-3 py-1.5 rounded-lg border border-primary/20 text-primary hover:bg-primary/5 transition-colors">
-                                                            Nouveau pressage
+                                                            {t("suivi.new_pressing")}
                                                         </button>
                                                         <div className="flex items-center gap-2 bg-background/50 px-4 py-2 rounded-full border border-foreground/5">
                                                             {getStatusIcon(req.status)}
@@ -485,7 +487,7 @@ const Suivi = () => {
                                                             </div>
                                                             <div>
                                                                 <p className="text-sm font-bold">{req.olive_quantity_kg} kg</p>
-                                                                <p className="text-xs text-muted-foreground">Olives apportées</p>
+                                                                <p className="text-xs text-muted-foreground">{t("suivi.received_olives")}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -498,22 +500,22 @@ const Suivi = () => {
                                                             </div>
                                                             <div>
                                                                 <p className="text-sm font-bold">{req.yield?.produced_oil_liters?.toFixed(1) || "0.0"} L</p>
-                                                                <p className="text-xs text-muted-foreground">Huile {req.oil_quality?.replace('_', ' ')}</p>
+                                                                <p className="text-xs text-muted-foreground">{t("suivi.items_fallback")} {req.oil_quality?.replace('_', ' ')}</p>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div>
-                                                        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Paiement</p>
+                                                        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">{t("suivi.sections.payment")}</p>
                                                         <div className="flex items-center gap-3">
                                                             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                                                                 {req.payment.type === 'money' ? <Banknote className="w-4 h-4 text-primary" /> : <Droplets className="w-4 h-4 text-green-600" />}
                                                             </div>
                                                             <div>
                                                                 <p className="text-sm font-bold">
-                                                                    {req.payment?.type === 'money' ? `${(req.olive_quantity_kg * (req.payment?.pressing_price_per_kg || 0)).toLocaleString()} DA` : `${req.payment?.percentage_taken || 0}% d'huile`}
+                                                                    {req.payment?.type === 'money' ? `${(req.olive_quantity_kg * (req.payment?.pressing_price_per_kg || 0)).toLocaleString()} DA` : `${req.payment?.percentage_taken || 0}%${t("suivi.percentage_suffix")}`}
                                                                 </p>
-                                                                <p className="text-xs text-muted-foreground">Mode: {req.payment?.type === 'money' ? t("suivi.payment_types.money") : t("suivi.payment_types.percentage")}</p>
+                                                                <p className="text-xs text-muted-foreground">{t("suivi.payment_mode")}{req.payment?.type === 'money' ? t("suivi.payment_types.money") : t("suivi.payment_types.percentage")}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -523,11 +525,11 @@ const Suivi = () => {
                                                             <div className="flex flex-col gap-2">
                                                                 <div className="flex items-center gap-2 text-primary font-medium text-sm">
                                                                     <Calendar className="w-4 h-4" />
-                                                                    <span>Apport des olives : {req.bring_olives_date ? new Date(req.bring_olives_date).toLocaleDateString() : 'En attente'}</span>
+                                                                    <span>{t("suivi.bringing_olives")} : {req.bring_olives_date ? new Date(req.bring_olives_date).toLocaleDateString() : t("suivi.awaiting")}</span>
                                                                 </div>
                                                                 <div className="flex items-center gap-2 text-primary/80 font-medium text-sm">
                                                                     <Droplets className="w-4 h-4" />
-                                                                    <span>Récupération d'huile : {req.collect_oil_date ? new Date(req.collect_oil_date).toLocaleDateString() : 'En attente'}</span>
+                                                                    <span>{t("suivi.collecting_oil")} : {req.collect_oil_date ? new Date(req.collect_oil_date).toLocaleDateString() : t("suivi.awaiting")}</span>
                                                                 </div>
                                                             </div>
                                                         </div>

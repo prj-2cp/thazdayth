@@ -12,8 +12,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, KeyRound, Mail, CheckCircle2, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/Context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const MotDePasseOublie = () => {
+    const { t } = useTranslation();
     const { toast } = useToast();
     const navigate = useNavigate();
     const { forgotPassword, resetPassword } = useAuth();
@@ -28,17 +30,17 @@ const MotDePasseOublie = () => {
     const handleSendCode = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!email) {
-            toast({ title: "Erreur", description: "Veuillez entrer votre email.", variant: "destructive" });
+            toast({ title: t("auth.login.error_title"), description: t("auth.forgot_password.error_empty_email"), variant: "destructive" });
             return;
         }
 
         setLoading(true);
         try {
             await forgotPassword(email);
-            toast({ title: "Code envoyé", description: "Un code de vérification a été envoyé à votre email." });
+            toast({ title: t("auth.forgot_password.step1_success_title"), description: t("auth.forgot_password.step1_success_desc") });
             setStep("reset");
         } catch (err: any) {
-            toast({ title: "Erreur", description: err.message, variant: "destructive" });
+            toast({ title: t("auth.login.error_title"), description: err.message, variant: "destructive" });
         } finally {
             setLoading(false);
         }
@@ -47,17 +49,17 @@ const MotDePasseOublie = () => {
     const handleResetPassword = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!code || !newPassword) {
-            toast({ title: "Erreur", description: "Veuillez remplir tous les champs.", variant: "destructive" });
+            toast({ title: t("auth.login.error_title"), description: t("auth.forgot_password.error_empty_fields"), variant: "destructive" });
             return;
         }
 
         setLoading(true);
         try {
             await resetPassword({ email, code, newPassword });
-            toast({ title: "Succès", description: "Votre mot de passe a été mis à jour." });
+            toast({ title: t("auth.forgot_password.success_title"), description: t("auth.forgot_password.success_desc") });
             navigate("/connexion");
         } catch (err: any) {
-            toast({ title: "Erreur", description: err.message, variant: "destructive" });
+            toast({ title: t("auth.login.error_title"), description: err.message, variant: "destructive" });
         } finally {
             setLoading(false);
         }
@@ -71,7 +73,7 @@ const MotDePasseOublie = () => {
                 className="w-full max-w-md"
             >
                 <Link to="/connexion" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors">
-                    <ArrowLeft className="w-4 h-4" /> Retour à la connexion
+                    <ArrowLeft className="w-4 h-4" /> {t("auth.forgot_password.back_to_login")}
                 </Link>
 
                 <div className="mb-8">
@@ -80,16 +82,16 @@ const MotDePasseOublie = () => {
                             {step === "email" ? "1" : "2"}
                         </span>
                         <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                            Étape {step === "email" ? "1 sur 2" : "2 sur 2"}
+                            {t("auth.forgot_password.step_label")} {step === "email" ? "1" : "2"} {t("auth.forgot_password.step_of")} 2
                         </span>
                     </div>
                     <h1 className="text-3xl font-bold mb-2">
-                        {step === "email" ? "Mot de passe oublié" : "Réinitialisation"}
+                        {step === "email" ? t("auth.forgot_password.title") : t("auth.forgot_password.reset_title")}
                     </h1>
                     <p className="text-muted-foreground text-sm">
                         {step === "email"
-                            ? "Entrez votre email pour recevoir un code de vérification."
-                            : "Entrez le code reçu par email et choisissez votre nouveau mot de passe."}
+                            ? t("auth.forgot_password.subtitle")
+                            : t("auth.forgot_password.reset_subtitle")}
                     </p>
                 </div>
 
@@ -104,7 +106,7 @@ const MotDePasseOublie = () => {
                             className="space-y-5"
                         >
                             <div className="space-y-2">
-                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Adresse Email</label>
+                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">{t("auth.forgot_password.email_label")}</label>
                                 <div className="relative">
                                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                     <input
@@ -112,7 +114,7 @@ const MotDePasseOublie = () => {
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         className="w-full bg-secondary rounded-2xl pl-11 pr-4 py-4 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-all"
-                                        placeholder="votre@email.com"
+                                        placeholder={t("auth.forgot_password.email_placeholder")}
                                     />
                                 </div>
                             </div>
@@ -121,7 +123,7 @@ const MotDePasseOublie = () => {
                                 disabled={loading}
                                 className="w-full bg-primary text-primary-foreground py-4 rounded-full text-sm font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 disabled:opacity-60"
                             >
-                                {loading ? "Envoi du code..." : "Recevoir le code de vérification"}
+                                {loading ? t("auth.forgot_password.loading_step1") : t("auth.forgot_password.submit_step1")}
                             </button>
                         </motion.form>
                     ) : (
@@ -135,7 +137,7 @@ const MotDePasseOublie = () => {
                         >
                             <div className="space-y-4">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Code de vérification (6 chiffres)</label>
+                                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">{t("auth.forgot_password.code_label")}</label>
                                     <div className="relative">
                                         <CheckCircle2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                         <input
@@ -143,15 +145,15 @@ const MotDePasseOublie = () => {
                                             value={code}
                                             onChange={(e) => setCode(e.target.value)}
                                             className="w-full bg-secondary rounded-2xl pl-11 pr-4 py-4 text-center text-lg font-bold tracking-[0.5em] outline-none focus:ring-2 focus:ring-primary/30 transition-all"
-                                            placeholder="000000"
+                                            placeholder={t("auth.forgot_password.code_placeholder")}
                                             maxLength={6}
                                         />
                                     </div>
-                                    <p className="text-[10px] text-muted-foreground ml-1 italic">Vérifiez vos emails (ou le terminal si vous testez en local)</p>
+                                    <p className="text-[10px] text-muted-foreground ml-1 italic">{t("auth.forgot_password.code_hint")}</p>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Nouveau mot de passe</label>
+                                    <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">{t("auth.forgot_password.new_password_label")}</label>
                                     <div className="relative">
                                         <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                         <input
@@ -159,7 +161,7 @@ const MotDePasseOublie = () => {
                                             value={newPassword}
                                             onChange={(e) => setNewPassword(e.target.value)}
                                             className="w-full bg-secondary rounded-2xl pl-11 pr-12 py-4 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-shadow"
-                                            placeholder="••••••••"
+                                            placeholder={t("auth.forgot_password.new_password_placeholder")}
                                         />
                                         <button
                                             type="button"
@@ -178,7 +180,7 @@ const MotDePasseOublie = () => {
                                     disabled={loading}
                                     className="w-full bg-primary text-primary-foreground py-4 rounded-full text-sm font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 disabled:opacity-60"
                                 >
-                                    {loading ? "Mise à jour..." : "Réinitialiser mon mot de passe"}
+                                    {loading ? t("auth.forgot_password.loading_step2") : t("auth.forgot_password.submit_step2")}
                                 </button>
 
                                 <button
@@ -186,7 +188,7 @@ const MotDePasseOublie = () => {
                                     onClick={() => setStep("email")}
                                     className="w-full text-xs font-medium text-muted-foreground hover:text-foreground hover:underline transition-all"
                                 >
-                                    Utiliser une autre adresse email
+                                    {t("auth.forgot_password.use_other_email")}
                                 </button>
                             </div>
                         </motion.form>

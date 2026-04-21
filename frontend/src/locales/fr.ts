@@ -15,8 +15,10 @@ export const fr = {
     },
     notifications: {
         title: "Notifications",
-        mark_all: "Tout marquer",
+        mark_all: "Tout marquer comme lu",
         empty: "Aucune notification.",
+        loading: "Chargement des notifications...",
+        view_details: "Voir détails",
     },
     suivi: {
         badge: "Tableau de bord",
@@ -56,13 +58,27 @@ export const fr = {
             }
         },
         unit_price: "Prix unitaire",
+        loading: "Chargement...",
+        retry: "Réessayer le chargement",
+        order_again: "Commander à nouveau",
+        new_pressing: "Nouveau pressage",
         shipping_types: {
             delivery: "Livraison",
             pickup: "Récupération"
         },
+        bringing_olives: "Apport des olives",
+        collecting_oil: "Récupération d'huile",
+        awaiting: "En attente",
+        load_error: "Erreur lors du chargement de vos suivis.",
+        too_many_requests: "Trop de requêtes. Veuillez patienter.",
+        items_fallback: "Huile",
+        received_olives: "Olives apportées",
+        payment_mode: "Mode : ",
+        percentage_suffix: " d'huile",
         pickup: {
             available_from: "Disponible du {{start}} au {{end}}",
             pending: "En attente de disponibilité (le producteur vous contactera ici)",
+            scheduled_for: "Retrait prévu le {{date}}",
             btn_accept: "Accepter",
             btn_reject: "Refuser",
             status_accepted: "Accepté",
@@ -74,12 +90,13 @@ export const fr = {
         payment_types: {
             money: "Argent",
             percentage: "Pourcentage"
-        }
+        },
     },
     home: {
         hero: {
             subtitle: "every drop tells the story of the land",
             title: "Huile d'olive premium : élaborée avec soin dans les oliveraies de Kabylie",
+            alt: "Oliveraie de Kabylie",
         },
         story: {
             badge: "Notre Histoire",
@@ -399,7 +416,19 @@ export const fr = {
             cart_empty_title: "Panier vide",
             cart_empty_desc: "Veuillez ajouter des articles avant de commander.",
             wilaya_error_title: "Erreur",
-            wilaya_error_desc: "Veuillez sélectionner une wilaya."
+            wilaya_error_desc: "Veuillez sélectionner une wilaya.",
+            missing_date_title: "Date de retrait manquante",
+            missing_date_desc: "Veuillez sélectionner une date pour le retrait de votre commande.",
+            error: "Erreur",
+            retry: "Réessayer",
+            blacklist_title: "Accès Restreint : Compte Thazdayth",
+            blacklist_desc: "Votre compte a été temporairement suspendu par l'administration. Les commandes et les demandes de trituration sont indisponibles pour le moment. Veuillez contacter le support pour plus d'informations.",
+            select_pickup_date: "Choisir une date de retrait",
+            selected_date: "Date sélectionnée : ",
+            not_authorized: "Action Non Autorisée",
+            confirm_order: "Confirmer la commande",
+            how_it_works: "Comment ça marche ?",
+            how_it_works_desc: "Apportez vos olives, nous les pressons pour vous. Payez en argent ou laissez un pourcentage de l'huile produite."
         },
         success: {
             buy_title: "Commande confirmée !",
@@ -411,7 +440,9 @@ export const fr = {
             thanks_press: "Votre demande de trituration de {{kg}} kg ({{oil}}) a été envoyée."
         },
         errors: {
-            fill_all: "Veuillez remplir tous les champs."
+            fill_all: "Veuillez remplir tous les champs.",
+            too_many_requests: "Trop de requêtes. Veuillez patienter un instant avant de réessayer.",
+            fetch_error: "Erreur lors de la récupération des données."
         },
         pickup_notice: {
             title: "Confirmation par le producteur",
@@ -440,7 +471,9 @@ export const fr = {
             desc2: "Depuis des siècles, on presse l'olive ici. Haizer est comme un balcon sur les montagnes, gardant précieusement l'histoire de nos ancêtres."
         },
         gallery: {
-            title: "Galerie"
+            title: "Galerie",
+            view: "Agrandir",
+            enlarged_alt: "Version agrandie",
         }
     },
     auth: {
@@ -486,6 +519,33 @@ export const fr = {
             error_empty: "Veuillez remplir tous les champs.",
             error_password: "Le mot de passe doit contenir au moins 6 caractères.",
             error_general: "Erreur lors de la création du compte."
+        },
+        forgot_password: {
+            title: "Mot de passe oublié",
+            subtitle: "Entrez votre email pour recevoir un code de vérification.",
+            reset_title: "Réinitialisation",
+            reset_subtitle: "Entrez le code reçu par email et choisissez votre nouveau mot de passe.",
+            step_label: "Étape",
+            step_of: "sur",
+            email_label: "Adresse Email",
+            email_placeholder: "votre@email.com",
+            submit_step1: "Recevoir le code de vérification",
+            loading_step1: "Envoi du code...",
+            step1_success_title: "Code envoyé",
+            step1_success_desc: "Un code de vérification a été envoyé à votre email.",
+            code_label: "Code de vérification (6 chiffres)",
+            code_placeholder: "000000",
+            code_hint: "Vérifiez vos emails (ou le terminal si vous testez en local)",
+            new_password_label: "Nouveau mot de passe",
+            new_password_placeholder: "••••••••",
+            submit_step2: "Réinitialiser mon mot de passe",
+            loading_step2: "Mise à jour...",
+            success_title: "Succès",
+            success_desc: "Votre mot de passe a été mis à jour.",
+            back_to_login: "Retour à la connexion",
+            use_other_email: "Utiliser une autre adresse email",
+            error_empty_email: "Veuillez entrer votre email.",
+            error_empty_fields: "Veuillez remplir tous les champs."
         }
     },
     delivery: {
@@ -519,11 +579,13 @@ export const fr = {
     about: {
         hero: {
             badge: "À Propos",
-            title: "L'histoire de notre confrérie"
+            title: "L'histoire de notre confrérie",
+            alt: "Paysage de Kabylie"
         },
         story: {
             badge: "Notre Origine",
             title: "Deux frères, une même passion",
+            alt: "Les deux frères fondateurs de Tazdayth",
             desc1: "L'histoire de TAZDAYTH est avant tout celle de deux frères liés par leur amour pour la terre de Kabylie. Ayant grandi au milieu des oliveraies familiales, nous avons été bercés par les récits de nos grands-parents sur les récoltes d'antan et le caractère sacré de l'olivier.",
             desc2: "Après des années passées à observer la lente disparition des méthodes traditionnelles d'extraction, nous avons ressenti le besoin viscéral de préserver cet héritage. C'est ainsi qu'est née notre huilerie en 2001 : non pas comme une simple entreprise, mais comme une mission pour redonner à l'huile d'olive kabyle ses lettres de noblesse.",
             desc3: "Ensemble, nous parcourons les villages pour sélectionner les meilleures récoltes et nous veillons à ce que chaque goutte d'huile extraite dans notre moulin réponde aux standards d'excellence, tout en honorant la mémoire de nos ancêtres."
@@ -605,6 +667,7 @@ export const fr = {
             placeholder: "Ajoutez ici des informations importantes sur ce client ou cette commande...",
         },
         common: {
+            add: "Ajouter",
             save: "Enregistrer",
             cancel: "Annuler",
             blacklist: "Mettre en liste noire",
@@ -623,5 +686,31 @@ export const fr = {
             empty: "Aucun client trouvé.",
             registered_on: "Inscrit le"
         }
+    },
+    testimonials: {
+        badge: "Témoignages",
+        title: "Ce que disent nos ",
+        title_accent: "clients",
+        form_title: "Partagez votre expérience",
+        rating_label: "Note globale",
+        opinion_label: "Votre avis",
+        placeholder: "Comment s'est passé votre visite au moulin ?",
+        submit: "Publier mon avis",
+        loading: "Chargement...",
+        login_msg: "Connectez-vous pour laisser un avis sur nos services.",
+        login_link: "Se connecter",
+        all_reviews: "Tous les avis",
+        verified_reviews: "Avis vérifiés",
+        load_error: "Impossible de charger les commentaires.",
+        retry: "Faire une autre tentative",
+        buyer_verified: "Acheteur vérifié",
+        empty_title: "Aucun avis pour le moment",
+        empty_desc: "Soyez le premier à partager votre expérience et aidez nos futurs clients !",
+        success_post: "Avis publié !",
+        success_post_desc: "Merci pour votre retour.",
+        success_delete: "Supprimé",
+        success_delete_desc: "Votre commentaire a été retiré.",
+        error_title: "Erreur",
+        delete_title: "Supprimer",
     }
 };

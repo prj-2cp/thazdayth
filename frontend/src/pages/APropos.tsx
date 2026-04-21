@@ -35,7 +35,7 @@ const APropos = () => {
         <div className="absolute inset-0">
           <img 
             src={heroImg} 
-            alt="Paysage Kabylie" 
+            alt={t("about.hero.alt") || "Paysage Kabylie"} 
             className="w-full h-full object-cover grayscale-[40%]"
           />
           <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
@@ -68,7 +68,7 @@ const APropos = () => {
               <div className="absolute inset-0 bg-primary/10 mix-blend-multiply z-10" />
               <img 
                 src={brothersImg} 
-                alt="Les deux frères fondateurs" 
+                alt={t("about.story.alt") || "Les deux frères fondateurs"} 
                 className="w-full h-full object-cover"
               />
             </div>

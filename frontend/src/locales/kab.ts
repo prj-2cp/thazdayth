@@ -15,8 +15,10 @@ export const kab = {
     },
     notifications: {
         title: "Isallen",
-        mark_all: "Kkes akk",
+        mark_all: "Kkes-iten akk am wid yettwaɣran",
         empty: "Ulac isallen.",
+        loading: "Isallen la d-tteddun...",
+        view_details: "Wali ugar",
     },
     suivi: {
         badge: "Talwiḥt n uxdem",
@@ -56,13 +58,18 @@ export const kab = {
             }
         },
         unit_price: "Ssuma n yiwen",
+        loading: "Asraɛ...",
+        retry: "Err-d tagnit",
+        order_again: "Ɛawed talaba",
+        new_pressing: "Aɛṣar amaynut",
         shipping_types: {
-            delivery: "Awi-d",
-            pickup: "Lqit"
+            delivery: "Awi-d alamma d axxam",
+            pickup: "Lqit n zzit"
         },
         pickup: {
             available_from: "Zemreḍ ad d-tawiḍ seg {{start}} ar {{end}}",
             pending: "Ar d-yas wekti (amlas n teɛṣart ad k-id-yessiwal dagi)",
+            scheduled_for: "Asir n zzit i gellan deg {{date}}",
             btn_accept: "Qbel",
             btn_reject: "Gwi",
             status_accepted: "Yeqbel",
@@ -73,13 +80,23 @@ export const kab = {
         },
         payment_types: {
             money: "Tidrimt",
-            percentage: "Amur"
-        }
+            percentage: "Amur (Lxems)"
+        },
+        bringing_olives: "Attwi n uzemmur",
+        collecting_oil: "Lqit n zzit",
+        awaiting: "Ar d-yas",
+        load_error: "Yella unegzu deg usali n tuḍfi-in.",
+        too_many_requests: "Aṭas n ssutren. Mudd-d yiwet n lweqt.",
+        items_fallback: "Zzit",
+        received_olives: "Azemmur i d-yewḍen",
+        payment_mode: "Tarrayt : ",
+        percentage_suffix: " n zzit",
     },
     home: {
         hero: {
             subtitle: "every drop tells the story of the land",
             title: "Zzit n uzemmur yufraren: yettwaxdem s lḥirfa deg tzemrin n leqbayel",
+            alt: "Tzemrin n Leqbayel",
         },
         story: {
             badge: "Tamacahut-nneɣ",
@@ -368,9 +385,21 @@ export const kab = {
             telephone_placeholder: "0555 123 456",
             wilaya: "Wilaya",
             wilaya_placeholder: "Fren wilaya",
-            submit_buy: "Sbedd talaba",
+            submit_buy: "Sentam talaba",
             submit_press: "Azen asuter",
-            submitting: "Azen..."
+            submitting: "Azen...",
+            missing_date_title: "Azemz ixuṣ",
+            missing_date_desc: "Veuillez sélectionner une date pour le retrait de votre commande.",
+            error: "Tucḍa",
+            retry: "Ɛawed",
+            blacklist_title: "Amiḍan yettwaḥrem",
+            blacklist_desc: "Amiḍan-inek yettwaḥbes cwiṭ s ubrid n tnebbaḍt. Ur tezmireḍ ara ad d-talsed tilabiyin neɣ asuter n uɛṣar tura. Siwel-aɣ-d akken ad tessneḍ ugar.",
+            select_pickup_date: "Fren azemz n lqit",
+            selected_date: "Azemz i tefrenḍ : ",
+            not_authorized: "Ur tesɛiḍ ara azarfu",
+            confirm_order: "Sentam talaba",
+            how_it_works: "Amek i tetteddu?",
+            how_it_works_desc: "Awi-d azemmur-inek, ad t-neɛṣer. Xelleṣ s tedrimt neɣ eǧǧ amur deg zzit i d-yeffɣen."
         },
         success: {
             buy_title: "Talaba tebded!",
@@ -382,7 +411,9 @@ export const kab = {
             thanks_press: "Asuter-inek n uɛṣar n {{kg}} kg ({{oil}}) yettwazen."
         },
         errors: {
-            fill_all: "Ččar akk imukan."
+            fill_all: "Ččar akk imukan.",
+            too_many_requests: "D deqs n requests. Veuillez patienter un instant avant de réessayer.",
+            fetch_error: "Tucḍa deg webrid n ddat."
         },
         pickup_notice: {
             title: "Aql-as weqbel n ufellaḥ",
@@ -411,7 +442,9 @@ export const kab = {
             desc2: "Seg luluf iseggasen i neɛṣer azemmur dagi. Lḥayzer d tizi n Ğerğer, teḥrez amezruy n ljdud-nneɣ."
         },
         gallery: {
-            title: "Tugniwin"
+            title: "Tugniwin",
+            view: "Ssemsu",
+            enlarged_alt: "Tugna tameqqrant",
         }
     },
     auth: {
@@ -457,6 +490,33 @@ export const kab = {
             error_empty: "Ččar akk imukan.",
             error_password: "Awal uffir ilaq ad yesɛu ugar n 6 n isekkilen.",
             error_general: "Tucḍa deg usnulfu n umiḍan."
+        },
+        forgot_password: {
+            title: "Tettuḍ awal uffir?",
+            subtitle: "Err imayl-inek akken ad d-tawiḍ uṭṭun n usentem.",
+            reset_title: "Asastay",
+            reset_subtitle: "Err uṭṭun i k-id-yussnen deg imayl sakin fren awal uffir amaynut.",
+            step_label: "Taggara",
+            step_of: "af",
+            email_label: "Tansa n Imayl",
+            email_placeholder: "imayl-inek@email.com",
+            submit_step1: "Awi-d uṭṭun n usentem",
+            loading_step1: "Azen uṭṭun...",
+            step1_success_title: "Uṭṭun yettwazen",
+            step1_success_desc: "Uṭṭun n usentem yettwazen ɣer imayl-inek.",
+            code_label: "Uṭṭun n usentem (6 n wuṭṭunen)",
+            code_placeholder: "000000",
+            code_hint: "Wali imayl-inek (neɣ lkanun ma yella tessekyadeḍ deg tmacint)",
+            new_password_label: "Awal uffir amaynut",
+            new_password_placeholder: "••••••••",
+            submit_step2: "Asastay n wawal uffir",
+            loading_step2: "Asali...",
+            success_title: "Yeṛwa",
+            success_desc: "Awal uffir-inek yettwubeddel.",
+            back_to_login: "Uɣal ɣer ukcum",
+            use_other_email: "Ssexdem imayl nniḍen",
+            error_empty_email: "Err imayl-inek ma ulac uɣilif.",
+            error_empty_fields: "Ččar akk imukan."
         }
     },
     delivery: {
@@ -490,11 +550,20 @@ export const kab = {
     about: {
         hero: {
             badge: "Fell-aneɣ",
-            title: "Amezruy n TAZDAYTH"
+            title: "Tamacahut n tdukli-nneɣ",
+            alt: "Tamurt n Leqbayel"
+        },
+        story: {
+            badge: "Lsas-nneɣ",
+            title: "Sin watmaten, yiwet n lḥerfa",
+            alt: "Sin watmaten i d-yessekklen Tazdayth",
+            desc1: "Tamacahut n TAZDAYTH d tamacahut n sin watmaten i d-yemmugren s lḥubb-nsen i wakal n Leqbayel. Nexleq-d gar tzemrin n twacult-nneɣ, nesla i temucuha n lejdud-nneɣ ɣef tmeɣra n uzemmur d ccan n tzemrin.",
+            desc2: "Seg wasmi nwala leɛwayed n uɛṣar n zzit la ttnqusant, nefelt d lḥirfa iwakken ad neḥrez lweṛt-a. S wakka i d-tban teɛṣart-nneɣ deg useggas n 2001: mačči d tajara kan, lameɛna d lmuhimma iwakken ad d-nerreḍ ccan i zzit n uzemmur n leqbayel.",
+            desc3: "Ddu n ddu, nettheyyi gar tuddar iwakken ad nefren azemmur yufraren, nexdem iwakken mkul tiqqit n zzit i d-yeffɣen si teɛṣart-nneɣ ad tili deg uṣurti yufraren, s leqder i xezna n lejdud-nneɣ."
         },
         mission: {
-            title: "Awzel-nneɣ",
-            desc: "TAZDAYTH tlul-d seg yiwen wawal fessusen: zzit n uzemmur n leqbayel tuklal ad tettwassen d yiwet gar timezwerin deg umaḍal. Awzel-nneɣ d beṭṭu n lberka-a yid-wen, s leqder n tarrayin tiqburin i d-yettaken lqima-s."
+            title: "Lmuhimma-nneɣ",
+            desc: "TAZDAYTH tlul-d seg yiwet n nniya: zzit n uzemmur n Leqbayel tastahel ad tili gar tid yufraren deg ddunit. Lmuhimma-nneɣ d abḍu n ugerruj-a yid-wen, s weqder n leɛwayed ur nbeddel i gerran zzit-a d tin d-yerran ccan."
         },
         values: {
             title: "Lqima-nneɣ",
@@ -569,11 +638,12 @@ export const kab = {
             placeholder: "Err dagi ayen i k-id-icubban ɣef umesli neɣ ɣef tferit...",
         },
         common: {
+            add: "Rnu",
             save: "Sekfel",
-            cancel: "Sams",
-            blacklist: "Err ɣer tebrizt taberkant",
-            unblock: "Kkes si tebrizt taberkant",
-            blacklisted: "Tabrizt Taberkant"
+            cancel: "Semmet",
+            blacklist: "Sers-it deg tebdart tasemmant",
+            unblock: "Kkes-it deg tebdart tasemmant",
+            blacklisted: "Tabdart tasemmant"
         },
         status: {
             in_progress: "Ag d-yeddu",
@@ -587,5 +657,32 @@ export const kab = {
             empty: "Ur d-nufi ula d amsaɣ.",
             registered_on: "Ijerred ass n"
         }
+    },
+    testimonials: {
+        badge: "Tiqsiwin",
+        title: "Ayen i d-nnan ",
+        title_accent: "yimsaɣen",
+        title_suffix: " nneɣ",
+        form_title: "Bḍu-d yid-nneɣ tikti-inek",
+        rating_label: "Lqima n uxdem",
+        opinion_label: "Tikti-inek",
+        placeholder: "Amek i k-id-tacebbaḥ lemɛisra-nneɣ?",
+        submit: "Azen tikti-iw",
+        loading: "Asali...",
+        login_msg: "Kcem akken ad d-teǧǧiḍ tikti-inek ɣef uxdem-nneɣ.",
+        login_link: "Kcem",
+        all_reviews: "Akk tiqsiwin",
+        verified_reviews: "Tiqsiwin yettwasentmen",
+        load_error: "Ur nezmir ara ad d-nawi tiqsiwin.",
+        retry: "Ɛawed tagnit",
+        buyer_verified: "Amsaɣ yettwasentmen",
+        empty_title: "Ulac tiqsiwin tura",
+        empty_desc: "Ili-d d amezwaru ad d-yebḍun tikti-is akken ad tɛawneḍ imsaɣen nniḍen!",
+        success_post: "Tikti tewweḍ-d !",
+        success_post_desc: "Tanemmirt ɣef uzen-inek.",
+        success_delete: "Yettwakkes",
+        success_delete_desc: "Tiqsi-inek tettwakkes.",
+        error_title: "Tucḍa",
+        delete_title: "Kkes",
     }
 };

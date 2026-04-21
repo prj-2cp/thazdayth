@@ -17,6 +17,8 @@ export const en = {
         title: "Notifications",
         mark_all: "Mark all as read",
         empty: "No notifications.",
+        loading: "Loading notifications...",
+        view_details: "View details",
     },
     suivi: {
         badge: "Dashboard",
@@ -56,6 +58,10 @@ export const en = {
             }
         },
         unit_price: "Unit Price",
+        loading: "Loading...",
+        retry: "Retry loading",
+        order_again: "Order again",
+        new_pressing: "New pressing",
         shipping_types: {
             delivery: "Delivery",
             pickup: "Pickup"
@@ -63,23 +69,34 @@ export const en = {
         pickup: {
             available_from: "Available from {{start}} to {{end}}",
             pending: "Pending availability (owner will contact you here)",
+            scheduled_for: "Pickup scheduled for {{date}}",
             btn_accept: "Accept",
             btn_reject: "Reject",
             status_accepted: "Accepted",
             status_rejected: "Rejected"
         },
         pressing: {
-            contact_notice: "The owner will contact you by phone to discuss pressing and pickup details."
+            contact_notice: "A manager will contact you by phone to discuss pressing and pickup details."
         },
         payment_types: {
-            money: "Cash",
+            money: "Money",
             percentage: "Percentage"
-        }
+        },
+        bringing_olives: "Bringing olives",
+        collecting_oil: "Collecting oil",
+        awaiting: "Awaiting",
+        load_error: "Error loading your tracking data.",
+        too_many_requests: "Too many requests. Please wait a moment.",
+        items_fallback: "Oil",
+        received_olives: "Olives received",
+        payment_mode: "Mode: ",
+        percentage_suffix: " of oil",
     },
     home: {
         hero: {
             subtitle: "every drop tells the story of the land",
             title: "Premium olive oil: carefully crafted in the olive groves of Kabylia",
+            alt: "Olive grove in Kabylia",
         },
         story: {
             badge: "Our Story",
@@ -399,7 +416,19 @@ export const en = {
             cart_empty_title: "Empty cart",
             cart_empty_desc: "Please add items before ordering.",
             wilaya_error_title: "Error",
-            wilaya_error_desc: "Please select a wilaya."
+            wilaya_error_desc: "Please select a wilaya.",
+            missing_date_title: "Missing pickup date",
+            missing_date_desc: "Please select a date for your order pickup.",
+            error: "Error",
+            retry: "Retry",
+            blacklist_title: "Restricted Access: Thazdayth Account",
+            blacklist_desc: "Your account has been temporarily suspended by the administration. Orders and pressing requests are unavailable at this time. Please contact support for more information.",
+            select_pickup_date: "Choose a pickup date",
+            selected_date: "Selected date: ",
+            not_authorized: "Unauthorized Action",
+            confirm_order: "Confirm order",
+            how_it_works: "How it works?",
+            how_it_works_desc: "Bring your olives, we press them for you. Pay in cash or leave a percentage of the produced oil."
         },
         success: {
             buy_title: "Order confirmed!",
@@ -411,7 +440,9 @@ export const en = {
             thanks_press: "Your trituration request for {{kg}} kg ({{oil}}) has been sent."
         },
         errors: {
-            fill_all: "Please fill in all fields."
+            fill_all: "Please fill in all fields.",
+            too_many_requests: "Too many requests. Please wait a moment before trying again.",
+            fetch_error: "Error while fetching data."
         },
         pickup_notice: {
             title: "Owner Confirmation",
@@ -440,7 +471,9 @@ export const en = {
             desc2: "We've been pressing olives here for centuries. Haizer is like a balcony overlooking the mountains, guarding our ancestors' story."
         },
         gallery: {
-            title: "Gallery"
+            title: "Gallery",
+            view: "Enlarge",
+            enlarged_alt: "Enlarged version",
         }
     },
     auth: {
@@ -486,6 +519,33 @@ export const en = {
             error_empty: "Please fill in all fields.",
             error_password: "Password must contain at least 6 characters.",
             error_general: "Error creating account."
+        },
+        forgot_password: {
+            title: "Forgot Password",
+            subtitle: "Enter your email to receive a verification code.",
+            reset_title: "Reset",
+            reset_subtitle: "Enter the code received by email and choose your new password.",
+            step_label: "Step",
+            step_of: "of",
+            email_label: "Email Address",
+            email_placeholder: "your@email.com",
+            submit_step1: "Receive Verification Code",
+            loading_step1: "Sending code...",
+            step1_success_title: "Code Sent",
+            step1_success_desc: "A verification code has been sent to your email.",
+            code_label: "Verification Code (6 digits)",
+            code_placeholder: "000000",
+            code_hint: "Check your emails (or terminal if testing locally)",
+            new_password_label: "New Password",
+            new_password_placeholder: "••••••••",
+            submit_step2: "Reset my password",
+            loading_step2: "Updating...",
+            success_title: "Success",
+            success_desc: "Your password has been updated.",
+            back_to_login: "Back to login",
+            use_other_email: "Use another email address",
+            error_empty_email: "Please enter your email.",
+            error_empty_fields: "Please fill in all fields."
         }
     },
     delivery: {
@@ -519,7 +579,16 @@ export const en = {
     about: {
         hero: {
             badge: "About Us",
-            title: "The history of TAZDAYTH"
+            title: "Our Heritage & Story",
+            alt: "Kabylia Landscape"
+        },
+        story: {
+            badge: "Our Origin",
+            title: "Two brothers, one same passion",
+            alt: "The two founding brothers of Tazdayth",
+            desc1: "TAZDAYTH's story is above all that of two brothers bound by their love for the land of Kabylia. Having grown up among family olive groves, we were rocked by our grandparents' tales of ancient harvests and the sacred nature of the olive tree.",
+            desc2: "After years spent observing the slow disappearance of traditional extraction methods, we felt a visceral need to preserve this heritage. This is how our oil mill was born in 2001: not just as a simple company, but as a mission to restore Kabyle olive oil to its rightful place.",
+            desc3: "Together, we travel through villages to select the best harvests and we ensure that every drop of oil extracted in our mill meets excellence standards, while honoring the memory of our ancestors."
         },
         mission: {
             title: "Our Mission",
@@ -598,6 +667,7 @@ export const en = {
             placeholder: "Add important information about this client or order here...",
         },
         common: {
+            add: "Add",
             save: "Save",
             cancel: "Cancel",
             blacklist: "Blacklist",
@@ -616,5 +686,32 @@ export const en = {
             empty: "No clients found.",
             registered_on: "Registered on"
         }
+    },
+    testimonials: {
+        badge: "Testimonials",
+        title: "What our ",
+        title_accent: "clients",
+        title_suffix: " say",
+        form_title: "Share your experience",
+        rating_label: "Overall rating",
+        opinion_label: "Your opinion",
+        placeholder: "How was your visit to the mill?",
+        submit: "Post my review",
+        loading: "Loading...",
+        login_msg: "Connect to leave a review about our services.",
+        login_link: "Login",
+        all_reviews: "All reviews",
+        verified_reviews: "Verified reviews",
+        load_error: "Unable to load comments.",
+        retry: "Make another attempt",
+        buyer_verified: "Verified buyer",
+        empty_title: "No reviews yet",
+        empty_desc: "Be the first to share your experience and help our future clients!",
+        success_post: "Review posted!",
+        success_post_desc: "Thank you for your feedback.",
+        success_delete: "Deleted",
+        success_delete_desc: "Your comment has been removed.",
+        error_title: "Error",
+        delete_title: "Delete",
     }
 };
