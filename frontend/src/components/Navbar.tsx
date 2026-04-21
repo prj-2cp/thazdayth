@@ -346,8 +346,9 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
       <NotificationDrawer 
         isOpen={isNotificationDrawerOpen} 
         onClose={() => setIsNotificationDrawerOpen(false)} 
-        token={token}
-        onUnreadChange={setUnreadCount}
+        unreadCount={unreadCount}
+        setUnreadCount={setUnreadCount}
+        onNotificationClick={onNotificationClick}
       />
     </>
   );
