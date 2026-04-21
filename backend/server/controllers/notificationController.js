@@ -33,26 +33,5 @@ const createNotification = async (userId, title, message, orderId) => {
     }
 };
 
-const createNotificationRoute = async (req, res) => {
-    try {
-        const { title, message, order_id } = req.body;
-        const user_id = req.user.id;
 
-        if (!user_id || !title || !message) {
-            return res.status(400).json({ message: "user_id, title, and message are required" });
-        }
-
-        const notification = await createNotification(user_id, title, message, order_id);
-
-        if (!notification) {
-            return res.status(500).json({ message: "Failed to create notification" });
-        }
-
-        res.status(201).json(notification);
-    } catch (error) {
-        console.error('[NOTIF-ROUTE-ERROR]', error);
-        res.status(500).json({ message: "Error creating notification" });
-    }
-};
-
-module.exports = { createNotification, createNotificationRoute };
+module.exports = { createNotification };
