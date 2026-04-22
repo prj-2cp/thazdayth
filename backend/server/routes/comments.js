@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     try {
         const comment = await Comment.find()
             .populate('user_id', 'first_name last_name')
-            .sort({created_at: -1});
+            .sort({createdAt: -1});
         res.json(comment);
     }
     catch (err) {
