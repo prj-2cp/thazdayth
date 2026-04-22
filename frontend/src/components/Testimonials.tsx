@@ -145,8 +145,7 @@ const Testimonials = () => {
                             transition={{ delay: 0.1 }}
                             className="text-4xl md:text-5xl font-black tracking-tight"
                         >
-                            {t("testimonials.title")}<span className="text-primary">{t("testimonials.title_accent")}</span>{t("testimonials.title_suffix") || ""}.
-                        </motion.h2>
+                            {t("testimonials.title")}<span className="text-primary">{t("testimonials.title_accent")}</span> </motion.h2>
                     </div>
                 </div>
 
