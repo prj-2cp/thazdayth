@@ -18,10 +18,24 @@ app.use((req, res, next) => {
 // server.js — add this near the top
 const cors = require('cors');
 
-app.use(cors({
-  origin: ['http://localhost:8080', 'http://localhost:5173'], // support both common Vite ports
+const corsOptions = {
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'http://localhost:8080', 
+      'http://localhost:5173',
+      process.env.FRONTEND_URL
+    ].filter(Boolean);
+    
+    if (!origin || allowedOrigins.some(o => origin.startsWith(o)) || origin.endsWith('.vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-}));
+};
+
+app.use(cors(corsOptions));
 
 //to make our server able to read json data
 app.use(express.json());
