@@ -31,7 +31,7 @@ interface AgendaManagerProps {
   setSearchTerm: (term: string) => void;
   setActiveTab: (tab: any) => void;
   onRefresh: () => void;
-  view: "all" | "pressing" | "contacts" | "availability";
+  view: "all" | "pressing" | "contacts" | "availability" | "pressing_agenda";
 }
 
 const AgendaManager: React.FC<AgendaManagerProps> = ({
@@ -172,27 +172,139 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
 
   return (
     <div className="space-y-12 pb-20">
-      {/* Search and Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-2">
-        <h2 className="text-3xl font-black tracking-tight flex items-center gap-3">
-          <div className="p-3 rounded-2xl bg-primary/10 text-primary border border-primary/20 shadow-sm">
-            <ClipboardList className="w-8 h-8" />
+      {/* Common Header for Standard Views */}
+      {view !== "pressing_agenda" && (
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-2">
+          <h2 className="text-3xl font-black tracking-tight flex items-center gap-3">
+            <div className="p-3 rounded-2xl bg-primary/10 text-primary border border-primary/20 shadow-sm">
+              <ClipboardList className="w-8 h-8" />
+            </div>
+            {t("dashboard.agenda.title")}
+          </h2>
+          <div className="relative w-full md:w-96">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/50" />
+            <input
+              type="text"
+              placeholder={t("dashboard.agenda.search_placeholder")}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-14 pr-6 py-4 bg-secondary/30 border-2 border-transparent focus:border-primary/20 rounded-[2rem] text-sm focus:outline-none transition-all shadow-inner"
+            />
           </div>
-          {t("dashboard.agenda.title")}
-        </h2>
-        <div className="relative w-full md:w-96">
-          <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/50" />
-          <input
-            type="text"
-            placeholder={t("dashboard.agenda.search_placeholder")}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-14 pr-6 py-4 bg-secondary/30 border-2 border-transparent focus:border-primary/20 rounded-[2rem] text-sm focus:outline-none transition-all shadow-inner"
-          />
         </div>
-      </div>
+      )}
 
-      {view !== "availability" && (
+      {/* Pressing Agenda Specialized View */}
+      {view === "pressing_agenda" && (
+        <div className="space-y-12">
+          <div className="flex flex-col gap-2 px-2">
+            <h2 className="text-4xl font-black tracking-tight flex items-center gap-4">
+              <CalendarIcon className="w-10 h-10 text-primary" />
+              Agenda des Pressages
+            </h2>
+            <p className="text-muted-foreground font-medium">Gérez le planning des rendez-vous de trituration.</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Column 1: Awaiting Appointment */}
+            <div className="space-y-8">
+              <div className="flex items-center gap-3 px-4 py-3 bg-amber-500/5 rounded-3xl border border-amber-500/10 w-fit">
+                <Phone className="w-5 h-5 text-amber-600" />
+                <h3 className="text-lg font-black text-amber-700">À programmer (Appels à passer)</h3>
+              </div>
+
+              <div className="space-y-4">
+                {pressingWaitlist.length === 0 ? (
+                   <div className="py-20 text-center bg-secondary/10 rounded-[3rem] border border-dashed border-border/50">
+                      <p className="text-sm font-medium text-muted-foreground italic">Tous les clients sont programmés.</p>
+                   </div>
+                ) : (
+                  pressingWaitlist.map(r => (
+                    <div key={r._id} className="bg-white dark:bg-zinc-900/50 border border-border p-8 rounded-[2.5rem] flex items-center justify-between group hover:border-primary/30 transition-all shadow-sm">
+                      <div className="space-y-3">
+                        <div className="space-y-1">
+                          <h4 className="text-xl font-bold text-foreground">{r.user_id?.first_name} {r.user_id?.last_name}</h4>
+                          <div className="flex items-center gap-2 text-primary font-bold">
+                             <Phone className="w-3.5 h-3.5" />
+                             <span className="text-sm font-sans">{r.user_id?.phone}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                           <span className="px-4 py-1.5 bg-secondary text-muted-foreground/60 rounded-full text-[10px] font-black uppercase tracking-widest border border-border/50">
+                             {r.olive_quantity_kg}kg Olives
+                           </span>
+                           <span className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest italic">
+                             {r.oil_quality || "EXTRA_VIRGIN"}
+                           </span>
+                        </div>
+                      </div>
+                      <button 
+                        onClick={() => { setActiveTab('pressing'); setSearchTerm(r._id); }}
+                        className="px-8 py-3 bg-[#6B8E23] hover:bg-[#556B2F] text-white text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-primary/20 transition-all active:scale-95"
+                      >
+                        Programmer
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+
+            {/* Column 2: Scheduled appointments */}
+            <div className="space-y-8">
+              <div className="flex items-center gap-3 px-4 py-3 bg-primary/5 rounded-3xl border border-primary/10 w-fit">
+                <CalendarIcon className="w-5 h-5 text-primary" />
+                <h3 className="text-lg font-black text-primary">Planning des Rendez-vous</h3>
+              </div>
+
+              <div className="space-y-4">
+                {pressingScheduled.length === 0 ? (
+                   <div className="py-20 text-center bg-secondary/10 rounded-[3rem] border border-dashed border-border/50">
+                      <p className="text-sm font-medium text-muted-foreground italic">Aucun rendez-vous programmé.</p>
+                   </div>
+                ) : (
+                  pressingScheduled.map(r => (
+                    <div key={r._id} className="bg-[#F5F5F0] dark:bg-zinc-900/80 border border-border/60 p-8 rounded-[2.5rem] flex items-center justify-between relative shadow-sm border-l-8 border-l-[#6B8E23]/20">
+                      <div className="space-y-4">
+                        <div className="space-y-1">
+                           <h4 className="text-xl font-bold text-foreground">{r.user_id?.first_name} {r.user_id?.last_name}</h4>
+                           <div className="flex items-center gap-2 text-muted-foreground font-medium">
+                              <Phone className="w-3.5 h-3.5" />
+                              <span className="text-sm font-sans">{r.user_id?.phone}</span>
+                           </div>
+                        </div>
+                        <div className="flex items-center gap-3 px-4 py-2 bg-white/50 dark:bg-black/20 rounded-2xl border border-border/30 w-fit">
+                           <Factory className="w-4 h-4 text-[#6B8E23]" />
+                           <span className="text-sm font-black text-foreground/80">{r.olive_quantity_kg} kg</span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col items-end gap-3">
+                         <div className="px-5 py-2 bg-[#6B8E23] text-white rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20 shadow-sm min-w-[150px] text-center">
+                            APPORT: {new Date(r.bring_olives_date).toLocaleDateString()}
+                         </div>
+                         {r.collect_oil_date && (
+                           <div className="px-5 py-2 bg-[#D9D9C3] text-[#556B2F] rounded-full text-[10px] font-black uppercase tracking-widest border border-border min-w-[150px] text-center">
+                              COLLECTE: {new Date(r.collect_oil_date).toLocaleDateString()}
+                           </div>
+                         )}
+                         <button 
+                            onClick={() => { setActiveTab('pressing'); setSearchTerm(r._id); }}
+                            className="text-[10px] font-black text-[#6B8E23] hover:underline uppercase tracking-widest mt-2"
+                         >
+                            Modifier
+                         </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {view !== "availability" && view !== "pressing_agenda" && (
         <div className="space-y-16">
           {/* 1. UNIFIED TIMELINE VIEW */}
           <div className="space-y-8">
@@ -474,7 +586,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                 blockedDates.map((d, i) => (
                   <div key={i} className="group flex justify-between items-center bg-card border border-border/50 p-5 rounded-3xl hover:border-red-500/30 transition-all hover:translate-x-1 duration-300">
                     <div className="flex items-center gap-4">
-                      <div className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
+                      <div className="w-3 h-3 rounded-full bg-red-500" />
                       <div className="flex flex-col">
                         <span className="font-bold text-sm tracking-tight">{new Date(d.date).toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' })}</span>
                         <span className="text-[10px] text-muted-foreground uppercase font-black tracking-tighter">{new Date(d.date).getFullYear()}</span>

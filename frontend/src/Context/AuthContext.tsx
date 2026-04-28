@@ -16,6 +16,7 @@ export interface AuthUser {
     phone: string;
     role: 'customer' | 'owner';
     is_subscribed: boolean;
+    is_blacklisted: boolean;
 }
 
 interface AuthContextType {
@@ -32,6 +33,7 @@ interface AuthContextType {
         password: string;
     }) => Promise<void>;
     googleLogin: (credential: string) => Promise<void>;
+    updateProfile: (data: { first_name?: string; last_name?: string; phone?: string }) => Promise<void>;
     forgotPassword: (email: string) => Promise<void>;
     resetPassword: (data: { email: string; code: string; newPassword: string }) => Promise<void>;
     logout: () => void;
@@ -145,6 +147,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.setItem('isAuthenticated', 'true');
     }, []);
 
+    const updateProfile = useCallback(async (data: { first_name?: string; last_name?: string; phone?: string }) => {
+        if (!token) return;
+        let res: Response;
+        try {
+            res = await fetch(`${API_URL}/auth/me`, {
+                method: 'PATCH',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data),
+            });
+        } catch {
+            throw new Error('Impossible de joindre le serveur.');
+        }
+
+        const json = await res.json();
+        if (!res.ok) {
+            throw new Error(json.message || "Erreur lors de la mise à jour");
+        }
+
+        setUser(json);
+        localStorage.setItem('user', JSON.stringify(json));
+    }, [token]);
+
     const forgotPassword = useCallback(async (email: string) => {
         let res: Response;
         try {
@@ -199,6 +226,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 login,
                 register,
                 googleLogin,
+                updateProfile,
                 forgotPassword,
                 resetPassword,
                 logout,

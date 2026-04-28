@@ -56,7 +56,7 @@ router.post('/', authenticate, [
             return;
         }
 
-        const { olive_quantity_kg, yield: yieldData, payment, bring_olives_date, collect_oil_date } = req.body;
+        const { olive_quantity_kg, oil_quality, yield: yieldData, payment, bring_olives_date, collect_oil_date } = req.body;
         if (olive_quantity_kg < 50) {
             res.status(400).json({ message: 'La quantité minimale est de 50 kg.' });
             return;
@@ -65,6 +65,7 @@ router.post('/', authenticate, [
         const request = await PressingRequest.create({
             user_id: req.user.id,
             olive_quantity_kg,
+            oil_quality,
             yield: {
                 liters_per_kg: yieldData?.liters_per_kg || 0,
                 produced_oil_liters: yieldData?.produced_oil_liters || 0,

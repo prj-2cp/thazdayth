@@ -151,7 +151,7 @@ const OrderManager: React.FC<OrderManagerProps> = ({
       </div>
 
       {/* Pure List View */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         <AnimatePresence mode="popLayout">
           {filteredOrders.length === 0 ? (
             <div className="py-24 text-center">
@@ -167,99 +167,139 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                 exit={{ opacity: 0, scale: 0.95 }}
                 key={o._id}
                 className={cn(
-                  "bg-card hover:bg-secondary/[0.15] border border-border/50 p-4 rounded-2xl transition-all flex flex-col lg:flex-row lg:items-center gap-6 group",
+                  "bg-[#EFEEE7] dark:bg-zinc-900/50 border border-border p-8 rounded-[2.5rem] transition-all relative group",
                   o.user_id?.is_blacklisted && "opacity-60 grayscale-[0.5]"
                 )}
               >
-                {/* ID & Identity */}
-                <div className="flex items-center gap-6 lg:w-[350px]">
-                   <div className="relative">
-                      <div className="w-11 h-11 rounded-full bg-secondary flex items-center justify-center text-[10px] font-black text-muted-foreground/60 group-hover:scale-105 transition-transform border border-border/50 font-sans">
-                         #{ (o.tracking_code || o._id).slice(-4).toUpperCase() }
-                      </div>
-                      {o.status === 'pending' && <Circle size={8} className="absolute -top-0.5 -right-0.5 fill-amber-500 text-amber-500 animate-pulse" />}
-                   </div>
-
-                   <div className="space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-base font-bold text-foreground leading-tight">{o.user_id?.first_name} {o.user_id?.last_name}</h3>
-                        {o.user_id?.is_blacklisted && <ShieldAlert size={14} className="text-red-500" />}
-                      </div>
-                      <p className="text-[11px] font-medium text-muted-foreground flex items-center gap-3">
-                        <span className="font-sans">{o.user_id?.email}</span>
-                        <span className="w-1 h-1 rounded-full bg-muted-foreground/20" />
-                        <span className="font-sans">{o.user_id?.phone}</span>
-                      </p>
-                   </div>
+                {/* Top Bar: REF & Status */}
+                <div className="flex justify-between items-start mb-6">
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                      REF: #{(o.tracking_code || o._id).slice(-6).toUpperCase()}
+                    </p>
+                    <h3 className="text-2xl font-bold text-foreground">
+                      {o.user_id?.first_name} {o.user_id?.last_name}
+                    </h3>
+                    <p className="text-xs text-muted-foreground/60 font-medium">
+                      {new Date(o.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className={cn(
+                    "px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm",
+                    o.status === 'delivered' ? "bg-emerald-500/10 text-emerald-600" : 
+                    o.status === 'pending' ? "bg-amber-500/10 text-amber-600" : 
+                    o.status === 'cancelled' ? "bg-red-500/10 text-red-600" :
+                    "bg-primary/10 text-primary"
+                  )}>
+                    {o.status}
+                  </div>
                 </div>
 
-                {/* Content Summary */}
-                <div className="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4 px-2 lg:border-l border-border/40 lg:pl-8">
-                   <div className="flex flex-wrap items-center gap-2">
-                      {o.items.map((item: any, idx: number) => (
-                        <span key={idx} className="text-[11px] font-black text-muted-foreground/60 bg-secondary/40 px-3 py-1 rounded-lg">
-                           {item.olive_category_id?.name || item.name} <span className="text-primary italic">x{item.quantity}</span>
-                        </span>
-                      ))}
-                   </div>
-                   
-                   <div className="flex items-center gap-6">
-                      <p className="text-sm font-black text-foreground whitespace-nowrap">
-                         {o.total_price.toLocaleString()} <span className="text-[10px] opacity-30 tracking-widest">DA</span>
-                      </p>
-                      <p className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest hidden xl:block font-sans">
-                        {new Date(o.created_at).toLocaleDateString(undefined, { day: '2-digit', month: 'short' })}
-                      </p>
-                   </div>
+                {/* Middle Section: Details & Items */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                  {/* User Details */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 text-xs font-medium text-muted-foreground">
+                      <div className="w-8 h-8 rounded-lg bg-secondary/50 flex items-center justify-center text-primary/40">
+                        <Circle className="w-3 h-3 fill-current" />
+                      </div>
+                      <span className="font-sans">{o.user_id?.email}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs font-medium text-muted-foreground">
+                      <div className="w-8 h-8 rounded-lg bg-secondary/50 flex items-center justify-center text-primary/40">
+                         <Circle className="w-3 h-3 fill-current" />
+                      </div>
+                      <span className="font-sans">{o.user_id?.phone}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs font-bold text-primary">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                         <Circle className="w-3 h-3 fill-current" />
+                      </div>
+                      <span>
+                        {o.shipping?.type === 'delivery' ? `Livraison: ${o.shipping?.wilaya || 'N/A'}` : 'Retrait sur place'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Items List */}
+                  <div className="space-y-3 border-t md:border-t-0 md:border-l border-border/40 md:pl-8 pt-6 md:pt-0">
+                    {o.items.map((item: any, idx: number) => (
+                      <div key={idx} className="flex items-center gap-3">
+                         <Box className="w-4 h-4 text-primary/40" />
+                         <span className="text-sm font-medium text-muted-foreground">
+                           {item.olive_category_id?.name || item.name}
+                         </span>
+                         <span className="text-sm font-bold text-primary italic">x{item.quantity}L</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Status & Actions Tail */}
-                <div className="flex items-center justify-between lg:justify-end gap-3 lg:w-[320px] lg:border-l border-border/40 lg:pl-8">
-                   <div className="relative min-w-[130px]">
-                      <select 
-                        value={o.status}
-                        onChange={(e) => updateOrderStatus(o._id, e.target.value)}
-                        className={cn(
-                          "w-full px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest outline-none border transition-all appearance-none cursor-pointer",
-                          o.status === 'delivered' ? "bg-emerald-500/5 border-emerald-500/10 text-emerald-600" : o.status === 'pending' ? "bg-amber-500/5 border-amber-500/10 text-amber-600" : "bg-primary/5 border-primary/10 text-primary"
-                        )}
-                      >
-                        <option value="pending">Attente</option>
-                        <option value="in-progress">Cours</option>
-                        <option value="completed">Prêt</option>
-                        <option value="delivered">Délivré</option>
-                        <option value="cancelled">Annulé</option>
-                      </select>
-                      <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 opacity-20 rotate-90" />
-                   </div>
+                {/* Bottom Bar: Total & Actions */}
+                <div className="flex flex-col sm:flex-row justify-between items-center pt-6 border-t border-border/40 gap-6">
+                  <div className="text-xl font-bold">
+                    <span className="text-muted-foreground/40 text-sm font-medium mr-2">Total:</span>
+                    {o.total_price.toLocaleString()} <span className="text-xs text-muted-foreground">DA</span>
+                  </div>
 
-                   <div className="flex items-center gap-2">
-                      <button 
-                        onClick={() => toggleBlacklist(o.user_id?._id, o._id)}
-                        disabled={actionLoadingId === o._id}
-                        className={cn(
-                          "p-2.5 rounded-xl border transition-all",
-                          o.user_id?.is_blacklisted 
-                            ? "bg-emerald-500 text-white border-emerald-400" 
-                            : "bg-secondary text-muted-foreground/40 hover:bg-red-500 hover:text-white hover:border-red-400"
-                        )}
-                      >
-                         {o.user_id?.is_blacklisted ? <ShieldCheck size={16} /> : <ShieldAlert size={16} />}
-                      </button>
-
-                      <button 
-                         onClick={() => setEditingNoteId(editingNoteId === o._id ? null : o._id)}
-                         className={cn("p-2.5 rounded-xl border border-border transition-all", editingNoteId === o._id ? "bg-foreground text-background" : "bg-background text-foreground hover:bg-secondary")}
-                      >
-                         <MoreHorizontal size={18} />
-                      </button>
-                      
-                      {['delivered', 'cancelled', 'completed'].includes(o.status) && !isArchived && (
-                        <button onClick={() => archiveOrder(o._id)} className="p-2.5 rounded-xl bg-secondary text-muted-foreground/30 hover:text-red-500 transition-colors">
-                           <Trash2 size={16} />
-                        </button>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <button 
+                      onClick={() => setEditingNoteId(editingNoteId === o._id ? null : o._id)}
+                      className={cn(
+                        "px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all flex items-center gap-2",
+                        editingNoteId === o._id ? "bg-foreground text-background border-foreground" : "bg-secondary/40 text-muted-foreground border-border hover:bg-secondary hover:text-foreground"
                       )}
-                   </div>
+                    >
+                      <MoreHorizontal className="w-3 h-3" />
+                      Notes
+                    </button>
+
+                    <button 
+                      onClick={() => updateOrderStatus(o._id, 'in-progress')}
+                      className="px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-border bg-secondary/40 text-muted-foreground hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all"
+                    >
+                      En cours
+                    </button>
+
+                    <button 
+                      onClick={() => updateOrderStatus(o._id, 'delivered')}
+                      className="px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-border bg-secondary/40 text-muted-foreground hover:bg-emerald-500/10 hover:text-emerald-600 hover:border-emerald-500/30 transition-all"
+                    >
+                      Livré
+                    </button>
+
+                    <button 
+                      onClick={() => updateOrderStatus(o._id, 'cancelled')}
+                      className="px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-border bg-secondary/40 text-muted-foreground hover:bg-red-500/10 hover:text-red-600 hover:border-red-500/30 transition-all"
+                    >
+                      Annuler
+                    </button>
+
+                    <button 
+                      onClick={() => archiveOrder(o._id)}
+                      className="px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-border bg-secondary/40 text-muted-foreground hover:bg-zinc-800 hover:text-white transition-all flex items-center gap-2"
+                    >
+                      {isArchived ? "Désarchiver" : "Archiver"}
+                    </button>
+
+                    <button 
+                      onClick={() => toggleBlacklist(o.user_id?._id, o._id)}
+                      disabled={actionLoadingId === o._id}
+                      className={cn(
+                        "px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all flex items-center gap-2",
+                        o.user_id?.is_blacklisted 
+                          ? "bg-emerald-500 text-white border-emerald-400" 
+                          : "bg-secondary/40 text-muted-foreground border-border hover:bg-red-500 hover:text-white hover:border-red-400"
+                      )}
+                    >
+                      {actionLoadingId === o._id ? (
+                        <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      ) : (
+                        o.user_id?.is_blacklisted ? <ShieldCheck className="w-3 h-3" /> : <ShieldAlert className="w-3 h-3" />
+                      )}
+                      {o.user_id?.is_blacklisted ? "Réhabiliter" : "Banir"}
+                    </button>
+                  </div>
                 </div>
 
                 {/* Inline Note Editor */}
@@ -270,18 +310,18 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="w-full lg:order-last border-t border-border/30 pt-4 mt-2"
+                      className="overflow-hidden mt-6"
                     >
-                       <div className="flex flex-col md:flex-row gap-4">
+                       <div className="flex flex-col md:flex-row gap-4 p-6 bg-secondary/20 rounded-3xl border border-border/30">
                           <textarea
                             value={tempNoteValue}
                             onChange={(e) => setTempNoteValue(e.target.value)}
                             placeholder="Observations confidentielles..."
-                            className="flex-1 bg-secondary/20 p-4 rounded-xl text-xs font-semibold outline-none resize-none min-h-[50px] border border-border/20"
+                            className="flex-1 bg-background/50 p-4 rounded-2xl text-xs font-semibold outline-none resize-none min-h-[80px] border border-border/20"
                           />
                           <button 
                             onClick={() => updateNote(o._id, tempNoteValue)}
-                            className="px-8 py-4 bg-foreground text-background text-[10px] font-black uppercase rounded-xl hover:opacity-90 transition-opacity"
+                            className="px-8 py-4 bg-foreground text-background text-[10px] font-black uppercase rounded-2xl hover:opacity-90 transition-opacity self-end"
                           >
                             Valider
                           </button>

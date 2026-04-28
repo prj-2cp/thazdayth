@@ -25,6 +25,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import API_URL from "@/config";
+import { Calendar as PickupCalendar } from "@/components/ui/calendar";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
@@ -125,11 +126,11 @@ const Boutique = () => {
       }
 
       const [wilayasData, oliveData, pressingData, settingsData, productsData] = await Promise.all([
-        wilayasRes.text().then(t => t ? JSON.parse(t) : []),
-        oliveRes.text().then(t => t ? JSON.parse(t) : []),
-        pressingRes.text().then(t => t ? JSON.parse(t) : []),
-        settingsRes.text().then(t => t ? JSON.parse(t) : {}),
-        productsRes.text().then(t => t ? JSON.parse(t) : [])
+        wilayasRes.text().then(text => text ? JSON.parse(text) : []),
+        oliveRes.text().then(text => text ? JSON.parse(text) : []),
+        pressingRes.text().then(text => text ? JSON.parse(text) : []),
+        settingsRes.text().then(text => text ? JSON.parse(text) : {}),
+        productsRes.text().then(text => text ? JSON.parse(text) : [])
       ]);
 
       const blockedData = await fetch(`${API_URL}/availability`).then(res => {
@@ -140,16 +141,16 @@ const Boutique = () => {
         });
       }).catch(() => []);
 
-      setDbWilayas(wilayasData.map((w: any) => ({
+      setDbWilayas(Array.isArray(wilayasData) ? wilayasData.map((w: any) => ({
         code: w.wilaya_code,
         name: w.wilaya,
         shipping: w.price
-      })));
-      setOliveCategories(oliveData.map((c: any) => ({ ...c, model_type: 'OliveCategory' })));
-      setProducts(productsData.map((p: any) => ({ ...p, model_type: 'Product', stock_liters: p.stock_liters || 0 })));
-      setPressingServices(pressingData);
-      setProducerPercentage(settingsData.pressing_percentage_taken || 30);
-      setBlockedDates(blockedData || []);
+      })) : []);
+      setOliveCategories(Array.isArray(oliveData) ? oliveData.map((c: any) => ({ ...c, model_type: 'OliveCategory' })) : []);
+      setProducts(Array.isArray(productsData) ? productsData.map((p: any) => ({ ...p, model_type: 'Product', stock_liters: p.stock_liters || 0 })) : []);
+      setPressingServices(Array.isArray(pressingData) ? pressingData : []);
+      setProducerPercentage(settingsData?.pressing_percentage_taken || 30);
+      setBlockedDates(Array.isArray(blockedData) ? blockedData : []);
     } catch (err: any) {
       console.error("Failed to fetch boutique data:", err);
       setError(err.message || t("boutique.form.error"));
@@ -184,12 +185,13 @@ const Boutique = () => {
       setPressOilType({
         id: svc._id,
         name: svc.name,
-        conversionRate: 1 / (svc.yield_per_kg || 0.2), // Store conversion rate (kg/L) for UI consistency if needed
+        category: svc.category,
+        conversionRate: 1 / (svc.yield_per_kg || 0.2),
         processingPricePerKg: svc.fee,
         description: t("boutique.press.service_desc"),
         pricePerLiter: 0,
-        yieldPerKg: svc.yield_per_kg || 0.2 // Add yieldPerKg to the object as it's used in the code
-      } as any);
+        yieldPerKg: svc.yield_per_kg || 0.2,
+      });
     }
   }, [pressingServices, pressOilType.id]);
 
@@ -252,8 +254,7 @@ const Boutique = () => {
   const oliveKgNum = parseFloat(oliveKg) || 0;
   const pressCalc = useMemo(() => {
     if (oliveKgNum <= 0) return null;
-    // Use yieldPerKg which we added to our local pressOilType or fallback
-    const yieldPerKg = (pressOilType as any).yieldPerKg || (1 / (pressOilType.conversionRate || 5));
+    const yieldPerKg = pressOilType.yieldPerKg || (1 / (pressOilType.conversionRate || 5));
     const expectedOil = oliveKgNum * yieldPerKg;
     if (paymentMethod === "olives") {
       const producerShare = expectedOil * (producerPercentage / 100);
@@ -306,7 +307,7 @@ const Boutique = () => {
             cost: shipping,
             pickup_date: pickupDate,
           },
-          total_price: buyTotal
+          total: buyTotal
         }),
       });
       if (!res.ok) {
@@ -346,8 +347,9 @@ const Boutique = () => {
         },
         body: JSON.stringify({
           olive_quantity_kg: oliveKgNum,
+          oil_quality: pressOilType.category || pressOilType.quality_name || 'extra_virgin',
           yield: {
-            liters_per_kg: (pressOilType as any).yieldPerKg || (1 / (pressOilType.conversionRate || 5)),
+            liters_per_kg: pressOilType.yieldPerKg || (1 / (pressOilType.conversionRate || 5)),
             produced_oil_liters: pressCalc?.expectedOil || 0,
           },
           payment: {
@@ -982,8 +984,5 @@ const Boutique = () => {
     </div>
   );
 };
-
-// Internal component import for calendar
-import { Calendar as PickupCalendar } from "@/components/ui/calendar";
 
 export default Boutique;

@@ -615,9 +615,9 @@ export const fr = {
             products: "Stock & Produits",
             orders: "Commandes",
             pressing: "Pressage",
-            agenda: "Agenda",
+            clients: "Clients",
+            availability: "Agenda",
             agenda_pressing: "Agenda Pressing",
-            agenda_contacts: "Clients",
             archive: "Archives"
         },
         pickup_modal: {
@@ -641,6 +641,12 @@ export const fr = {
             title: "Planning des Commandes",
             search_placeholder: "Chercher un client (Nom ou Téléphone)...",
             empty: "Aucune activité programmée.",
+            availability: {
+                calendar_title: "Disponibilité du Moulin",
+                blocked_dates: "DATES BLOQUÉES",
+                click_to_block: "Cliquez sur une date pour la bloquer/débloquer dans le calendrier de réservation client.",
+                no_blocked: "Aucune date bloquée pour le moment."
+            },
             pickups: "Ramassages & Livraisons",
             pressing: "Pressages Programmés",
             type_pickup: "Récupération",

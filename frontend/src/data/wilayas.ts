@@ -70,11 +70,13 @@ import { OilQualityEnum } from "@/types/models";
 export interface OilType {
   id: string;
   name: string;
-  quality_name: OilQualityEnum; // Added for DB matching
+  quality_name?: OilQualityEnum; // Added for DB matching (optional for dynamic DB services)
+  category?: string;             // Raw DB category field from pressing service
   description: string;
   pricePerLiter: number;
-  conversionRate: number; // kg olives per 1 liter
-  processingPricePerKg: number; // DA per kg for pressing service
+  conversionRate: number;        // kg olives per 1 liter
+  processingPricePerKg: number;  // DA per kg for pressing service
+  yieldPerKg?: number;           // Liters per kg (inverse of conversionRate)
 }
 
 export const oilTypes: OilType[] = [

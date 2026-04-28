@@ -30,6 +30,7 @@ import Dashboard from "./pages/Dashboard";
 import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import PhoneRequirementModal from "./components/PhoneRequirementModal";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => {
           <AuthProvider>
             <BrowserRouter>
               <ScrollToTop />
+              <PhoneRequirementModal />
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/processus" element={<Processus />} />
