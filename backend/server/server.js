@@ -43,7 +43,31 @@ app.use(express.json());
 //security middeleware every request that comes to our  server will be automatically sanitized (install the pacage here before you run )
 app.use(mongoSanitize());
 
-//register your routes here 
+// Database connection management for Serverless
+let cachedDb = null;
+
+async function connectToDatabase() {
+  if (cachedDb && mongoose.connection.readyState === 1) {
+    return cachedDb;
+  }
+  console.log("=> Connecting to MongoDB...");
+  cachedDb = await mongoose.connect(process.env.MONGO_URL);
+  console.log("=> MongoDB Connected");
+  return cachedDb;
+}
+
+// Middleware to ensure DB connection
+app.use(async (req, res, next) => {
+  try {
+    await connectToDatabase();
+    next();
+  } catch (error) {
+    console.error("Database connection error:", error);
+    res.status(500).json({ message: "Erreur de connexion à la base de données." });
+  }
+});
+
+// Register your routes here 
 const authRoutes = require("./routes/auth").default;
 const users = require("./routes/users").default;
 const comments = require("./routes/comments").default;
@@ -70,14 +94,7 @@ app.use("/api/prices", prices);
 app.use("/api/pressing", pressing);
 app.use("/api/settings", settings);
 
-//connection to mongo atlas 
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log("MONGO DB IS CONNECTED"))
-  .catch(error => console.log(`MONGO DB CONNECTION FAILURE ${error}`));
-
-
-
-//sent the server to the port to listen to requests
+// Sent the server to the port to listen to requests
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`THE SERVER IS RUNNIG ON PORT ${PORT}`);
