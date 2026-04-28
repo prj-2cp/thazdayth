@@ -18,7 +18,7 @@ const pressingRequestSchema = new mongoose.Schema ({
 
     owner_notes:{type : String , default:""},
 
-    is_archived:{type:Date , default:Date.now},
+    is_archived:{type:Boolean , default:false},
     },
     {timestamps:true ,}
 );

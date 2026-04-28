@@ -11,7 +11,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, User, Globe, Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { LogOut, Bell, ShoppingBag } from "lucide-react";
+import { LogOut, Bell, ShoppingBag, LayoutDashboard } from "lucide-react";
 import { useAuth } from "@/Context/AuthContext";
 import {
   DropdownMenu,
@@ -208,6 +208,14 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("nav.profile") || "Mon Compte"}</p>
                     <p className="text-xs font-bold truncate">{user?.first_name} {user?.last_name}</p>
                   </div>
+                  {user?.role === 'owner' && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard" className="flex items-center gap-2 cursor-pointer rounded-xl py-2.5 transition-all">
+                        <LayoutDashboard className="w-4 h-4" />
+                        <span className="font-semibold">Dashboard</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem
                     onClick={logout}
                     className="flex items-center gap-2 cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10 rounded-xl py-2.5 transition-all"

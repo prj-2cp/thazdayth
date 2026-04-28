@@ -17,7 +17,7 @@ router.get("/", authenticate, ownerOnly,
     async (req, res) => {
         try {
             const orders = await Order.find({ is_archived : false})
-                .populate("user_id", "first_name last_name email phone adress is_blacklisted")
+                .populate("user_id", "first_name last_name email phone address is_blacklisted")
                 .populate({ path: "items.olive_category_id" })
                 .populate({ path: "items.pressing_service_id", select: "name"})
                 .sort({ created_at: -1 });
@@ -29,6 +29,36 @@ router.get("/", authenticate, ownerOnly,
         
     }
 );
+
+router.get("/archived", authenticate, ownerOnly,
+    async (req, res) => {
+        try {
+            const orders = await Order.find({ is_archived : true})
+                .populate("user_id", "first_name last_name email phone address is_blacklisted")
+                .populate({ path: "items.olive_category_id" })
+                .populate({ path: "items.pressing_service_id", select: "name"})
+                .sort({ created_at: -1 });
+            res.json(orders);
+        } catch(err) {
+            console.log(err);
+            res.status(500).json({ message: 'Erreur serveur.' });
+        }
+        
+    }
+);
+
+router.patch('/:id/archive', authenticate, ownerOnly, async (req, res) => {
+    try {
+        const order = await Order.findByIdAndUpdate(req.params.id, { is_archived: true }, { new: true });
+        if (!order) {
+            res.status(404).json({ message: 'Commande introuvable.' });
+            return;
+        }
+        res.json(order);
+    } catch(err) {
+        res.status(500).json({ message: "Erreur serveur." });
+    }
+});
 
 router.get("/my", authenticate, 
     async (req, res) => {

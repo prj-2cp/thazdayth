@@ -26,6 +26,8 @@ import MotDePasseOublie from "./pages/MotDePasseOublie";
 import Boutique from "./pages/Boutique";
 import Suivi from "./pages/Suivi";
 import Notifications from "./pages/Notifications";
+import Dashboard from "./pages/Dashboard";
+import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -67,7 +69,14 @@ const App = () => {
                   } 
                 />
                 <Route path="/notifications" element={<Notifications />} />
-                <Route path="/dashboard" element={<NotFound />} />
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <AdminRoute>
+                      <Dashboard />
+                    </AdminRoute>
+                  } 
+                />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

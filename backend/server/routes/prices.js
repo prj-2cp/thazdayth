@@ -1,10 +1,14 @@
-const express = require("express");
-const {body, validationResult} = require("express-validator");
-const OliveCategory = require("../models/oliveCategoryModel");
-const PressingService = require("../models/pressingServiceModel");
-const {authenticate, ownerOnly} = require("../middleware/auth");
-const router = express.Router()
+const express = require("express")
+const { body, validationResult } = require("express-validator")
+const OliveCategory = require("../models/oliveCategoryModel")
+const PressingService = require("../models/pressingServiceModel")
+const { authenticate, ownerOnly } = require("../middleware/auth")
 
+const router = express.Router();
+
+// --- Olive Categories ---
+
+// GET /api/prices/olives - Public
 router.get('/olives', async (req, res) => {
     try {
         const categories = await OliveCategory.find({ active: true });
@@ -15,6 +19,7 @@ router.get('/olives', async (req, res) => {
     }
 });
 
+// POST /api/prices/olives - Owner Only
 router.post('/olives', authenticate, ownerOnly, [
     body('name').notEmpty().withMessage('Le nom est requis'),
     body('price_per_liter').isNumeric().withMessage('Le prix doit être un nombre'),
@@ -26,12 +31,7 @@ router.post('/olives', authenticate, ownerOnly, [
         return;
     }
     try {
-        const {name, price_per_liter, stock_liters} = req.body
-        const category = await OliveCategory.create({
-            name,
-            price_per_liter,
-            stock_liters
-        });
+        const category = await OliveCategory.create(req.body);
         res.status(201).json(category);
     }
     catch (error) {
@@ -43,7 +43,7 @@ router.post('/olives', authenticate, ownerOnly, [
     }
 });
 
-
+// PATCH /api/prices/olives/:id - Owner Only
 router.patch('/olives/:id', authenticate, ownerOnly, [
     body('name').optional().notEmpty().withMessage('Le nom ne peut pas être vide'),
     body('price_per_liter').optional().isNumeric().withMessage('Le prix doit être un nombre'),
@@ -51,18 +51,19 @@ router.patch('/olives/:id', authenticate, ownerOnly, [
     body('active').optional().isBoolean().withMessage('Actif doit être un booléen'),
 ], async (req, res) => {
     try {
-        const category = await OliveCategory.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
+        const category = await OliveCategory.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!category) {
             res.status(404).json({ message: 'Catégorie introuvable.' });
             return;
         }
         res.json(category);
     }
-    catch (error) {
+    catch (err) {
         res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
+// DELETE /api/prices/olives/:id - Owner Only
 router.delete('/olives/:id', authenticate, ownerOnly, async (req, res) => {
     try {
         const category = await OliveCategory.findByIdAndDelete(req.params.id);
@@ -72,21 +73,25 @@ router.delete('/olives/:id', authenticate, ownerOnly, async (req, res) => {
         }
         res.json({ message: 'Catégorie supprimée avec succès.' });
     }
-    catch (error) {
+    catch (err) {
         res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
+// --- Pressing Services ---
+
+// GET /api/prices/pressing - Public
 router.get('/pressing', async (req, res) => {
     try {
         const services = await PressingService.find({ active: true });
         res.json(services);
     }
-    catch {
+    catch (err) {
         res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
+// POST /api/prices/pressing - Owner Only
 router.post('/pressing', authenticate, ownerOnly, [
     body('name').notEmpty().withMessage('Le nom est requis'),
     body('fee').isNumeric().withMessage('Le frais doit être un nombre'),
@@ -98,12 +103,7 @@ router.post('/pressing', authenticate, ownerOnly, [
         return;
     }
     try {
-        const { name, fee, yield_per_kg } = req.body
-        const service = await PressingService.create({
-            name,
-            fee,
-            yield_per_kg
-        });
+        const service = await PressingService.create(req.body);
         res.status(201).json(service);
     }
     catch (error) {
@@ -115,6 +115,7 @@ router.post('/pressing', authenticate, ownerOnly, [
     }
 });
 
+// PATCH /api/prices/pressing/:id - Owner Only
 router.patch('/pressing/:id', authenticate, ownerOnly, [
     body('name').optional().notEmpty().withMessage('Le nom ne peut pas être vide'),
     body('fee').optional().isNumeric().withMessage('Le frais doit être un nombre'),
@@ -122,18 +123,19 @@ router.patch('/pressing/:id', authenticate, ownerOnly, [
     body('active').optional().isBoolean().withMessage('Actif doit être un booléen'),
 ], async (req, res) => {
     try {
-        const service = await PressingService.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
+        const service = await PressingService.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!service) {
             res.status(404).json({ message: 'Service introuvable.' });
             return;
         }
         res.json(service);
     }
-    catch {
+    catch (err) {
         res.status(500).json({ message: 'Erreur serveur.' });
     }
 });
 
+// DELETE /api/prices/pressing/:id - Owner Only
 router.delete('/pressing/:id', authenticate, ownerOnly, async (req, res) => {
     try {
         const service = await PressingService.findByIdAndDelete(req.params.id);
@@ -143,7 +145,7 @@ router.delete('/pressing/:id', authenticate, ownerOnly, async (req, res) => {
         }
         res.json({ message: 'Service supprimé avec succès.' });
     }
-    catch {
+    catch (err) {
         res.status(500).json({ message: 'Erreur serveur.' });
     }
 });

@@ -1,4 +1,4 @@
-#  Projet TAZDAYTH - L'Or de Kabylie
+#  Projet TAZDAYTH 
 
 Ceci est mon projet de site web pour l'huilerie familiale **TAZDAYTH**. J'ai voulu créer une interface moderne et esthétique pour présenter notre huile d'olive traditionnelle et notre savoir-faire.
 
