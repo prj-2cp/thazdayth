@@ -95,6 +95,15 @@ const OrderManager: React.FC<OrderManagerProps> = ({
     } catch (err) {}
   };
 
+  const deleteOrder = async (id: string) => {
+    if (!window.confirm("Êtes-vous sûr de vouloir supprimer définitivement cette commande ?")) return;
+    try {
+      await request(`/orders/${id}`, { method: 'DELETE' });
+      toast.success("Commande supprimée");
+      onRefresh();
+    } catch (err) {}
+  };
+
   const filteredOrders = useMemo(() => {
     return orders.filter(o => {
       if (!showBlacklisted && o.user_id?.is_blacklisted) return false;
@@ -272,18 +281,20 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                       Livré
                     </button>
 
-                    <button 
-                      onClick={() => updateOrderStatus(o._id, 'cancelled')}
-                      className="px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-border bg-secondary/40 text-muted-foreground hover:bg-red-500/10 hover:text-red-600 hover:border-red-500/30 transition-all"
-                    >
-                      Annuler
-                    </button>
+                    {!isArchived && (
+                      <button 
+                        onClick={() => archiveOrder(o._id)}
+                        className="px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-border bg-secondary/40 text-muted-foreground hover:bg-zinc-800 hover:text-white transition-all flex items-center gap-2"
+                      >
+                        Archiver
+                      </button>
+                    )}
 
                     <button 
-                      onClick={() => archiveOrder(o._id)}
-                      className="px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-border bg-secondary/40 text-muted-foreground hover:bg-zinc-800 hover:text-white transition-all flex items-center gap-2"
+                      onClick={() => deleteOrder(o._id)}
+                      className="px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-border bg-secondary/40 text-muted-foreground hover:bg-red-500/10 hover:text-red-600 hover:border-red-500/30 transition-all"
                     >
-                      {isArchived ? "Désarchiver" : "Archiver"}
+                      Supprimer
                     </button>
 
                     <button 

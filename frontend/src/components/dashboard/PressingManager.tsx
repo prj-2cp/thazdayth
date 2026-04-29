@@ -163,15 +163,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                     Programmer
                   </button>
                   <div className="flex flex-col gap-2 ml-4">
-                    {isArchived ? (
-                      <button 
-                        onClick={() => deletePressing(r._id)}
-                        className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white rounded-xl transition-all"
-                        title="Supprimer"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    ) : (
+                    {!isArchived && (
                       <button 
                         onClick={() => archivePressing(r._id)}
                         className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all"
@@ -180,6 +172,13 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                         <Archive size={16} />
                       </button>
                     )}
+                    <button 
+                      onClick={() => deletePressing(r._id)}
+                      className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white rounded-xl transition-all"
+                      title="Supprimer"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                     <button 
                       onClick={() => toggleBlacklist(r.user_id?._id, r._id)}
                       disabled={actionLoadingId === r._id}
@@ -252,15 +251,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                         >
                           COMPLETE
                         </button>
-                        {isArchived ? (
-                          <button 
-                            onClick={() => deletePressing(r._id)}
-                            className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white rounded-xl transition-all shrink-0"
-                            title="Supprimer"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        ) : (
+                        {!isArchived && (
                           <button 
                             onClick={() => archivePressing(r._id)}
                             className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all shrink-0"
@@ -269,6 +260,13 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                             <Archive size={16} />
                           </button>
                         )}
+                        <button 
+                          onClick={() => deletePressing(r._id)}
+                          className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white rounded-xl transition-all shrink-0"
+                          title="Supprimer"
+                        >
+                          <Trash2 size={16} />
+                        </button>
                         <button 
                           onClick={() => toggleBlacklist(r.user_id?._id, r._id)}
                           disabled={actionLoadingId === r._id}
@@ -344,15 +342,10 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                      Confirmer
                    </button>
                    <button 
-                     onClick={() => {
-                        if (dateEditingId) {
-                            deletePressing(dateEditingId);
-                            setDateEditingId(null);
-                        }
-                     }} 
-                     className="px-10 py-5 bg-red-50 text-red-600 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-red-100 transition-all shadow-sm"
+                     onClick={() => setDateEditingId(null)} 
+                     className="px-10 py-5 bg-white text-[#8B7E66] text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-white/80 transition-all shadow-sm"
                    >
-                     Supprimer
+                     Annuler
                    </button>
                 </div>
              </motion.div>
