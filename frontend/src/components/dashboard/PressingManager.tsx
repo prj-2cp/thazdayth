@@ -307,10 +307,15 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                exit={{ scale: 0.95, opacity: 0 }}
                className="bg-[#EFEEE7] p-12 rounded-[3rem] shadow-2xl border border-white max-w-xl w-full"
              >
-                <h3 className="text-2xl font-black mb-8 text-[#4A3B28] uppercase tracking-widest flex items-center gap-3">
-                   <CalendarIcon className="w-6 h-6 text-[#6B8E23]" />
-                   Fixer Rendez-vous
-                </h3>
+                <div className="flex items-center justify-between mb-8">
+                  <h3 className="text-2xl font-black text-[#4A3B28] uppercase tracking-widest flex items-center gap-3">
+                     <CalendarIcon className="w-6 h-6 text-[#6B8E23]" />
+                     Fixer Rendez-vous
+                  </h3>
+                  <button onClick={() => setDateEditingId(null)} className="text-[#8B7E66] hover:text-[#4A3B28] transition-colors p-2 rounded-full hover:bg-black/5">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  </button>
+                </div>
                 <div className="space-y-8">
                    <div className="space-y-2">
                       <label className="text-[11px] font-black uppercase text-[#8B7E66] tracking-widest ml-1">Date d'apport d'olives</label>
@@ -339,10 +344,15 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                      Confirmer
                    </button>
                    <button 
-                     onClick={() => setDateEditingId(null)} 
-                     className="px-10 py-5 bg-white text-[#8B7E66] text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-white/80 transition-all shadow-sm"
+                     onClick={() => {
+                        if (dateEditingId) {
+                            deletePressing(dateEditingId);
+                            setDateEditingId(null);
+                        }
+                     }} 
+                     className="px-10 py-5 bg-red-50 text-red-600 text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-red-100 transition-all shadow-sm"
                    >
-                     Annuler
+                     Supprimer
                    </button>
                 </div>
              </motion.div>
