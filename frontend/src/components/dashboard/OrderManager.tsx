@@ -243,6 +243,9 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                            {item.olive_category_id?.name || item.name}
                          </span>
                          <span className="text-sm font-bold text-primary italic">x{item.quantity}L</span>
+                         <span className="text-xs font-semibold text-muted-foreground ml-auto bg-secondary/50 px-2 py-1 rounded-md">
+                           {item.subtotal ? item.subtotal.toLocaleString() : 0} DA
+                         </span>
                       </div>
                     ))}
                   </div>
