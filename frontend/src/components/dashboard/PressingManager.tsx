@@ -37,17 +37,20 @@ const PressingManager: React.FC<PressingManagerProps> = ({
 
   const updateDates = async (id: string) => {
     try {
+      const payload: any = {};
+      if (tempDates.bring) payload.bring_olives_date = tempDates.bring;
+      if (tempDates.collect) payload.collect_oil_date = tempDates.collect;
+
       await request(`/pressing/${id}/appointment`, {
         method: 'PATCH',
-        body: {
-          bring_olives_date: tempDates.bring,
-          collect_oil_date: tempDates.collect
-        }
+        body: payload
       });
       toast.success("RDV Programmé");
       setDateEditingId(null);
       onRefresh();
-    } catch (err) {}
+    } catch (err: any) {
+      toast.error(err.message || "Erreur lors de la programmation");
+    }
   };
 
   const updatePressingStatus = async (id: string, status: string) => {
