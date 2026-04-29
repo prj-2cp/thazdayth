@@ -39,7 +39,7 @@ const orderSchema = new mongoose.Schema ({
     is_archived:{type:Boolean , default : false},
 
 },
-{timestamps : true },
+{timestamps : { createdAt: 'created_at', updatedAt: 'updated_at' } },
 );
 
 module.exports = mongoose.model ('order' , orderSchema) ;

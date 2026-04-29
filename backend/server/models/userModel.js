@@ -16,5 +16,5 @@ const userSchema = new mongoose.Schema({
     reset_password_code: { type: String },
     reset_password_expires: { type: Date },
 }, 
-{timestamps:true ,});
+{timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 module.exports = mongoose.model('user' , userSchema) ;

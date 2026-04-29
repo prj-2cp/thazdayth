@@ -239,7 +239,7 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                 <div className="flex flex-col sm:flex-row justify-between items-center pt-6 border-t border-border/40 gap-6">
                   <div className="text-xl font-bold">
                     <span className="text-muted-foreground/40 text-sm font-medium mr-2">Total:</span>
-                    {o.total_price.toLocaleString()} <span className="text-xs text-muted-foreground">DA</span>
+                    {(o.total || 0).toLocaleString()} <span className="text-xs text-muted-foreground">DA</span>
                   </div>
 
                   <div className="flex flex-wrap items-center justify-center gap-3">
