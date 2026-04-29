@@ -73,12 +73,24 @@ const PressingManager: React.FC<PressingManagerProps> = ({
   };
 
   const pressingWaitlist = useMemo(() => 
-    pressingRequests.filter(r => !r.bring_olives_date && r.status === 'pending'),
+    pressingRequests
+      .filter(r => !r.bring_olives_date && r.status === 'pending')
+      .sort((a, b) => {
+        const dateA = new Date(a.created_at || a.createdAt || 0).getTime();
+        const dateB = new Date(b.created_at || b.createdAt || 0).getTime();
+        return dateB - dateA;
+      }),
     [pressingRequests]
   );
 
   const pressingScheduled = useMemo(() => 
-    pressingRequests.filter(r => r.bring_olives_date),
+    pressingRequests
+      .filter(r => r.bring_olives_date)
+      .sort((a, b) => {
+        const dateA = new Date(a.created_at || a.createdAt || 0).getTime();
+        const dateB = new Date(b.created_at || b.createdAt || 0).getTime();
+        return dateB - dateA;
+      }),
     [pressingRequests]
   );
 
