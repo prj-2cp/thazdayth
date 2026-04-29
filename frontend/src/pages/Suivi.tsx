@@ -206,6 +206,12 @@ const Suivi = () => {
 
     // handlePickupAction removed as it's no longer needed with the new calendar system
 
+    const formatDate = (dateString: any) => {
+        if (!dateString) return t("suivi.awaiting") || "---";
+        const date = new Date(dateString);
+        return isNaN(date.getTime()) ? "---" : date.toLocaleDateString();
+    };
+
     const getStatusIcon = (status: OrderStatus | PressingStatus) => {
         switch (status) {
             case 'pending': return <Clock className="w-5 h-5 text-amber-500" />;
@@ -340,7 +346,7 @@ const Suivi = () => {
                                                 <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
                                                     <div>
                                                         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">{t("suivi.order_num")}{order.tracking_code || order._id?.slice(-6).toUpperCase()}</p>
-                                                        <h3 className="font-bold text-lg">{order.created_at ? new Date(order.created_at).toLocaleDateString() : "---"}</h3>
+                                                        <h3 className="font-bold text-lg">{formatDate(order.created_at)}</h3>
                                                     </div>
                                                     <div className="flex items-center gap-3">
                                                         <Link to="/boutique" className="hidden sm:flex text-xs font-semibold px-3 py-1.5 rounded-lg border border-primary/20 text-primary hover:bg-primary/5 transition-colors">
@@ -397,7 +403,7 @@ const Suivi = () => {
                                                                         (order.shipping?.pickup_date ? (
                                                                             <div className="flex flex-col gap-1 mt-1">
                                                                                 <span className="text-primary font-bold text-xs">
-                                                                                    {t("suivi.pickup.scheduled_for", { date: new Date(order.shipping.pickup_date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }) || `Retrait prévu le ${new Date(order.shipping.pickup_date).toLocaleDateString()}`}
+                                                                                    {t("suivi.pickup.scheduled_for", { date: formatDate(order.shipping.pickup_date) }) || `Retrait prévu le ${formatDate(order.shipping.pickup_date)}`}
                                                                                 </span>
                                                                                 <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
                                                                                     <MapPin className="w-3 h-3" />
@@ -407,7 +413,7 @@ const Suivi = () => {
                                                                         ) : (order.shipping?.pickup_range_start ? (
                                                                             <div className="flex flex-col gap-1 mt-1">
                                                                                 <span className="text-amber-600 font-bold text-xs italic">
-                                                                                    {t("suivi.pickup.available_from", { start: new Date(order.shipping.pickup_range_start).toLocaleDateString(), end: new Date(order.shipping.pickup_range_end!).toLocaleDateString() })}
+                                                                                    {t("suivi.pickup.available_from", { start: formatDate(order.shipping.pickup_range_start), end: formatDate(order.shipping.pickup_range_end!) })}
                                                                                 </span>
                                                                             </div>
                                                                         ) : (
@@ -465,7 +471,7 @@ const Suivi = () => {
                                                 <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
                                                     <div>
                                                         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">{t("suivi.pressing_num")}{req.tracking_code || req._id?.slice(-6).toUpperCase()}</p>
-                                                        <h3 className="font-bold text-lg">{req.created_at ? new Date(req.created_at).toLocaleDateString() : "---"}</h3>
+                                                        <h3 className="font-bold text-lg">{formatDate(req.created_at)}</h3>
                                                     </div>
                                                     <div className="flex items-center gap-3">
                                                         <button onClick={() => navigate("/boutique")} className="hidden sm:flex text-xs font-semibold px-3 py-1.5 rounded-lg border border-primary/20 text-primary hover:bg-primary/5 transition-colors">
@@ -525,11 +531,11 @@ const Suivi = () => {
                                                             <div className="flex flex-col gap-2">
                                                                 <div className="flex items-center gap-2 text-primary font-medium text-sm">
                                                                     <Calendar className="w-4 h-4" />
-                                                                    <span>{t("suivi.bringing_olives")} : {req.bring_olives_date ? new Date(req.bring_olives_date).toLocaleDateString() : t("suivi.awaiting")}</span>
+                                                                    <span>{t("suivi.bringing_olives")} : {formatDate(req.bring_olives_date)}</span>
                                                                 </div>
                                                                 <div className="flex items-center gap-2 text-primary/80 font-medium text-sm">
                                                                     <Droplets className="w-4 h-4" />
-                                                                    <span>{t("suivi.collecting_oil")} : {req.collect_oil_date ? new Date(req.collect_oil_date).toLocaleDateString() : t("suivi.awaiting")}</span>
+                                                                    <span>{t("suivi.collecting_oil")} : {formatDate(req.collect_oil_date)}</span>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -105,6 +105,12 @@ const Testimonials = () => {
         }
     };
 
+    const formatDate = (dateString: any) => {
+        if (!dateString) return "---";
+        const date = new Date(dateString);
+        return isNaN(date.getTime()) ? "---" : date.toLocaleDateString();
+    };
+
     const renderStars = (count: number, interactive = false) => {
         return (
             <div className="flex gap-1">
@@ -245,7 +251,7 @@ const Testimonials = () => {
                                                         <div>
                                                             <h4 className="font-bold text-lg text-foreground">{c.user_id?.first_name} {c.user_id?.last_name}</h4>
                                                             <div className="flex items-center gap-2 mt-0.5">
-                                                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{new Date(c.createdAt).toLocaleDateString()}</p>
+                                                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{formatDate(c.createdAt)}</p>
                                                                 <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
                                                                 <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-widest">{t("testimonials.buyer_verified")}</span>
                                                             </div>

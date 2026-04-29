@@ -67,6 +67,12 @@ const NotificationDrawer = ({
         }
     };
 
+    const formatDate = (dateString: any) => {
+        if (!dateString) return "---";
+        const date = new Date(dateString);
+        return isNaN(date.getTime()) ? "---" : date.toLocaleDateString();
+    };
+
     const markAsRead = async (id: string) => {
         // Optimistic update
         setNotifications(prev => prev.map(n => n._id === id ? { ...n, is_read: true } : n));
@@ -178,7 +184,7 @@ const NotificationDrawer = ({
                                         </div>
                                         <p className="text-xs text-muted-foreground leading-relaxed mb-2">{n.message}</p>
                                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
-                                            {new Date(n.created_at).toLocaleDateString()}
+                                            {formatDate(n.created_at)}
                                         </p>
                                     </div>
                                 ))

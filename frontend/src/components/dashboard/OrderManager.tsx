@@ -50,6 +50,12 @@ const OrderManager: React.FC<OrderManagerProps> = ({
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
   const [showBlacklisted, setShowBlacklisted] = useState(false);
 
+  const formatDate = (dateString: any) => {
+    if (!dateString) return "---";
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? "---" : date.toLocaleDateString();
+  };
+
   const updateOrderStatus = async (id: string, status: string) => {
     try {
       await request(`/orders/${id}/status`, {
@@ -194,7 +200,7 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                       {o.user_id?.first_name} {o.user_id?.last_name}
                     </h3>
                     <p className="text-xs text-muted-foreground/60 font-medium">
-                      {new Date(o.created_at).toLocaleDateString()}
+                      {formatDate(o.created_at)}
                     </p>
                   </div>
                   <div className={cn(

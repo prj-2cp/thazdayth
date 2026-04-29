@@ -64,6 +64,12 @@ const PressingManager: React.FC<PressingManagerProps> = ({
     } catch (err) {}
   };
 
+  const formatDate = (dateString: any) => {
+    if (!dateString) return "---";
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? "---" : date.toLocaleDateString();
+  };
+
   const archivePressing = async (id: string) => {
     try {
       await request(`/pressing/${id}/archive`, { method: 'PATCH' });
@@ -228,11 +234,11 @@ const PressingManager: React.FC<PressingManagerProps> = ({
 
                 <div className="flex flex-col items-end gap-3">
                    <div className="px-6 py-2.5 bg-[#6B8E23] text-white rounded-full text-[11px] font-black uppercase tracking-widest min-w-[170px] text-center shadow-sm">
-                      APPORT: {new Date(r.bring_olives_date).toLocaleDateString()}
+                      APPORT: {formatDate(r.bring_olives_date)}
                    </div>
                    {r.collect_oil_date && (
                      <div className="px-6 py-2.5 bg-[#D9D9C3] text-[#6B8E23] rounded-full text-[11px] font-black uppercase tracking-widest min-w-[170px] text-center">
-                        COLLECTE: {new Date(r.collect_oil_date).toLocaleDateString()}
+                        COLLECTE: {formatDate(r.collect_oil_date)}
                      </div>
                    )}
                    <button 

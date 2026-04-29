@@ -58,6 +58,12 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
     } catch (err) {}
   };
 
+  const formatDate = (dateString: any) => {
+    if (!dateString) return "---";
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? "---" : date.toLocaleDateString();
+  };
+
   const deletePressing = async (id: string) => {
     if (!confirm("Supprimer cette demande ?")) return;
     try {
@@ -281,11 +287,11 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
 
                       <div className="flex flex-col items-end gap-3">
                          <div className="px-5 py-2 bg-[#6B8E23] text-white rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20 shadow-sm min-w-[150px] text-center">
-                            APPORT: {new Date(r.bring_olives_date).toLocaleDateString()}
+                            APPORT: {formatDate(r.bring_olives_date)}
                          </div>
                          {r.collect_oil_date && (
                            <div className="px-5 py-2 bg-[#D9D9C3] text-[#556B2F] rounded-full text-[10px] font-black uppercase tracking-widest border border-border min-w-[150px] text-center">
-                              COLLECTE: {new Date(r.collect_oil_date).toLocaleDateString()}
+                              COLLECTE: {formatDate(r.collect_oil_date)}
                            </div>
                          )}
                          <button 
@@ -487,9 +493,9 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                           <div>
                             <p className="font-bold text-sm tracking-tight">{item.user_id?.first_name} {item.user_id?.last_name}</p>
                             <div className="flex items-center gap-2 mt-0.5">
-                              <p className="text-[10px] font-black text-green-600 uppercase">Apport: {new Date(item.bring_olives_date).toLocaleDateString()}</p>
+                              <p className="text-[10px] font-black text-green-600 uppercase">Apport: {formatDate(item.bring_olives_date)}</p>
                               {item.collect_oil_date && (
-                                <p className="text-[10px] font-black text-primary/60 uppercase">• Retrait: {new Date(item.collect_oil_date).toLocaleDateString()}</p>
+                                <p className="text-[10px] font-black text-primary/60 uppercase">• Retrait: {formatDate(item.collect_oil_date)}</p>
                               )}
                             </div>
                           </div>
