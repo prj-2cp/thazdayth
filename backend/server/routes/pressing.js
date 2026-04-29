@@ -100,14 +100,29 @@ router.patch('/:id/status', authenticate, ownerOnly, async (req, res) => {
         return;
     }
     try {
+        if (status === 'rejected') {
+            const request = await PressingRequest.findById(req.params.id);
+            if (!request) {
+                res.status(404).json({ message: 'Demande introuvable.' });
+                return;
+            }
+            const notifTitle = 'Demande de pressage rejetée';
+            const notifContent = 'Votre demande de pressage a été rejetée.';
+            await createNotification(request.user_id, notifTitle, notifContent, request._id);
+
+            await PressingRequest.findByIdAndDelete(req.params.id);
+            res.json({ message: 'Demande supprimée.', request });
+            return;
+        }
+
         const request = await PressingRequest.findByIdAndUpdate(req.params.id, { status }, { new: true });
         if (!request) {
             res.status(404).json({ message: 'Demande introuvable.' });
             return;
         }
-        
+
         await createNotification(request.user_id, 'Mise à jour de votre demande de pressage', `Le statut de votre demande de pressage est maintenant : ${status}.`, request._id);
-        
+
         res.json(request);
     }
     catch (err) {

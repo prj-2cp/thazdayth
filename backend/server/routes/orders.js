@@ -60,6 +60,19 @@ router.patch('/:id/archive', authenticate, ownerOnly, async (req, res) => {
     }
 });
 
+router.delete('/:id', authenticate, ownerOnly, async (req, res) => {
+    try {
+        const order = await Order.findByIdAndDelete(req.params.id);
+        if (!order) {
+            res.status(404).json({ message: 'Commande introuvable.' });
+            return;
+        }
+        res.json({ message: 'Commande supprimée.' });
+    } catch(err) {
+        res.status(500).json({ message: "Erreur serveur." });
+    }
+});
+
 router.get("/my", authenticate, 
     async (req, res) => {
         try {
@@ -166,6 +179,22 @@ router.patch('/:id/status', authenticate, ownerOnly, async (req, res) => {
         return;
     }
     try {
+        if (status === 'cancelled') {
+            const order = await Order.findById(req.params.id);
+            if (!order) {
+                res.status(404).json({ message: 'Commande introuvable.' });
+                return;
+            }
+            // Notify user before deletion
+            const notifTitle = "Commande annulée";
+            const notifContent = `Votre commande a été annulée.`;
+            await createNotification(order.user_id, notifContent, notifTitle, order._id);
+
+            await Order.findByIdAndDelete(req.params.id);
+            res.json({ message: 'Commande supprimée.', order });
+            return;
+        }
+
         const order = await Order.findByIdAndUpdate(req.params.id, { status }, { returnDocument: 'after' });
         if (!order) {
             res.status(404).json({ message: 'Commande introuvable.' });
