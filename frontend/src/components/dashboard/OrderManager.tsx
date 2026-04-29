@@ -244,7 +244,7 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                          </span>
                          <span className="text-sm font-bold text-primary italic">x{item.quantity}L</span>
                          <span className="text-xs font-semibold text-muted-foreground ml-auto bg-secondary/50 px-2 py-1 rounded-md">
-                           {item.subtotal ? item.subtotal.toLocaleString() : 0} DA
+                           {(item.subtotal || (item.quantity * (item.olive_price_at_order || 0))).toLocaleString()} DA
                          </span>
                       </div>
                     ))}
@@ -255,7 +255,7 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                 <div className="flex flex-col sm:flex-row justify-between items-center pt-6 border-t border-border/40 gap-6">
                   <div className="text-xl font-bold">
                     <span className="text-muted-foreground/40 text-sm font-medium mr-2">Total:</span>
-                    {(o.total || 0).toLocaleString()} <span className="text-xs text-muted-foreground">DA</span>
+                    {(o.total || o.items.reduce((acc: number, item: any) => acc + (item.subtotal || (item.quantity * (item.olive_price_at_order || 0))), 0) + (o.shipping?.cost || 0)).toLocaleString()} <span className="text-xs text-muted-foreground">DA</span>
                   </div>
 
                   <div className="flex flex-wrap items-center justify-center gap-3">
