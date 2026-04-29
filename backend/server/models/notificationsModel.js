@@ -7,7 +7,7 @@ const notificationSchema = new mongoose.Schema ({
     message :{type:String , required : true } ,
     is_read:{type:Boolean , default : false} ,
 },
-{timestamps : true } ,
+{timestamps : { createdAt: 'created_at', updatedAt: 'updated_at' } } ,
 );
 
 module.exports = mongoose.model('notification' , notificationSchema) ;

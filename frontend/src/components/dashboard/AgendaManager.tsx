@@ -365,9 +365,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                              <Mail className="w-4 h-4 opacity-50" /> {item.user_id?.email}
                           </span>
                           <span className="text-xs font-bold text-muted-foreground flex items-center gap-2 bg-secondary px-3 py-1 rounded-lg border border-border/50 shadow-sm">
-                             <Clock className="w-4 h-4 opacity-70" /> {new Date(item.date).toLocaleDateString(undefined, {
-                               weekday: 'long', day: 'numeric', month: 'long'
-                             })}
+                             <Clock className="w-4 h-4 opacity-70" /> {formatDate(item.date)}
                           </span>
                         </div>
                       </div>
@@ -594,8 +592,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                     <div className="flex items-center gap-4">
                       <div className="w-3 h-3 rounded-full bg-red-500" />
                       <div className="flex flex-col">
-                        <span className="font-bold text-sm tracking-tight">{new Date(d.date).toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' })}</span>
-                        <span className="text-[10px] text-muted-foreground uppercase font-black tracking-tighter">{new Date(d.date).getFullYear()}</span>
+                        <span className="font-bold text-sm tracking-tight">{formatDate(d.date)}</span>
                       </div>
                     </div>
                     <button 

@@ -38,6 +38,12 @@ const UserManager: React.FC<UserManagerProps> = ({
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [showBlacklisted, setShowBlacklisted] = useState(false);
 
+  const formatDate = (dateString: any) => {
+    if (!dateString) return "---";
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? "---" : date.toLocaleDateString();
+  };
+
   const toggleBlacklist = async (userId: string) => {
     setLoadingId(userId);
     try {
@@ -59,7 +65,11 @@ const UserManager: React.FC<UserManagerProps> = ({
 
       const searchStr = `${u.first_name} ${u.last_name} ${u.email} ${u.phone}`.toLowerCase();
       return searchStr.includes(searchTerm.toLowerCase());
-    }).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    }).sort((a, b) => {
+      const dateA = new Date(a.created_at || a.createdAt || 0).getTime();
+      const dateB = new Date(b.created_at || b.createdAt || 0).getTime();
+      return dateB - dateA;
+    });
   }, [users, searchTerm, showBlacklisted]);
 
   return (
@@ -133,7 +143,7 @@ const UserManager: React.FC<UserManagerProps> = ({
                       <div className="flex flex-col">
                          <span className="text-[8px] font-black text-muted-foreground/40 uppercase tracking-tighter">Inscrit le</span>
                          <span className="text-[11px] font-black text-foreground/70 font-sans">
-                            {new Date(u.created_at).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}
+                            {formatDate(u.created_at)}
                          </span>
                       </div>
                    </div>

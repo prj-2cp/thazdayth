@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 interface Notification {
     _id: string;
     title: string;
-    content: string;
+    message: string;
     related_id?: string;
     is_read: boolean;
     created_at: string;
@@ -88,6 +88,12 @@ const Notifications = () => {
         } catch (err) {
             console.error("Error marking all as read:", err);
         }
+    };
+
+    const formatDate = (dateString: any) => {
+        if (!dateString) return "---";
+        const date = new Date(dateString);
+        return isNaN(date.getTime()) ? "---" : date.toLocaleString();
     };
 
     const getIcon = (title: string) => {
@@ -186,12 +192,12 @@ const Notifications = () => {
                                                 {!notif.is_read && <span className="w-2 h-2 rounded-full bg-primary" />}
                                             </div>
                                             <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                                                {notif.content}
+                                                {notif.message}
                                             </p>
                                             <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest opacity-60">
                                                 <span className="flex items-center gap-1.5">
                                                     <Clock className="w-3 h-3" />
-                                                    {new Date(notif.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                                                    {formatDate(notif.created_at || (notif as any).createdAt)}
                                                 </span>
                                                 {notif.related_id && (
                                                     <Link 

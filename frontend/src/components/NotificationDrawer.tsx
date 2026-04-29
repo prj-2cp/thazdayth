@@ -184,7 +184,7 @@ const NotificationDrawer = ({
                                         </div>
                                         <p className="text-xs text-muted-foreground leading-relaxed mb-2">{n.message}</p>
                                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
-                                            {formatDate(n.created_at)}
+                                            {formatDate(n.created_at || (n as any).createdAt)}
                                         </p>
                                     </div>
                                 ))

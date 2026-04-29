@@ -346,7 +346,7 @@ const Suivi = () => {
                                                 <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
                                                     <div>
                                                         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">{t("suivi.order_num")}{order.tracking_code || order._id?.slice(-6).toUpperCase()}</p>
-                                                        <h3 className="font-bold text-lg">{formatDate(order.created_at)}</h3>
+                                                        <h3 className="font-bold text-lg">{formatDate(order.created_at || (order as any).createdAt)}</h3>
                                                     </div>
                                                     <div className="flex items-center gap-3">
                                                         <Link to="/boutique" className="hidden sm:flex text-xs font-semibold px-3 py-1.5 rounded-lg border border-primary/20 text-primary hover:bg-primary/5 transition-colors">
@@ -471,7 +471,7 @@ const Suivi = () => {
                                                 <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
                                                     <div>
                                                         <p className="text-xs text-muted-foreground uppercase tracking-widest mb-1">{t("suivi.pressing_num")}{req.tracking_code || req._id?.slice(-6).toUpperCase()}</p>
-                                                        <h3 className="font-bold text-lg">{formatDate(req.created_at)}</h3>
+                                                        <h3 className="font-bold text-lg">{formatDate(req.created_at || (req as any).createdAt)}</h3>
                                                     </div>
                                                     <div className="flex items-center gap-3">
                                                         <button onClick={() => navigate("/boutique")} className="hidden sm:flex text-xs font-semibold px-3 py-1.5 rounded-lg border border-primary/20 text-primary hover:bg-primary/5 transition-colors">
