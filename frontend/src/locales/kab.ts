@@ -403,8 +403,10 @@ export const kab = {
         },
         success: {
             buy_title: "Talaba tebded!",
+            order_title: "Talaba tebded!",
             press_title: "Asuter yettwazen!",
             buy_desc: "Talaba tebded. Ad k-nessiwel i ttawil n wawi.",
+            order_desc: "Talaba tebded. Ad k-nessiwel i ttawil n wawi.",
             press_desc: "Asuter-inek yeṭṭef amḍi. Amlas n teɛṣart ad k-id-yessiwal s tɣawla akken ad temlaleḍ.",
             another: "Azen asuter nniḍen",
             thanks_buy: "Tanemmirt {{name}}! Talaba-inek n {{qty}} {{oil}} ad tessiweḍ ɣer {{wilaya}}.",

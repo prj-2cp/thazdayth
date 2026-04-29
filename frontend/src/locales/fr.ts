@@ -432,8 +432,10 @@ export const fr = {
         },
         success: {
             buy_title: "Commande confirmée !",
+            order_title: "Commande confirmée !",
             press_title: "Demande envoyée !",
             buy_desc: "Votre commande a été enregistrée. Vous serez contacté pour la livraison.",
+            order_desc: "Votre commande a été enregistrée. Vous serez contacté pour la livraison.",
             press_desc: "Votre demande de trituration a été enregistrée. Nous vous contacterons bientôt.",
             another: "Passer une autre demande",
             thanks_buy: "Merci {{name}} ! Votre commande de {{qty}} {{oil}} sera livrée à {{wilaya}}.",

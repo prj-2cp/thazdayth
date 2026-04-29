@@ -432,8 +432,10 @@ export const en = {
         },
         success: {
             buy_title: "Order confirmed!",
+            order_title: "Order confirmed!",
             press_title: "Reservation sent!",
             buy_desc: "Your order has been registered. You will be contacted for delivery.",
+            order_desc: "Your order has been registered. You will be contacted for delivery.",
             press_desc: "Your request has been registered. The TAZDAYTH team will call you shortly for details.",
             another: "Make another request",
             thanks_buy: "Thank you {{name}}! Your order of {{qty}} {{oil}} will be delivered to {{wilaya}}.",
