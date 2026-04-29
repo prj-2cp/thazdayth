@@ -15,6 +15,12 @@ const pressingRequestSchema = new mongoose.Schema ({
     status:{type: String,enum: ['pending', 'accepted', 'rejected', 'completed'],default: 'pending',},
 
     appointment_date:{type:Date} ,
+    
+    bring_olives_date: { type: Date },
+    
+    collect_oil_date: { type: Date },
+
+    tracking_code: { type: String },
 
     owner_notes:{type : String , default:""},
 
