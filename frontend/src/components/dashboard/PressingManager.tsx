@@ -37,7 +37,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
 
   const updateDates = async (id: string) => {
     try {
-      await request(`/pressing/${id}/dates`, {
+      await request(`/pressing/${id}/appointment`, {
         method: 'PATCH',
         body: {
           bring_olives_date: tempDates.bring,
@@ -46,6 +46,17 @@ const PressingManager: React.FC<PressingManagerProps> = ({
       });
       toast.success("RDV Programmé");
       setDateEditingId(null);
+      onRefresh();
+    } catch (err) {}
+  };
+
+  const updatePressingStatus = async (id: string, status: string) => {
+    try {
+      await request(`/pressing/${id}/status`, {
+        method: 'PATCH',
+        body: { status }
+      });
+      toast.success("Statut mis à jour");
       onRefresh();
     } catch (err) {}
   };
@@ -212,10 +223,16 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                    >
                       Modifier
                    </button>
-                    <div className="flex gap-2 mt-4">
+                    <div className="flex gap-2 mt-4 w-full">
+                        <button 
+                          onClick={() => updatePressingStatus(r._id, 'completed')}
+                          className="flex-1 p-3 bg-[#6B8E23] text-white hover:bg-[#556B2F] rounded-xl transition-all font-black text-[11px] uppercase tracking-widest text-center shadow-sm"
+                        >
+                          COMPLETE
+                        </button>
                         <button 
                           onClick={() => archivePressing(r._id)}
-                          className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all"
+                          className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all shrink-0"
                           title="Archiver"
                         >
                           <Archive size={16} />
