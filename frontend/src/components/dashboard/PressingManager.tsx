@@ -23,7 +23,7 @@ interface PressingManagerProps {
   isArchived?: boolean;
 }
 
-import { ShieldAlert, ShieldCheck, Archive } from "lucide-react";
+import { ShieldAlert, ShieldCheck, Archive, Trash2 } from "lucide-react";
 
 const PressingManager: React.FC<PressingManagerProps> = ({
   pressingRequests,
@@ -68,6 +68,15 @@ const PressingManager: React.FC<PressingManagerProps> = ({
     try {
       await request(`/pressing/${id}/archive`, { method: 'PATCH' });
       toast.success("Demande archivée");
+      onRefresh();
+    } catch (err) {}
+  };
+
+  const deletePressing = async (id: string) => {
+    if (!window.confirm("Êtes-vous sûr de vouloir supprimer définitivement cette demande ?")) return;
+    try {
+      await request(`/pressing/${id}`, { method: 'DELETE' });
+      toast.success("Demande supprimée");
       onRefresh();
     } catch (err) {}
   };
@@ -154,13 +163,23 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                     Programmer
                   </button>
                   <div className="flex flex-col gap-2 ml-4">
-                    <button 
-                      onClick={() => archivePressing(r._id)}
-                      className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all"
-                      title="Archiver"
-                    >
-                      <Archive size={16} />
-                    </button>
+                    {isArchived ? (
+                      <button 
+                        onClick={() => deletePressing(r._id)}
+                        className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white rounded-xl transition-all"
+                        title="Supprimer"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    ) : (
+                      <button 
+                        onClick={() => archivePressing(r._id)}
+                        className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all"
+                        title="Archiver"
+                      >
+                        <Archive size={16} />
+                      </button>
+                    )}
                     <button 
                       onClick={() => toggleBlacklist(r.user_id?._id, r._id)}
                       disabled={actionLoadingId === r._id}
@@ -233,13 +252,23 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                         >
                           COMPLETE
                         </button>
-                        <button 
-                          onClick={() => archivePressing(r._id)}
-                          className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all shrink-0"
-                          title="Archiver"
-                        >
-                          <Archive size={16} />
-                        </button>
+                        {isArchived ? (
+                          <button 
+                            onClick={() => deletePressing(r._id)}
+                            className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white rounded-xl transition-all shrink-0"
+                            title="Supprimer"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        ) : (
+                          <button 
+                            onClick={() => archivePressing(r._id)}
+                            className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all shrink-0"
+                            title="Archiver"
+                          >
+                            <Archive size={16} />
+                          </button>
+                        )}
                         <button 
                           onClick={() => toggleBlacklist(r.user_id?._id, r._id)}
                           disabled={actionLoadingId === r._id}
