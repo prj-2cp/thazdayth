@@ -102,10 +102,10 @@ const OrderManager: React.FC<OrderManagerProps> = ({
   };
 
   const deleteOrder = async (id: string) => {
-    if (!window.confirm("Êtes-vous sûr de vouloir supprimer définitivement cette commande ?")) return;
+    if (!window.confirm(t("dashboard.orders.delete_confirm"))) return;
     try {
       await request(`/orders/${id}`, { method: 'DELETE' });
-      toast.success("Commande supprimée");
+      toast.success(t("dashboard.orders.delete_success"));
       onRefresh();
     } catch (err) {}
   };
@@ -286,7 +286,7 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                       )}
                     >
                       <MoreHorizontal className="w-3 h-3" />
-                      Notes
+                      {t("dashboard.orders.notes")}
                     </button>
 
                     <button 

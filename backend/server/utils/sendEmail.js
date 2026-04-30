@@ -17,8 +17,8 @@ async function getTransporter() {
     if (hasRealCredentials) {
         transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: (process.env.EMAIL_PASS || '').trim(),
@@ -176,6 +176,7 @@ const sendWelcomeEmail = async (email, name) => {
         logEmailSent(email, info);
     } catch (error) {
         console.error(`[MAIL] Échec d'envoi à ${email}:`, error.message);
+        console.error(`[MAIL] Détails de l'erreur:`, error);
     }
 };
 
@@ -256,7 +257,7 @@ const sendNotificationEmail = async (to, title, message) => {
         const info = await transport.sendMail(mailOptions);
         logEmailSent(to, info);
     } catch (error) {
-        console.error(`[MAIL] Échec d'envoi notification:`, error.message);
+        console.error(`[MAIL] Échec d'envoi notification à ${to}:`, error.message);
     }
 };
 

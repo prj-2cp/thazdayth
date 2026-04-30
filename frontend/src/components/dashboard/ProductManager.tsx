@@ -312,7 +312,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                         <button onClick={() => openEditModal(p)} className="p-1.5 rounded-lg text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors bg-background" title={t("dashboard.products.category")}>
                           <Edit2 className="w-4 h-4" />
                         </button>
-                        <button onClick={() => deleteProduct(p._id)} className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-500/10 hover:text-red-500 transition-colors bg-background" title={t("dashboard.common.blacklist")}>
+                        <button onClick={() => deleteProduct(p._id)} className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-500/10 hover:text-red-500 transition-colors bg-background" title={t("dashboard.products.delete")}>
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -336,7 +336,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                         <button onClick={() => openEditModal(p)} className="p-1.5 text-muted-foreground hover:text-primary transition-colors" title={t("dashboard.products.category")}>
                           <Edit2 className="w-4 h-4" />
                         </button>
-                        <button onClick={() => deleteProduct(p._id)} className="p-1.5 text-red-500/70 hover:text-red-500 transition-colors" title={t("dashboard.common.blacklist")}>
+                        <button onClick={() => deleteProduct(p._id)} className="p-1.5 text-red-500/70 hover:text-red-500 transition-colors" title={t("dashboard.products.delete")}>
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>

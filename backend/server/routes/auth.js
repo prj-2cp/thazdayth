@@ -50,7 +50,7 @@ router.post('/register', [
         });
 
         // Send Welcome Email
-        sendWelcomeEmail(email, user.first_name).catch(err => console.error('[AUTH] Google Welcome email fail:', err));
+        await sendWelcomeEmail(email, user.first_name).catch(err => console.error('[AUTH] Registration Welcome email fail:', err));
 
 
         const token = jsonwebtoken.sign({ id: user._id/* i not sur about this one here */, role: user.role, is_subscribed: user.is_subscribed }, process.env.JWT_SECRET, { expiresIn: '7d' });
@@ -188,7 +188,7 @@ router.post("/google", [body('credential').notEmpty().withMessage('Token Google 
                 });
             }
 
-            sendWelcomeEmail(email, user.first_name).catch(err => console.error('[AUTH] Google Welcome email fail:', err));
+            await sendWelcomeEmail(email, user.first_name).catch(err => console.error('[AUTH] Google Welcome email fail:', err));
 
             //generate the jwt
             const jwtToken = jsonwebtoken.sign(
