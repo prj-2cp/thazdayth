@@ -308,18 +308,20 @@ const Processus = () => {
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-black relative overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-white/10 shadow-2xl shadow-black/80 w-auto h-auto max-w-[95vw] max-h-[90vh] flex flex-col justify-center"
+                            className="relative flex items-center justify-center w-full h-full p-4 md:p-8"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <video
-                                src={selectedVideo.src}
-                                autoPlay
-                                controls
-                                className="w-auto h-auto max-w-full max-h-[90vh] object-contain block"
-                            />
-                            <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none">
-                                <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-1 md:mb-2">{selectedVideo.title}</h3>
-                                <p className="text-white/80 text-xs md:text-sm max-w-xl italic drop-shadow-md">{selectedVideo.desc}</p>
+                            <div className="relative inline-block overflow-hidden rounded-[2rem] md:rounded-[3rem] shadow-2xl shadow-black/80 border border-white/10 max-w-full max-h-full">
+                                <video
+                                    src={selectedVideo.src}
+                                    autoPlay
+                                    controls
+                                    className="block w-auto h-auto max-w-[95vw] max-h-[85vh] object-contain"
+                                />
+                                <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none">
+                                    <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-1 md:mb-2">{selectedVideo.title}</h3>
+                                    <p className="text-white/80 text-xs md:text-sm max-w-xl italic drop-shadow-md">{selectedVideo.desc}</p>
+                                </div>
                             </div>
                         </motion.div>
                     </motion.div>
