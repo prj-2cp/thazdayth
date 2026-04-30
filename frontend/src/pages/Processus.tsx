@@ -301,7 +301,10 @@ const Processus = () => {
                         className="fixed inset-0 z-[70] bg-background/95 backdrop-blur-xl flex items-center justify-center p-6"
                         onClick={() => setVideoOpen(false)}
                     >
-                        <button className="absolute top-6 right-6 text-foreground hover:rotate-90 transition-transform">
+                        <button 
+                            onClick={() => setVideoOpen(false)}
+                            className="absolute top-6 right-6 z-[80] text-foreground hover:rotate-90 transition-transform"
+                        >
                             <X className="w-10 h-10" />
                         </button>
                         <motion.div
@@ -311,12 +314,12 @@ const Processus = () => {
                             className="relative flex items-center justify-center w-full h-full p-4 md:p-8"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <div className="relative inline-block overflow-hidden rounded-[2rem] md:rounded-[3rem] shadow-2xl shadow-black/80 border border-white/10 max-w-full max-h-full">
+                            <div className="relative overflow-hidden rounded-[2rem] md:rounded-[3rem] shadow-2xl shadow-black/80 border border-white/10 bg-black w-fit h-fit min-w-[300px] min-h-[400px] max-w-[95vw] max-h-[90vh] flex flex-col justify-center items-center">
                                 <video
                                     src={selectedVideo.src}
                                     autoPlay
                                     controls
-                                    className="block w-auto h-auto max-w-[95vw] max-h-[85vh] object-contain"
+                                    className="w-auto h-auto max-w-[95vw] max-h-[90vh] block"
                                 />
                                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none">
                                     <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-1 md:mb-2">{selectedVideo.title}</h3>
