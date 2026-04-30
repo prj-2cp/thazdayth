@@ -50,10 +50,10 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
   const [calendarDate, setCalendarDate] = useState<Date | undefined>(new Date());
 
   const deleteOrder = async (id: string) => {
-    if (!confirm("Supprimer cette commande ?")) return;
+    if (!confirm(t("dashboard.products.delete_confirm"))) return;
     try {
       await request(`/orders/${id}`, { method: 'DELETE' });
-      toast.success("Supprimé !");
+      toast.success(t("dashboard.products.delete_success"));
       onRefresh();
     } catch (err) {}
   };
@@ -65,10 +65,10 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
   };
 
   const deletePressing = async (id: string) => {
-    if (!confirm("Supprimer cette demande ?")) return;
+    if (!confirm(t("dashboard.products.delete_confirm"))) return;
     try {
       await request(`/pressing/${id}`, { method: 'DELETE' });
-      toast.success("Supprimé !");
+      toast.success(t("dashboard.products.delete_success"));
       onRefresh();
     } catch (err) {}
   };
@@ -96,7 +96,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
         method: 'PATCH',
         body: { status }
       });
-      toast.success("Statut du pressage mis à jour !");
+      toast.success(t("dashboard.pressing.update_status"));
       onRefresh();
     } catch (err) {}
   };
@@ -111,7 +111,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
         method: 'PATCH',
         body: { status }
       });
-      toast.success("Commande mise à jour !");
+      toast.success(t("dashboard.products.update_success"));
       onRefresh();
     } catch (err) {}
   };
@@ -127,17 +127,17 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
     try {
       if (existing) {
         await request(`/availability/${existing._id}`, { method: 'DELETE' });
-        toast.success("Date débloquée !");
+        toast.success(t("dashboard.agenda.availability.toast_unblocked"));
       } else {
         await request('/availability', {
           method: 'POST',
-          body: { date: normalized, reason: "Indisponible" }
+          body: { date: normalized, reason: t("dashboard.agenda.availability.blocked_dates") }
         });
-        toast.success("Date bloquée !");
+        toast.success(t("dashboard.agenda.availability.toast_blocked"));
       }
       fetchBlockedDates();
     } catch (err) {
-      toast.error("Erreur lors de la mise à jour de la disponibilité");
+      toast.error(t("dashboard.agenda.availability.toast_error"));
     }
   };
 
@@ -149,7 +149,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
       activityType: 'order',
       subType: 'pickup',
       date: o.shipping.pickup_range_start,
-      label: 'RETRAIT'
+      label: t("dashboard.agenda.type_pickup")
     })),
     // Delivery Orders
     ...orders.filter(o => o.shipping?.type === 'delivery').map(o => ({
@@ -157,7 +157,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
       activityType: 'order',
       subType: 'delivery',
       date: o.created_at,
-      label: 'LIVRAISON'
+      label: t("dashboard.agenda.type_delivery")
     })),
     // Pressing / Trituration
     ...pressingRequests.filter(r => r.bring_olives_date || r.collect_oil_date).map(r => ({
@@ -165,7 +165,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
       activityType: 'pressing',
       subType: 'pressing',
       date: r.bring_olives_date || r.created_at,
-      label: 'PRESSAGE'
+      label: t("dashboard.agenda.type_pressing")
     }))
   ].filter(item => {
     const searchStr = `${item._id} ${item.tracking_code || ''} ${item.user_id?.first_name} ${item.user_id?.last_name} ${item.user_id?.phone} ${item.user_id?.email}`.toLowerCase();
@@ -206,9 +206,9 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
           <div className="flex flex-col gap-2 px-2">
             <h2 className="text-4xl font-black tracking-tight flex items-center gap-4">
               <CalendarIcon className="w-10 h-10 text-primary" />
-              Agenda des Pressages
+              {t("dashboard.pressing.agenda_title")}
             </h2>
-            <p className="text-muted-foreground font-medium">Gérez le planning des rendez-vous de trituration.</p>
+            <p className="text-muted-foreground font-medium">{t("dashboard.pressing.agenda_desc")}</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
@@ -216,13 +216,13 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
             <div className="space-y-8">
               <div className="flex items-center gap-3 px-4 py-3 bg-amber-500/5 rounded-3xl border border-amber-500/10 w-fit">
                 <Phone className="w-5 h-5 text-amber-600" />
-                <h3 className="text-lg font-black text-amber-700">À programmer (Appels à passer)</h3>
+                <h3 className="text-lg font-black text-amber-700">{t("dashboard.pressing.to_program")}</h3>
               </div>
 
               <div className="space-y-4">
                 {pressingWaitlist.length === 0 ? (
                    <div className="py-20 text-center bg-secondary/10 rounded-[3rem] border border-dashed border-border/50">
-                      <p className="text-sm font-medium text-muted-foreground italic">Tous les clients sont programmés.</p>
+                      <p className="text-sm font-medium text-muted-foreground italic">{t("dashboard.agenda.empty_to_schedule")}</p>
                    </div>
                 ) : (
                   pressingWaitlist.map(r => (
@@ -237,7 +237,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                         </div>
                         <div className="flex items-center gap-4">
                            <span className="px-4 py-1.5 bg-secondary text-muted-foreground/60 rounded-full text-[10px] font-black uppercase tracking-widest border border-border/50">
-                             {r.olive_quantity_kg}kg Olives
+                             {r.olive_quantity_kg}kg {t("dashboard.pressing.olives")}
                            </span>
                            <span className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-widest italic">
                              {r.oil_quality || "EXTRA_VIRGIN"}
@@ -248,7 +248,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                         onClick={() => { setActiveTab('pressing'); setSearchTerm(r._id); }}
                         className="px-8 py-3 bg-[#6B8E23] hover:bg-[#556B2F] text-white text-xs font-black uppercase tracking-widest rounded-2xl shadow-lg shadow-primary/20 transition-all active:scale-95"
                       >
-                        Programmer
+                        {t("dashboard.pressing.set_dates")}
                       </button>
                     </div>
                   ))
@@ -260,13 +260,13 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
             <div className="space-y-8">
               <div className="flex items-center gap-3 px-4 py-3 bg-primary/5 rounded-3xl border border-primary/10 w-fit">
                 <CalendarIcon className="w-5 h-5 text-primary" />
-                <h3 className="text-lg font-black text-primary">Planning des Rendez-vous</h3>
+                <h3 className="text-lg font-black text-primary">{t("dashboard.pressing.planning")}</h3>
               </div>
 
               <div className="space-y-4">
                 {pressingScheduled.length === 0 ? (
                    <div className="py-20 text-center bg-secondary/10 rounded-[3rem] border border-dashed border-border/50">
-                      <p className="text-sm font-medium text-muted-foreground italic">Aucun rendez-vous programmé.</p>
+                      <p className="text-sm font-medium text-muted-foreground italic">{t("dashboard.pressing.empty_scheduled")}</p>
                    </div>
                 ) : (
                   pressingScheduled.map(r => (
@@ -287,18 +287,18 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
 
                       <div className="flex flex-col items-end gap-3">
                          <div className="px-5 py-2 bg-[#6B8E23] text-white rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20 shadow-sm min-w-[150px] text-center">
-                            APPORT: {formatDate(r.bring_olives_date)}
+                            {t("dashboard.pressing.apport")}: {formatDate(r.bring_olives_date)}
                          </div>
                          {r.collect_oil_date && (
                            <div className="px-5 py-2 bg-[#D9D9C3] text-[#556B2F] rounded-full text-[10px] font-black uppercase tracking-widest border border-border min-w-[150px] text-center">
-                              COLLECTE: {formatDate(r.collect_oil_date)}
+                              {t("dashboard.pressing.collecte")}: {formatDate(r.collect_oil_date)}
                            </div>
                          )}
                          <button 
                             onClick={() => { setActiveTab('pressing'); setSearchTerm(r._id); }}
                             className="text-[10px] font-black text-[#6B8E23] hover:underline uppercase tracking-widest mt-2"
                          >
-                            Modifier
+                            {t("dashboard.common.edit")}
                          </button>
                       </div>
                     </div>
@@ -317,10 +317,10 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
             <div className="flex items-center justify-between border-b border-border pb-4">
               <h3 className="text-xl font-bold flex items-center gap-3 text-foreground">
                 <Clock className="w-5 h-5 text-primary" />
-                Fil d'Actualité & Planning Unifié
+                {t("dashboard.agenda.unified_planning")}
               </h3>
               <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest bg-secondary/50 px-3 py-1 rounded-full">
-                {unifiedAgenda.length} Activités
+                {unifiedAgenda.length} {t("dashboard.agenda.activities")}
               </span>
             </div>
             
@@ -381,16 +381,16 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                         >
                           {item.activityType === 'order' ? (
                             <>
-                              <option value="pending">En attente</option>
-                              <option value="in-progress">En cours</option>
-                              <option value="completed">Prêt</option>
-                              <option value="delivered">Terminé</option>
+                              <option value="pending">{t("dashboard.orders.status_pending")}</option>
+                              <option value="in-progress">{t("dashboard.orders.status_in_progress")}</option>
+                              <option value="completed">{t("dashboard.orders.status_ready")}</option>
+                              <option value="delivered">{t("dashboard.orders.status_delivered")}</option>
                             </>
                           ) : (
                             <>
-                              <option value="pending">En attente</option>
-                              <option value="accepted">Accepté</option>
-                              <option value="completed">Terminé</option>
+                              <option value="pending">{t("dashboard.orders.status_pending")}</option>
+                              <option value="accepted">{t("dashboard.orders.status_accepted")}</option>
+                              <option value="completed">{t("dashboard.orders.status_completed")}</option>
                             </>
                           )}
                         </select>
@@ -399,7 +399,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                       <button 
                         onClick={() => item.activityType === 'order' ? deleteOrder(item._id) : deletePressing(item._id)}
                         className="p-3 rounded-2xl bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 border border-red-500/20 shadow-sm group/btn"
-                        title="Supprimer"
+                        title={t("dashboard.common.delete")}
                       >
                         <Trash2 className="w-5 h-5 group-hover/btn:scale-110 transition-transform" />
                       </button>
@@ -421,7 +421,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
               {unifiedAgenda.length === 0 && (
                 <div className="text-center py-24 bg-secondary/20 border-2 border-dashed border-border rounded-[3rem]">
                   <Clock className="w-16 h-16 text-muted-foreground/10 mx-auto mb-6" />
-                  <p className="text-muted-foreground font-bold">Aucune activité programmée pour le moment.</p>
+                  <p className="text-muted-foreground font-bold">{t("dashboard.agenda.empty")}</p>
                 </div>
               )}
             </div>
@@ -431,11 +431,11 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
           <div className="space-y-8 bg-black/[0.02] dark:bg-white/[0.02] p-10 rounded-[3.5rem] border border-border/30 shadow-inner">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <h3 className="text-2xl font-black flex items-center gap-3">
-                   <Factory className="w-7 h-7 text-green-600" />
-                   Gestion du Pressage (Trituration)
-                </h3>
-                <p className="text-sm text-muted-foreground mt-1">Organisez les passages au moulin et les rendez-vous clients.</p>
+                <h2 className="text-2xl font-black text-primary flex items-center gap-2">
+                  <ClipboardList className="w-6 h-6" />
+                  {t("dashboard.agenda.title")}
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1">{t("dashboard.agenda.desc")}</p>
               </div>
             </div>
 
@@ -443,7 +443,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                {/* Column 1: Awaiting Schedule */}
                <div className="space-y-6">
                  <div className="flex items-center justify-between px-2">
-                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">En Attente de Rendez-vous</h4>
+                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">{t("dashboard.pressing.to_program")}</h4>
                    <span className="text-[10px] font-black bg-amber-500/10 text-amber-600 px-2 py-0.5 rounded-full">{pressingWaitlist.length}</span>
                  </div>
                  <div className="space-y-4">
@@ -452,9 +452,9 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                         <div className="flex justify-between items-start mb-3">
                           <div>
                             <p className="font-bold text-sm tracking-tight">{item.user_id?.first_name} {item.user_id?.last_name}</p>
-                            <p className="text-[10px] font-black text-primary uppercase mt-0.5">Demande de {item.olive_quantity_kg}kg</p>
+                            <p className="text-[10px] font-black text-primary uppercase mt-0.5">{t("dashboard.pressing.demand_of")} {item.olive_quantity_kg}kg</p>
                           </div>
-                          <span className="text-[9px] bg-amber-500/10 text-amber-600 px-2 py-1 rounded-full font-black uppercase tracking-widest border border-amber-500/20">À Appeler</span>
+                          <span className="text-[9px] bg-amber-500/10 text-amber-600 px-2 py-1 rounded-full font-black uppercase tracking-widest border border-amber-500/20">{t("dashboard.pressing.to_program")}</span>
                         </div>
                         <div className="flex items-center justify-between gap-2 pt-4 border-t border-border/30">
                           <div className="flex flex-col gap-0.5">
@@ -465,14 +465,14 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                             onClick={() => { setActiveTab('pressing'); setSearchTerm(item._id); }}
                             className="bg-primary text-white text-[10px] font-black px-5 py-2 rounded-full hover:shadow-lg hover:shadow-primary/20 transition-all hover:-translate-y-0.5 active:translate-y-0"
                           >
-                             FIXER RDV
+                             {t("dashboard.pressing.set_dates").toUpperCase()}
                           </button>
                         </div>
                       </div>
                     ))}
                     {pressingWaitlist.length === 0 && (
-                      <div className="py-12 border border-dashed rounded-[2rem] text-center opacity-50 bg-secondary/10">
-                        <p className="text-[10px] font-black uppercase tracking-widest">Tous les clients sont programmés.</p>
+                      <div className="py-8 bg-secondary/5 border border-dashed border-border/50 rounded-2xl text-center">
+                          <p className="text-[10px] font-black uppercase tracking-widest">{t("dashboard.agenda.empty_to_schedule")}</p>
                       </div>
                     )}
                  </div>
@@ -481,7 +481,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                {/* Column 2: Scheduled appointments */}
                <div className="space-y-6">
                  <div className="flex items-center justify-between px-2">
-                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Rendez-vous Confirmés</h4>
+                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">{t("dashboard.pressing.planning")}</h4>
                    <span className="text-[10px] font-black bg-green-500/10 text-green-600 px-2 py-0.5 rounded-full">{pressingScheduled.length}</span>
                  </div>
                  <div className="space-y-4">
@@ -491,13 +491,13 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                           <div>
                             <p className="font-bold text-sm tracking-tight">{item.user_id?.first_name} {item.user_id?.last_name}</p>
                             <div className="flex items-center gap-2 mt-0.5">
-                              <p className="text-[10px] font-black text-green-600 uppercase">Apport: {formatDate(item.bring_olives_date)}</p>
+                              <p className="text-[10px] font-black text-green-600 uppercase">{t("dashboard.pressing.apport")}: {formatDate(item.bring_olives_date)}</p>
                               {item.collect_oil_date && (
-                                <p className="text-[10px] font-black text-primary/60 uppercase">• Retrait: {formatDate(item.collect_oil_date)}</p>
+                                <p className="text-[10px] font-black text-primary/60 uppercase">• {t("dashboard.pressing.collecte")}: {formatDate(item.collect_oil_date)}</p>
                               )}
                             </div>
                           </div>
-                          <span className="text-[9px] bg-green-500/10 text-green-600 px-2 py-1 rounded-full font-black uppercase tracking-widest border border-green-500/20">Confirmé</span>
+                          <span className="text-[9px] bg-green-500/10 text-green-600 px-2 py-1 rounded-full font-black uppercase tracking-widest border border-green-500/20">{t("dashboard.orders.status_confirmed")}</span>
                         </div>
                         <div className="flex items-center justify-between gap-2 pt-4 border-t border-border/30">
                           <div className="flex flex-col gap-0.5">
@@ -508,7 +508,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                              <button 
                               onClick={() => updatePressingStatus(item._id, 'completed')} 
                               className="p-2.5 bg-secondary hover:bg-green-500 hover:text-white rounded-xl transition-all shadow-sm border border-border/50 group/save"
-                              title="Marquer comme terminé"
+                              title={t("dashboard.pressing.mark_done")}
                              >
                                <Save className="w-4 h-4 group-hover/save:scale-110 transition-transform" />
                              </button>
@@ -524,7 +524,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                     ))}
                     {pressingScheduled.length === 0 && (
                       <div className="py-12 border border-dashed rounded-[2rem] text-center opacity-50 bg-secondary/10">
-                        <p className="text-[10px] font-black uppercase tracking-widest">Aucun rendez-vous pour le moment.</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest">{t("dashboard.agenda.empty")}</p>
                       </div>
                     )}
                  </div>
@@ -577,7 +577,7 @@ const AgendaManager: React.FC<AgendaManagerProps> = ({
                 {t("dashboard.agenda.availability.blocked_dates")}
               </h3>
               <span className="text-[10px] font-black bg-red-500/10 text-red-600 px-3 py-1 rounded-full border border-red-500/20">
-                {blockedDates.length} DATES
+                {blockedDates.length} {t("dashboard.agenda.availability.dates_count")}
               </span>
             </div>
             

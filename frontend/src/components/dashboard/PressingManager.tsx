@@ -11,6 +11,7 @@ import {
   Package
 } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import { useApi } from "@/hooks/useApi";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +31,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
   onRefresh,
   isArchived = false
 }) => {
+  const { t } = useTranslation();
   const { request } = useApi();
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
   const [dateEditingId, setDateEditingId] = useState<string | null>(null);
@@ -45,11 +47,11 @@ const PressingManager: React.FC<PressingManagerProps> = ({
         method: 'PATCH',
         body: payload
       });
-      toast.success("RDV Programmé");
+      toast.success(t("dashboard.pressing.update_status"));
       setDateEditingId(null);
       onRefresh();
     } catch (err: any) {
-      toast.error(err.message || "Erreur lors de la programmation");
+      toast.error(t("boutique.form.error"));
     }
   };
 
@@ -59,7 +61,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
         method: 'PATCH',
         body: { status }
       });
-      toast.success("Statut mis à jour");
+      toast.success(t("dashboard.pressing.update_status"));
       onRefresh();
     } catch (err) {}
   };
@@ -73,16 +75,16 @@ const PressingManager: React.FC<PressingManagerProps> = ({
   const archivePressing = async (id: string) => {
     try {
       await request(`/pressing/${id}/archive`, { method: 'PATCH' });
-      toast.success("Demande archivée");
+      toast.success(t("dashboard.orders.archive_success"));
       onRefresh();
     } catch (err) {}
   };
 
   const deletePressing = async (id: string) => {
-    if (!window.confirm("Êtes-vous sûr de vouloir supprimer définitivement cette demande ?")) return;
+    if (!window.confirm(t("dashboard.products.delete_confirm"))) return;
     try {
       await request(`/pressing/${id}`, { method: 'DELETE' });
-      toast.success("Demande supprimée");
+      toast.success(t("dashboard.products.delete_success"));
       onRefresh();
     } catch (err) {}
   };
@@ -92,10 +94,10 @@ const PressingManager: React.FC<PressingManagerProps> = ({
     setActionLoadingId(requestId);
     try {
       await request(`/users/${userId}/blacklist`, { method: 'PATCH' });
-      toast.success("Statut client mis à jour");
+      toast.success(t("dashboard.orders.update_status"));
       onRefresh();
     } catch (err) {
-      toast.error("Échec de l'action");
+      toast.error(t("boutique.form.error"));
     } finally {
       setActionLoadingId(null);
     }
@@ -129,9 +131,9 @@ const PressingManager: React.FC<PressingManagerProps> = ({
       <div className="space-y-2">
         <h2 className="text-[32px] font-black text-[#4A3B28] flex items-center gap-4">
           <CalendarIcon className="w-10 h-10 text-[#6B8E23]" />
-          Agenda des Pressages
+          {t("dashboard.pressing.agenda_title")}
         </h2>
-        <p className="text-[#8B7E66] font-medium text-lg">Gérez le planning des rendez-vous de trituration.</p>
+        <p className="text-[#8B7E66] font-medium text-lg">{t("dashboard.pressing.agenda_desc")}</p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-16 items-start">
@@ -139,7 +141,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
         <div className="space-y-8">
           <div className="flex items-center gap-3">
             <Phone className="w-6 h-6 text-[#A67C52]" />
-            <h3 className="text-2xl font-black text-[#A67C52]">À programmer (Appels à passer)</h3>
+            <h3 className="text-2xl font-black text-[#A67C52]">{t("dashboard.pressing.to_program")}</h3>
           </div>
 
           <div className="space-y-6">
@@ -155,7 +157,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                   </div>
                   <div className="flex items-center gap-4">
                      <span className="px-5 py-1.5 bg-[#E2E1D8] text-[#8B7E66] font-black rounded-full text-[11px] uppercase tracking-widest">
-                       {r.olive_quantity_kg}kg Olives
+                       {r.olive_quantity_kg}kg {t("dashboard.pressing.olives")}
                      </span>
                      <span className="text-[11px] font-black text-[#B0A695] uppercase tracking-widest">
                        {r.oil_quality || "EXTRA_VIRGIN"}
@@ -166,25 +168,25 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                     onClick={() => { setDateEditingId(r._id); setTempDates({ bring: "", collect: "" }); }}
                     className="px-8 py-3 bg-[#6B8E23] hover:bg-[#556B2F] text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-md"
                   >
-                    Programmer
+                    {t("dashboard.pressing.set_dates")}
                   </button>
                   <div className="flex flex-col gap-2 ml-4">
                     {!isArchived && (
                       <button 
                         onClick={() => archivePressing(r._id)}
                         className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all"
-                        title="Archiver"
+                        title={t("dashboard.orders.archive")}
                       >
                         <Archive size={16} />
                       </button>
                     )}
-                    <button 
-                      onClick={() => deletePressing(r._id)}
-                      className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white rounded-xl transition-all"
-                      title="Supprimer"
-                    >
-                      <Trash2 size={16} />
-                    </button>
+                      <button 
+                        onClick={() => deletePressing(r._id)}
+                        className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white rounded-xl transition-all"
+                        title={t("dashboard.common.delete")}
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     <button 
                       onClick={() => toggleBlacklist(r.user_id?._id, r._id)}
                       disabled={actionLoadingId === r._id}
@@ -192,7 +194,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                         "p-3 rounded-xl transition-all",
                         r.user_id?.is_blacklisted ? "bg-emerald-500 text-white" : "bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white"
                       )}
-                      title={r.user_id?.is_blacklisted ? "Réhabiliter" : "Banir"}
+                      title={r.user_id?.is_blacklisted ? t("dashboard.orders.unblacklist") : t("dashboard.orders.blacklist")}
                     >
                       {actionLoadingId === r._id ? (
                         <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -210,7 +212,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
         <div className="space-y-8">
           <div className="flex items-center gap-3">
             <CalendarIcon className="w-6 h-6 text-[#6B8E23]" />
-            <h3 className="text-2xl font-black text-[#6B8E23]">Planning des Rendez-vous</h3>
+            <h3 className="text-2xl font-black text-[#6B8E23]">{t("dashboard.pressing.planning")}</h3>
           </div>
 
           <div className="space-y-6">
@@ -234,11 +236,11 @@ const PressingManager: React.FC<PressingManagerProps> = ({
 
                 <div className="flex flex-col items-end gap-3">
                    <div className="px-6 py-2.5 bg-[#6B8E23] text-white rounded-full text-[11px] font-black uppercase tracking-widest min-w-[170px] text-center shadow-sm">
-                      APPORT: {formatDate(r.bring_olives_date)}
+                      {t("dashboard.pressing.apport")}: {formatDate(r.bring_olives_date)}
                    </div>
                    {r.collect_oil_date && (
                      <div className="px-6 py-2.5 bg-[#D9D9C3] text-[#6B8E23] rounded-full text-[11px] font-black uppercase tracking-widest min-w-[170px] text-center">
-                        COLLECTE: {formatDate(r.collect_oil_date)}
+                        {t("dashboard.pressing.collecte")}: {formatDate(r.collect_oil_date)}
                      </div>
                    )}
                    <button 
@@ -248,20 +250,20 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                       }}
                       className="text-[11px] font-black text-[#6B8E23] hover:underline uppercase tracking-widest mt-4"
                    >
-                      Modifier
+                      {t("dashboard.common.save")}
                    </button>
                     <div className="flex gap-2 mt-4 w-full">
                         <button 
                           onClick={() => updatePressingStatus(r._id, 'completed')}
                           className="flex-1 p-3 bg-[#6B8E23] text-white hover:bg-[#556B2F] rounded-xl transition-all font-black text-[11px] uppercase tracking-widest text-center shadow-sm"
                         >
-                          COMPLETE
+                          {t("dashboard.pressing.status_completed")}
                         </button>
                         {!isArchived && (
                           <button 
                             onClick={() => archivePressing(r._id)}
                             className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-zinc-800 hover:text-white rounded-xl transition-all shrink-0"
-                            title="Archiver"
+                            title={t("dashboard.orders.archive")}
                           >
                             <Archive size={16} />
                           </button>
@@ -269,7 +271,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                         <button 
                           onClick={() => deletePressing(r._id)}
                           className="p-3 bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white rounded-xl transition-all shrink-0"
-                          title="Supprimer"
+                          title={t("dashboard.common.delete")}
                         >
                           <Trash2 size={16} />
                         </button>
@@ -280,7 +282,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                             "p-3 rounded-xl transition-all",
                             r.user_id?.is_blacklisted ? "bg-emerald-500 text-white" : "bg-[#E2E1D8] text-[#8B7E66] hover:bg-red-500 hover:text-white"
                           )}
-                          title={r.user_id?.is_blacklisted ? "Réhabiliter" : "Banir"}
+                          title={r.user_id?.is_blacklisted ? t("dashboard.orders.unblacklist") : t("dashboard.orders.blacklist")}
                         >
                           {actionLoadingId === r._id ? (
                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -314,7 +316,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                 <div className="flex items-center justify-between mb-8">
                   <h3 className="text-2xl font-black text-[#4A3B28] uppercase tracking-widest flex items-center gap-3">
                      <CalendarIcon className="w-6 h-6 text-[#6B8E23]" />
-                     Fixer Rendez-vous
+                     {t("dashboard.pressing.set_dates")}
                   </h3>
                   <button onClick={() => setDateEditingId(null)} className="text-[#8B7E66] hover:text-[#4A3B28] transition-colors p-2 rounded-full hover:bg-black/5">
                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
@@ -322,7 +324,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                 </div>
                 <div className="space-y-8">
                    <div className="space-y-2">
-                      <label className="text-[11px] font-black uppercase text-[#8B7E66] tracking-widest ml-1">Date d'apport d'olives</label>
+                      <label className="text-[11px] font-black uppercase text-[#8B7E66] tracking-widest ml-1">{t("dashboard.pressing.arrival_date")}</label>
                       <input 
                         type="date" 
                         value={tempDates.bring} 
@@ -331,7 +333,7 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                       />
                    </div>
                    <div className="space-y-2">
-                      <label className="text-[11px] font-black uppercase text-[#8B7E66] tracking-widest ml-1">Date de collecte d'huile</label>
+                      <label className="text-[11px] font-black uppercase text-[#8B7E66] tracking-widest ml-1">{t("dashboard.pressing.collection_date")}</label>
                       <input 
                         type="date" 
                         value={tempDates.collect} 
@@ -345,13 +347,13 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                      onClick={() => updateDates(dateEditingId)} 
                      className="flex-1 py-5 bg-[#6B8E23] text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl hover:opacity-90 transition-all shadow-lg"
                    >
-                     Confirmer
+                     {t("dashboard.pressing.modal_confirm")}
                    </button>
                    <button 
                      onClick={() => setDateEditingId(null)} 
                      className="px-10 py-5 bg-white text-[#8B7E66] text-[11px] font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-white/80 transition-all shadow-sm"
                    >
-                     Annuler
+                     {t("dashboard.common.cancel")}
                    </button>
                 </div>
              </motion.div>

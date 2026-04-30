@@ -146,15 +146,15 @@ const Dashboard: React.FC = () => {
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                         <div>
                             <span className="inline-block border border-primary/20 bg-primary/5 text-primary rounded-full px-4 py-1.5 text-xs font-bold tracking-widest uppercase mb-4">
-                                Administration
+                                {t("dashboard.overview.administration")}
                             </span>
-                            <h1 className="text-4xl md:text-5xl font-bold">Tableau de Bord</h1>
+                            <h1 className="text-4xl md:text-5xl font-bold">{t("dashboard.overview.title")}</h1>
                         </div>
                         <div className="flex items-center gap-3">
                             <button
                                 onClick={fetchAllData}
                                 className="p-3 rounded-2xl bg-secondary hover:bg-secondary/80 transition-colors shadow-sm"
-                                title="Rafraîchir"
+                                title={t("dashboard.overview.refresh")}
                                 disabled={loading}
                             >
                                 <TrendingUp className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
@@ -170,7 +170,7 @@ const Dashboard: React.FC = () => {
                         { id: "products", label: t("dashboard.tabs.products"), icon: Package },
                         { id: "orders", label: t("dashboard.tabs.orders"), icon: ShoppingBag },
                         { id: "pressing", label: t("dashboard.tabs.pressing"), icon: Factory },
-                        { id: "clients", label: "Clients", icon: UsersIcon },
+                        { id: "clients", label: t("dashboard.tabs.clients"), icon: UsersIcon },
                         { id: "availability", label: t("dashboard.tabs.availability"), icon: Calendar },
                         { id: "archive", label: t("dashboard.tabs.archive"), icon: Archive },
                     ].map((tab) => (
@@ -228,7 +228,7 @@ const Dashboard: React.FC = () => {
                             className="flex flex-col items-center justify-center py-20"
                         >
                             <div className="w-12 h-12 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                            <p className="mt-4 text-muted-foreground font-medium">Chargement du dashboard...</p>
+                            <p className="mt-4 text-muted-foreground font-medium">{t("dashboard.overview.loading")}</p>
                         </motion.div>
                     ) : (
                         <motion.div

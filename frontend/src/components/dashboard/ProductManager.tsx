@@ -15,6 +15,7 @@ import {
   Search
 } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import { useApi } from "@/hooks/useApi";
 
 interface ProductManagerProps {
@@ -34,6 +35,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
   globalSettings,
   onRefresh
 }) => {
+  const { t } = useTranslation();
   const { request, loading: apiLoading } = useApi();
   const [showProductModal, setShowProductModal] = useState(false);
   const [showShippingModal, setShowShippingModal] = useState(false);
@@ -61,7 +63,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         method,
         body: productForm
       });
-      toast.success(editingProduct ? "Produit mis à jour !" : "Produit créé !");
+      toast.success(editingProduct ? t("dashboard.products.update_success") : t("dashboard.products.create_success"));
       setShowProductModal(false);
       setEditingProduct(null);
       setProductForm({ name: "", price_per_liter: 0, stock_liters: 0 });
@@ -76,7 +78,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         method: 'POST',
         body: shippingForm
       });
-      toast.success("Tarif de livraison ajouté !");
+      toast.success(t("dashboard.products.update_success"));
       setShowShippingModal(false);
       setShippingForm({ wilaya_code: 0, wilaya: "", price: 0 });
       onRefresh();
@@ -84,37 +86,37 @@ const ProductManager: React.FC<ProductManagerProps> = ({
   };
 
   const deleteProduct = async (id: string) => {
-    if (!window.confirm("Supprimer ce produit ?")) return;
+    if (!window.confirm(t("dashboard.products.delete_confirm"))) return;
     try {
       await request(`/products/${id}`, { method: 'DELETE' });
-      toast.success("Produit supprimé");
+      toast.success(t("dashboard.products.delete_success"));
       onRefresh();
     } catch (err: any) {}
   };
 
   const deleteOliveCategory = async (id: string) => {
-    if (!window.confirm("Supprimer cette catégorie d'olives ?")) return;
+    if (!window.confirm(t("dashboard.products.delete_confirm"))) return;
     try {
       await request(`/prices/olives/${id}`, { method: 'DELETE' });
-      toast.success("Catégorie supprimée");
+      toast.success(t("dashboard.products.delete_success"));
       onRefresh();
     } catch (err: any) {}
   };
 
   const deletePressingService = async (id: string) => {
-    if (!window.confirm("Supprimer ce service de pressage ?")) return;
+    if (!window.confirm(t("dashboard.products.delete_confirm"))) return;
     try {
       await request(`/prices/pressing/${id}`, { method: 'DELETE' });
-      toast.success("Service supprimé");
+      toast.success(t("dashboard.products.delete_success"));
       onRefresh();
     } catch (err: any) {}
   };
 
   const deleteShippingRate = async (id: string) => {
-    if (!window.confirm("Supprimer ce tarif de livraison ?")) return;
+    if (!window.confirm(t("dashboard.products.delete_confirm"))) return;
     try {
       await request(`/shipping-rates/${id}`, { method: 'DELETE' });
-      toast.success("Tarif supprimé");
+      toast.success(t("dashboard.products.delete_success"));
       onRefresh();
     } catch (err: any) {}
   };
@@ -125,7 +127,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         method: 'PATCH',
         body: type === 'olives' ? { price_per_liter: newPrice } : { fee: newPrice }
       });
-      toast.success("Prix mis à jour !");
+      toast.success(t("dashboard.products.update_success"));
       onRefresh();
     } catch (err: any) {}
   };
@@ -136,7 +138,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         method: 'PATCH',
         body: { price: newPrice }
       });
-      toast.success("Tarif de livraison mis à jour !");
+      toast.success(t("dashboard.products.update_success"));
       onRefresh();
     } catch (err: any) {}
   };
@@ -149,7 +151,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         method: 'PATCH',
         body: { stock_liters: newStock }
       });
-      toast.success("Stock mis à jour !");
+      toast.success(t("dashboard.products.update_success"));
       onRefresh();
     } catch (err: any) {}
   };
@@ -161,7 +163,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         method: 'PUT',
         body: { [field]: value }
       });
-      toast.success("Mise à jour effectuée !");
+      toast.success(t("dashboard.products.update_success"));
       onRefresh();
     } catch (err: any) {}
   };
@@ -173,7 +175,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         method: 'PATCH',
         body: { name: newName }
       });
-      toast.success("Nom mis à jour !");
+      toast.success(t("dashboard.products.update_success"));
       onRefresh();
     } catch (err: any) {}
   };
@@ -184,7 +186,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         method: 'PATCH',
         body: { yield_per_kg: newYield }
       });
-      toast.success("Rendement mis à jour !");
+      toast.success(t("dashboard.products.update_success"));
       onRefresh();
     } catch (err: any) {}
   };
@@ -195,7 +197,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         method: 'PUT',
         body: newSettings
       });
-      toast.success("Paramètres mis à jour !");
+      toast.success(t("dashboard.products.update_success"));
       onRefresh();
     } catch (err: any) {}
   };
@@ -215,13 +217,13 @@ const ProductManager: React.FC<ProductManagerProps> = ({
       <div className="bg-primary/5 border border-primary/20 rounded-3xl p-8">
         <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
           <TrendingUp className="w-5 h-5 text-primary" />
-          Gestion des Tarifs Dynamiques
+          {t("dashboard.products.title")}
         </h3>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Olive Prices and Products */}
           <div>
             <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Prix & Stock de l'Huile & Produits</h4>
+              <h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">{t("dashboard.products.oil_section")}</h4>
               <button
                 onClick={() => {
                   setEditingProduct(null);
@@ -231,7 +233,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                 className="flex items-center gap-1 bg-primary text-primary-foreground px-3 py-1.5 rounded-full hover:opacity-90 transition-opacity font-bold text-xs shadow-sm"
               >
                 <Plus className="w-3 h-3" />
-                Nouveau
+                {t("dashboard.products.new")}
               </button>
             </div>
             <div className="space-y-3">
@@ -251,19 +253,19 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                           defaultValue={cat.price_per_liter}
                           onBlur={(e) => updatePrice('olives', cat._id, parseFloat(e.target.value))}
                           className="w-20 px-3 py-1.5 rounded-xl border border-border text-xs font-bold focus:ring-2 focus:ring-primary/20 outline-none"
-                          placeholder="Prix"
+                          placeholder={t("dashboard.products.price")}
                         />
                         <span className="text-[10px] font-bold text-muted-foreground uppercase flex-shrink-0">DA/L</span>
                       </div>
                       <div className="hidden sm:flex gap-1">
-                        <button onClick={() => deleteOliveCategory(cat._id)} className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-500/10 hover:text-red-500 transition-colors bg-background" title="Supprimer la catégorie">
+                        <button onClick={() => deleteOliveCategory(cat._id)} className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-500/10 hover:text-red-500 transition-colors bg-background" title={t("dashboard.products.delete_confirm")}>
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t border-border/50 relative z-10">
-                    <span className="text-xs text-muted-foreground">Catégorie Olive</span>
+                    <span className="text-xs text-muted-foreground">{t("dashboard.products.category")} Olive</span>
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1">
                         <input
@@ -271,13 +273,13 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                           defaultValue={cat.stock_liters}
                           onBlur={(e) => updateOliveStock(cat._id, parseFloat(e.target.value))}
                           className={`w-20 px-3 py-1.5 rounded-xl border border-border text-xs font-bold focus:ring-2 focus:ring-primary/20 outline-none ${cat.stock_liters <= 10 ? "text-red-500" : "text-green-500"}`}
-                          placeholder="Stock"
+                          placeholder={t("dashboard.products.stock")}
                         />
-                        <span className="text-[10px] font-bold text-muted-foreground uppercase">Litres</span>
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase">{t("dashboard.products.liters")}</span>
                       </div>
                       <div className="flex sm:hidden gap-1">
-                        <button onClick={() => deleteOliveCategory(cat._id)} className="p-1.5 text-red-500/70 hover:text-red-500 transition-colors" title="Supprimer la catégorie">
-                          <Trash2 className="w-4 h-4" />
+                        <button onClick={() => deleteOliveCategory(cat._id)} className="p-1.5 text-red-500/70 hover:text-red-500 transition-colors" title={t("dashboard.products.delete_confirm")}>
+                          <Trash2 size={14} />
                         </button>
                       </div>
                     </div>
@@ -292,7 +294,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                       defaultValue={p.name}
                       onBlur={(e) => updateProductField(p._id, 'name', e.target.value)}
                       className="font-semibold text-primary bg-transparent border-none focus:ring-1 focus:ring-primary/20 rounded px-1 -ml-1 flex-1 outline-none relative z-10"
-                      title="Modifier le nom du produit"
+                      title={t("dashboard.products.product_name")}
                     />
                     <div className="flex items-center gap-2 relative z-10">
                       <div className="flex items-center gap-1">
@@ -301,23 +303,23 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                           defaultValue={p.price_per_liter}
                           onBlur={(e) => updateProductField(p._id, 'price_per_liter', parseFloat(e.target.value))}
                           className="w-20 px-3 py-1.5 rounded-xl border border-border text-xs font-bold focus:ring-2 focus:ring-primary/20 outline-none"
-                          placeholder="Prix"
-                          title="Modifier le prix"
+                          placeholder={t("dashboard.products.price")}
+                          title={t("dashboard.products.price")}
                         />
                         <span className="text-[10px] font-bold text-muted-foreground uppercase flex-shrink-0">DA/L</span>
                       </div>
                       <div className="hidden sm:flex gap-1">
-                        <button onClick={() => openEditModal(p)} className="p-1.5 rounded-lg text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors bg-background" title="Options de catégorie">
+                        <button onClick={() => openEditModal(p)} className="p-1.5 rounded-lg text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors bg-background" title={t("dashboard.products.category")}>
                           <Edit2 className="w-4 h-4" />
                         </button>
-                        <button onClick={() => deleteProduct(p._id)} className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-500/10 hover:text-red-500 transition-colors bg-background" title="Supprimer">
+                        <button onClick={() => deleteProduct(p._id)} className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-500/10 hover:text-red-500 transition-colors bg-background" title={t("dashboard.common.blacklist")}>
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t border-border/50 relative z-10">
-                    <span className="text-xs font-medium text-muted-foreground">Standard (Produit)</span>
+                    <span className="text-xs font-medium text-muted-foreground">{t("dashboard.products.standard")}</span>
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1">
                         <input
@@ -325,16 +327,16 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                           defaultValue={p.stock_liters}
                           onBlur={(e) => updateProductField(p._id, 'stock_liters', parseFloat(e.target.value))}
                           className={`w-20 px-3 py-1.5 rounded-xl border border-border text-xs font-bold focus:ring-2 focus:ring-primary/20 outline-none ${p.stock_liters <= 10 ? "text-red-500" : "text-green-500"}`}
-                          placeholder="Stock"
-                          title="Modifier le stock"
+                          placeholder={t("dashboard.products.stock")}
+                          title={t("dashboard.products.stock")}
                         />
-                        <span className="text-[10px] font-bold text-muted-foreground uppercase">Litres</span>
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase">{t("dashboard.products.liters")}</span>
                       </div>
                       <div className="flex sm:hidden gap-1">
-                        <button onClick={() => openEditModal(p)} className="p-1.5 text-muted-foreground hover:text-primary transition-colors" title="Options de catégorie">
+                        <button onClick={() => openEditModal(p)} className="p-1.5 text-muted-foreground hover:text-primary transition-colors" title={t("dashboard.products.category")}>
                           <Edit2 className="w-4 h-4" />
                         </button>
-                        <button onClick={() => deleteProduct(p._id)} className="p-1.5 text-red-500/70 hover:text-red-500 transition-colors" title="Supprimer">
+                        <button onClick={() => deleteProduct(p._id)} className="p-1.5 text-red-500/70 hover:text-red-500 transition-colors" title={t("dashboard.common.blacklist")}>
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -348,13 +350,13 @@ const ProductManager: React.FC<ProductManagerProps> = ({
 
           {/* Pressing Service Prices */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">Équipement & Frais de Pressage (DA/kg)</h4>
+            <h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">{t("dashboard.products.pressing_section")}</h4>
             <div className="space-y-4">
               {pressingServices.map(svc => (
                 <div key={svc._id} className="p-5 bg-background border border-border rounded-2xl space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex-1">
-                      <label className="text-[10px] font-bold text-muted-foreground uppercase mb-1 block">Nom de l'équipement</label>
+                      <label className="text-[10px] font-bold text-muted-foreground uppercase mb-1 block">{t("dashboard.products.equipment_name")}</label>
                       <div className="flex items-center gap-2">
                         <input
                           type="text"
@@ -365,14 +367,14 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                         <button 
                           onClick={() => deletePressingService(svc._id)}
                           className="p-1.5 rounded-lg text-muted-foreground hover:bg-red-500/10 hover:text-red-500 transition-colors bg-background"
-                          title="Supprimer le service"
+                          title={t("dashboard.products.delete_confirm")}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
                     <div className="w-full sm:w-32">
-                      <label className="text-[10px] font-bold text-muted-foreground uppercase mb-1 block">Frais (DA/kg)</label>
+                      <label className="text-[10px] font-bold text-muted-foreground uppercase mb-1 block">{t("dashboard.products.fees")}</label>
                       <div className="flex items-center gap-2">
                         <input
                           type="number"
@@ -384,7 +386,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                       </div>
                     </div>
                     <div className="w-full sm:w-32">
-                      <label className="text-[10px] font-bold text-muted-foreground uppercase mb-1 block">Rendement (L/kg)</label>
+                      <label className="text-[10px] font-bold text-muted-foreground uppercase mb-1 block">{t("dashboard.products.yield")}</label>
                       <div className="flex items-center gap-2">
                         <input
                           type="number"
@@ -406,11 +408,11 @@ const ProductManager: React.FC<ProductManagerProps> = ({
             <div className="mt-10 p-6 bg-amber-500/5 border border-amber-500/20 rounded-2xl">
               <h4 className="text-sm font-bold uppercase tracking-widest text-amber-700 mb-4 flex items-center gap-2">
                 <ClipboardList className="w-4 h-4" />
-                Paramètres Globaux du Service
+                {t("dashboard.products.global_settings")}
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="text-[10px] font-bold text-muted-foreground uppercase mb-1 block">Pourcentage de prélèvement (%)</label>
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase mb-1 block">{t("dashboard.products.percentage_taken")}</label>
                   <div className="flex items-center gap-3">
                     <input
                       type="number"
@@ -418,9 +420,9 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                       onBlur={(e) => updateGlobalSettings({ pressing_percentage_taken: parseFloat(e.target.value) })}
                       className="w-32 px-4 py-2 rounded-xl border border-border text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none"
                     />
-                    <span className="text-xs font-bold text-muted-foreground">% de l'huile produite</span>
+                    <span className="text-xs font-bold text-muted-foreground">{t("dashboard.products.percentage_desc")}</span>
                   </div>
-                  <p className="text-[10px] text-muted-foreground mt-2 italic">C’est ce que vous retenez comme paiement si le client ne paye pas en argent.</p>
+                  <p className="text-[10px] text-muted-foreground mt-2 italic">{t("dashboard.products.percentage_hint")}</p>
                 </div>
               </div>
             </div>
@@ -433,14 +435,14 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         <div className="flex flex-wrap items-center justify-between mb-8 gap-4">
           <h3 className="text-xl font-bold flex items-center gap-2">
             <Archive className="w-5 h-5 text-amber-600" />
-            Tarifs de Livraison (Wilayas)
+            {t("dashboard.products.shipping_section")}
           </h3>
           <div className="flex flex-wrap items-center gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Rechercher une wilaya..."
+                placeholder={t("dashboard.products.search_wilaya")}
                 value={shippingSearch}
                 onChange={(e) => setShippingSearch(e.target.value)}
                 className="pl-10 pr-4 py-2 bg-background border border-border rounded-full text-sm outline-none focus:ring-2 focus:ring-amber-500/20 w-64"
@@ -454,7 +456,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
               className="flex items-center gap-2 bg-amber-500 text-white px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity font-bold text-sm shadow-md shadow-amber-500/10"
             >
               <Plus className="w-4 h-4" />
-              Nouvelle Wilaya
+              {t("dashboard.products.new_wilaya")}
             </button>
           </div>
         </div>
@@ -495,24 +497,24 @@ const ProductManager: React.FC<ProductManagerProps> = ({
           <div className="relative w-full max-w-lg bg-secondary/50 border border-border p-8 rounded-[40px] shadow-2xl backdrop-blur-xl">
             <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
               {editingProduct ? <Edit2 className="w-6 h-6 text-primary" /> : <Plus className="w-6 h-6 text-primary" />}
-              {editingProduct ? "Modifier le Produit" : "Nouveau Produit"}
+              {editingProduct ? t("dashboard.products.edit_product") : t("dashboard.products.create_product")}
             </h3>
             <form onSubmit={handleProductSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">Nom du produit</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">{t("dashboard.products.product_name")}</label>
                 <input
                   required
                   type="text"
                   value={productForm.name}
                   onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
                   className="w-full bg-background border border-border rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-                  placeholder="Ex: Huile d'Olive Extra Vierge 5L"
+                  placeholder={t("dashboard.products.product_name")}
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* Category selector removed */}
                 <div className="space-y-2">
-                   <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">Prix (DA/L)</label>
+                   <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">{t("dashboard.products.price")} (DA/L)</label>
                    <input
                      required
                      type="number"
@@ -523,7 +525,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">Stock Initial (Litres)</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">{t("dashboard.products.initial_stock")}</label>
                 <input
                   required
                   type="number"
@@ -538,14 +540,14 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                   onClick={() => setShowProductModal(false)}
                   className="flex-1 px-8 py-4 rounded-2xl border border-border font-bold hover:bg-secondary transition-colors"
                 >
-                  Annuler
+                  {t("dashboard.products.cancel")}
                 </button>
                 <button
                   type="submit"
                   disabled={apiLoading}
                   className="flex-1 px-8 py-4 rounded-2xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity shadow-lg shadow-primary/20 disabled:opacity-50"
                 >
-                  {apiLoading ? "Chargement..." : editingProduct ? "Enregistrer" : "Créer le produit"}
+                  {apiLoading ? t("dashboard.products.adding") : editingProduct ? t("dashboard.products.save") : t("dashboard.products.create")}
                 </button>
               </div>
             </form>
@@ -559,12 +561,12 @@ const ProductManager: React.FC<ProductManagerProps> = ({
           <div className="relative w-full max-w-lg bg-secondary/50 border border-border p-8 rounded-[40px] shadow-2xl backdrop-blur-xl">
             <h3 className="text-2xl font-bold mb-6 flex items-center gap-3 text-amber-600">
               <Plus className="w-6 h-6" />
-              Nouveau Tarif de Livraison
+              {t("dashboard.products.new_wilaya")}
             </h3>
             <form onSubmit={handleShippingSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                 <div className="space-y-2 col-span-1">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">Code</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">{t("dashboard.products.code")}</label>
                   <input
                     required
                     type="number"
@@ -575,7 +577,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                   />
                 </div>
                 <div className="space-y-2 col-span-3">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">Nom de la Wilaya</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">{t("dashboard.products.wilaya_name")}</label>
                   <input
                     required
                     type="text"
@@ -587,7 +589,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">Prix de livraison (DA)</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">{t("dashboard.products.shipping_price")}</label>
                 <input
                   required
                   type="number"
@@ -603,14 +605,14 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                   onClick={() => setShowShippingModal(false)}
                   className="flex-1 px-8 py-4 rounded-2xl border border-border font-bold hover:bg-secondary transition-colors"
                 >
-                  Annuler
+                  {t("dashboard.products.cancel")}
                 </button>
                 <button
                   type="submit"
                   disabled={apiLoading}
                   className="flex-1 px-8 py-4 rounded-2xl bg-amber-500 text-white font-bold hover:opacity-90 transition-opacity shadow-lg shadow-amber-500/20 disabled:opacity-50"
                 >
-                  {apiLoading ? "Chargement..." : "Ajouter"}
+                  {apiLoading ? t("dashboard.products.adding") : t("dashboard.products.create")}
                 </button>
               </div>
             </form>

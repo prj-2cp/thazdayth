@@ -18,6 +18,7 @@ import {
   UserCheck
 } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import { useApi } from "@/hooks/useApi";
 import { cn } from "@/lib/utils";
 
@@ -34,6 +35,7 @@ const UserManager: React.FC<UserManagerProps> = ({
   setSearchTerm,
   onRefresh
 }) => {
+  const { t } = useTranslation();
   const { request } = useApi();
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [showBlacklisted, setShowBlacklisted] = useState(false);
@@ -50,10 +52,10 @@ const UserManager: React.FC<UserManagerProps> = ({
       const data = await request<any>(`/users/${userId}/blacklist`, {
         method: 'PATCH'
       });
-      toast.success(data.message || "Statut client mis à jour");
+      toast.success(data.message || t("dashboard.orders.update_status"));
       onRefresh();
     } catch (err) {
-      toast.error("Échec de l'action");
+      toast.error(t("boutique.form.error"));
     } finally {
       setLoadingId(null);
     }
@@ -80,7 +82,7 @@ const UserManager: React.FC<UserManagerProps> = ({
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/30" />
           <input
             type="text"
-            placeholder="Rechercher un client..."
+            placeholder={t("dashboard.clients.search")}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-12 pr-4 py-3 bg-secondary/30 rounded-2xl text-sm border-none focus:ring-1 focus:ring-primary/20 outline-none transition-all placeholder:text-muted-foreground/40"
@@ -94,7 +96,7 @@ const UserManager: React.FC<UserManagerProps> = ({
              showBlacklisted ? "bg-red-500 text-white shadow-xl shadow-red-500/20" : "bg-secondary text-muted-foreground/60 border border-border"
           )}
         >
-          {showBlacklisted ? "Masquer Restraints" : "Gérer Restreints"}
+          {showBlacklisted ? t("dashboard.clients.blacklist_hide") : t("dashboard.clients.blacklist_toggle")}
         </button>
       </div>
 
@@ -104,7 +106,7 @@ const UserManager: React.FC<UserManagerProps> = ({
           {filteredUsers.length === 0 ? (
             <div className="py-24 text-center">
                <UsersIcon className="w-12 h-12 text-muted-foreground/10 mx-auto mb-6" />
-               <p className="text-sm font-medium text-muted-foreground italic">Aucun profil client détecté.</p>
+               <p className="text-sm font-medium text-muted-foreground italic">{t("dashboard.clients.empty")}</p>
             </div>
           ) : (
             filteredUsers.map(u => (
@@ -127,7 +129,7 @@ const UserManager: React.FC<UserManagerProps> = ({
                    <div className="space-y-0.5">
                       <div className="flex items-center gap-2">
                          <h3 className="text-base font-bold text-foreground leading-tight">{u.first_name} {u.last_name}</h3>
-                         {u.is_blacklisted && <span className="px-2 py-0.5 rounded-full bg-red-500 text-[8px] font-black text-white uppercase tracking-tighter">Suspendu</span>}
+                         {u.is_blacklisted && <span className="px-2 py-0.5 rounded-full bg-red-500 text-[8px] font-black text-white uppercase tracking-tighter">{t("dashboard.orders.blacklist")}</span>}
                       </div>
                       <p className="text-[11px] font-medium text-muted-foreground font-sans flex items-center gap-3">
                         <span>{u.email}</span>
@@ -137,11 +139,10 @@ const UserManager: React.FC<UserManagerProps> = ({
                    </div>
                 </div>
 
-                {/* Info Center */}
                 <div className="flex-1 flex items-center justify-between md:border-l border-border/40 md:pl-8">
                    <div className="flex items-center gap-6">
                       <div className="flex flex-col">
-                         <span className="text-[8px] font-black text-muted-foreground/40 uppercase tracking-tighter">Inscrit le</span>
+                         <span className="text-[8px] font-black text-muted-foreground/40 uppercase tracking-tighter">{t("dashboard.clients.col_joined")}</span>
                          <span className="text-[11px] font-black text-foreground/70 font-sans">
                             {formatDate(u.created_at)}
                          </span>
@@ -166,7 +167,9 @@ const UserManager: React.FC<UserManagerProps> = ({
                     ) : (
                       u.is_blacklisted ? <ShieldCheck size={14} /> : <ShieldAlert size={14} />
                     )}
-                    <span className="hidden lg:inline">{u.is_blacklisted ? "Réhabiliter" : "Banir"}</span>
+                    <span className="hidden lg:inline">
+                      {u.is_blacklisted ? t("dashboard.orders.unblacklist") : t("dashboard.orders.blacklist")}
+                    </span>
                   </button>
                   
                   <button className="p-2.5 bg-secondary text-muted-foreground/40 hover:text-foreground rounded-xl border border-border transition-all">

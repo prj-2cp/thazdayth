@@ -157,11 +157,11 @@ const Suivi = () => {
             ]);
 
             if (ordersRes.status === 429 || pressingRes.status === 429) {
-                throw new Error(t("suivi.too_many_requests") || "Trop de requêtes. Veuillez patienter.");
+                throw new Error(t("suivi.too_many_requests"));
             }
 
             if (!ordersRes.ok || !pressingRes.ok) {
-                throw new Error(t("suivi.load_error") || "Erreur lors du chargement de vos suivis.");
+                throw new Error(t("suivi.load_error"));
             }
 
             const [ordersText, pressingText] = await Promise.all([
@@ -207,9 +207,15 @@ const Suivi = () => {
     // handlePickupAction removed as it's no longer needed with the new calendar system
 
     const formatDate = (dateString: any) => {
-        if (!dateString) return t("suivi.awaiting") || "---";
+        if (!dateString) return t("suivi.awaiting");
         const date = new Date(dateString);
-        return isNaN(date.getTime()) ? "---" : date.toLocaleDateString();
+        if (isNaN(date.getTime())) return "---";
+        
+        // Consistent formatting with dashboard
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
     };
 
     const getStatusIcon = (status: OrderStatus | PressingStatus) => {
@@ -278,7 +284,7 @@ const Suivi = () => {
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <input
                         type="text"
-                        placeholder={t("suivi.search_placeholder") || "Rechercher par numéro..."}
+                        placeholder={t("suivi.search_placeholder")}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         autoComplete="off"
@@ -403,7 +409,7 @@ const Suivi = () => {
                                                                         (order.shipping?.pickup_date ? (
                                                                             <div className="flex flex-col gap-1 mt-1">
                                                                                 <span className="text-primary font-bold text-xs">
-                                                                                    {t("suivi.pickup.scheduled_for", { date: formatDate(order.shipping.pickup_date) }) || `Retrait prévu le ${formatDate(order.shipping.pickup_date)}`}
+                                                                                    {t("suivi.pickup.scheduled_for", { date: formatDate(order.shipping.pickup_date) })}
                                                                                 </span>
                                                                                 <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
                                                                                     <MapPin className="w-3 h-3" />
