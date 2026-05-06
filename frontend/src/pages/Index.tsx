@@ -14,7 +14,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MagneticButton from "@/components/MagneticButton";
 import Testimonials from "@/components/Testimonials";
-import backgroundVideo from "@/assets/backgroundVideo.mp4";
+// YouTube background video integration
+// import backgroundVideo from "@/assets/backgroundVideo.mp4";
 
 // Helper function to structure our "Values" data for the grid
 const getValues = (t: any) => [
@@ -27,7 +28,7 @@ const getValues = (t: any) => [
 const Index = () => {
   // Hook i18n pour la gestion multi-langue (FR, EN, KAB)
   const { t } = useTranslation();
-  
+
   // Fetching text data from translation JSON files
   const values = getValues(t);
 
@@ -50,21 +51,13 @@ const Index = () => {
           transition={{ duration: 1.5, ease: "easeOut" }} // Transition duration and easing
           className="absolute inset-0"
         >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src={backgroundVideo} type="video/mp4" />
-            {/* Fallback image if video doesn't load */}
-            <img
-              src="https://i.pinimg.com/1200x/ab/0b/d2/ab0bd249514ef37d5ae4bca85d7129f2.jpg"
-              alt="Oliveraie de Kabylie"
-              className="w-full h-full object-cover"
+          <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+            <iframe
+              src="https://www.youtube.com/embed/gA52WYQZWjU?autoplay=1&mute=1&controls=0&loop=1&playlist=gA52WYQZWjU&rel=0&showinfo=0&modestbranding=1&iv_load_policy=3&enablejsapi=1"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[115vw] h-[115vh] max-w-none border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             />
-          </video>
+          </div>
 
           <div className="absolute inset-0 bg-foreground/30" />
         </motion.div>
