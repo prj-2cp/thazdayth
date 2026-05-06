@@ -122,6 +122,8 @@ const NotificationDrawer = ({
             console.error("Failed to mark all as read:", err);
             fetchNotifications();
         }
+    };
+
     const deleteNotification = async (e: React.MouseEvent, id: string) => {
         e.stopPropagation(); // Don't trigger the click handler of the card
         
