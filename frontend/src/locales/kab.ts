@@ -471,6 +471,12 @@ export const kab = {
             desc1: "Tubiret d llsas n ssuq anda mlalen medden. D ul n Tmurt n Leqbayel, anda tnezzut tella seg zik.",
             desc2: "Seg luluf iseggasen i neɛṣer azemmur dagi. Lḥayzer d tizi n Ğerğer, teḥrez amezruy n ljdud-nneɣ."
         },
+        haizer: {
+            badge: "Lweṛt",
+            title: "Lḥayzer d Tubiret : Akal n umezruy",
+            desc1: "Seddaw yidurar iɛlayan n Ğerğer, taɣiwant n Lḥayzer d ul n Tubiret. Tamnaḍt-agi n umezruy tettwassen s wakal-is d ugezru d lḥala n lhawwa-s, d ayen i d-yefkan tagnit i tfellaḥt igerrzen.",
+            desc2: "Azemmur di Lḥayzer mačči d tafellaḥt kan; d lweṛt n lejdud yedran ɣer yiẓuran-nneɣ. Deg lweqt n ullaqaḍ, twaculin ddukklent ɣer tzemrin, nettheyyi lɛada n zik i d-isbanayen ccan ger yimezdaɣ n Tubiret d wakal-nsen."
+        },
         gallery: {
             title: "Tugniwin",
             view: "Ssemsu",

@@ -474,6 +474,12 @@ export const en = {
             desc1: "Bouira has always been a big market where everyone meets. It's the heart of Kabylia, a place of trade for a very long time.",
             desc2: "We've been pressing olives here for centuries. Haizer is like a balcony overlooking the mountains, guarding our ancestors' story."
         },
+        haizer: {
+            badge: "Heritage",
+            title: "Haizer & Bouira: A Land of History",
+            desc1: "Nestled at the foot of the majestic Djurdjura mountains, the commune of Haizer is the beating heart of the Bouira province. This historic region is renowned for its fertile lands and temperate climate, offering an ideal environment for rich and diverse agriculture.",
+            desc2: "Olive cultivation in Haizer goes beyond a simple agricultural activity; it is a deeply rooted cultural heritage. The harvest season gathers entire families around the olive trees, perpetuating a millennial tradition that celebrates the sacred bond between the people of Bouira and their generous land."
+        },
         gallery: {
             title: "Gallery",
             view: "Enlarge",

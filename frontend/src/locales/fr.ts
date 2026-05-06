@@ -474,6 +474,12 @@ export const fr = {
             desc1: "Bouira a toujours été un grand marché où tout le monde se croisait. C'est le cœur de la Kabylie, un endroit où l'on échange depuis très longtemps.",
             desc2: "Depuis des siècles, on presse l'olive ici. Haizer est comme un balcon sur les montagnes, gardant précieusement l'histoire de nos ancêtres."
         },
+        haizer: {
+            badge: "Héritage",
+            title: "Haizer & Bouira : Terre d'Histoire",
+            desc1: "Nichée au pied des majestueuses montagnes du Djurdjura, la commune de Haizer est le cœur battant de la wilaya de Bouira. Cette région historique est réputée pour ses terres fertiles et son climat tempéré, offrant un environnement idéal pour une agriculture riche et diversifiée.",
+            desc2: "La culture de l'olivier à Haizer dépasse la simple activité agricole ; c'est un héritage culturel profondément enraciné. La période de récolte rassemble les familles entières autour des oliviers, perpétuant une tradition millénaire qui célèbre le lien sacré entre les habitants de Bouira et leur terre généreuse."
+        },
         gallery: {
             title: "Galerie",
             view: "Agrandir",

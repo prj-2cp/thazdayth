@@ -131,6 +131,37 @@ const Region = () => {
         </div>
       </section>
 
+      {/* Héritage de Haizer */}
+      <section className="bg-secondary/30 py-20 lg:py-32 px-6 lg:px-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
+          <SectionReveal>
+            <span className="inline-block border border-primary/30 rounded-full px-4 py-1.5 text-xs tracking-widest uppercase text-primary mb-6">
+              {t("region.haizer.badge")}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              {t("region.haizer.title")}
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              {t("region.haizer.desc1")}
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              {t("region.haizer.desc2")}
+            </p>
+          </SectionReveal>
+          <SectionReveal delay={0.2}>
+            <div className="overflow-hidden rounded-2xl shadow-xl">
+              <motion.img
+                src="/region1.jpg"
+                alt="Héritage de Haizer"
+                className="w-full h-[350px] lg:h-[450px] object-cover"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.6 }}
+              />
+            </div>
+          </SectionReveal>
+        </div>
+      </section>
+
       {/* Image gallery with zoom effect on click */}
       <section className="py-24 px-6 lg:px-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
