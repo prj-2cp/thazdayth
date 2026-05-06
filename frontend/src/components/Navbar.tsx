@@ -151,7 +151,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
           <div className="flex items-center justify-end gap-4 z-10 flex-1">
             <Link
               to="/boutique"
-              className="relative flex items-center justify-center text-foreground/70 hover:text-primary transition-all hover:scale-110"
+              className="hidden lg:flex relative items-center justify-center text-foreground/70 hover:text-primary transition-all hover:scale-110"
               title={t("nav.shop") || "Boutique"}
             >
               <ShoppingBag className="w-4 h-4 stroke-[2.2]" />
@@ -160,7 +160,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
             {isAuthenticated && (
               <button
                 onClick={() => setIsNotificationDrawerOpen(true)}
-                className="relative flex items-center justify-center text-foreground/70 hover:text-primary transition-all hover:scale-110 focus:outline-none"
+                className="hidden lg:flex relative items-center justify-center text-foreground/70 hover:text-primary transition-all hover:scale-110 focus:outline-none"
               >
                 <Bell className="w-4 h-4 stroke-[2.2]" />
                 {unreadCount > 0 && (
@@ -177,7 +177,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1 text-sm text-foreground/70 hover:text-primary transition-colors focus:outline-none">
+                <button className="hidden lg:flex items-center gap-1 text-sm text-foreground/70 hover:text-primary transition-colors focus:outline-none">
                   <Globe className="w-4 h-4" />
                   <span className="hidden lg:inline text-xs">{currentLang.toUpperCase()}</span>
                 </button>
@@ -199,7 +199,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
             {isAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110 focus:outline-none">
+                  <button className="hidden lg:flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110 focus:outline-none">
                     <User className="w-4 h-4 stroke-[2.2]" />
                   </button>
                 </DropdownMenuTrigger>
@@ -226,7 +226,7 @@ const Navbar = ({ className = "", onNotificationClick }: { className?: string, o
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link to="/connexion" className="flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110">
+              <Link to="/connexion" className="hidden lg:flex items-center gap-1 text-foreground/70 hover:text-primary transition-all hover:scale-110">
                 <User className="w-4 h-4 stroke-[2.2]" />
               </Link>
             )}

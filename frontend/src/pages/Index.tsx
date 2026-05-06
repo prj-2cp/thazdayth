@@ -183,8 +183,8 @@ const Index = () => {
       </section>
 
       {/* Notre Région — location section */}
-      <section className="py-20 lg:py-32 px-6 lg:px-10 overflow-hidden">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+      <section className="py-24 lg:py-32 px-6 lg:px-10 overflow-hidden relative">
+        <div className="max-w-3xl mx-auto text-center mb-16 relative z-20">
           <span className="inline-block border border-foreground/60 rounded-full px-4 py-1.5 text-xs tracking-widest uppercase text-muted-foreground mb-8">
             {t("home.region.badge")}
           </span>
@@ -205,7 +205,7 @@ const Index = () => {
               {[...Array(2)].map((_, i) => (
                 <div key={i} className="flex gap-16 items-center">
                   {marqueeWords.map((word: string, i: number) => (
-                    <span key={word + i} className="text-4xl md:text-7xl lg:text-8xl font-bold text-foreground/20 uppercase tracking-wider select-none">
+                    <span key={word + i} className="text-3xl md:text-7xl lg:text-8xl font-bold text-foreground/10 uppercase tracking-wider select-none">
                       {word}
                     </span>
                   ))}
@@ -215,9 +215,9 @@ const Index = () => {
           </div>
 
           {/* Circular image - overlapping the marquee */}
-          <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+          <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-10">
             <Link to="/region" className="group relative pointer-events-auto ">
-              <div className="w-52 h-52 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border border-foreground/20 bg-background shadow-lg">
+              <div className="w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden border border-foreground/20 bg-background shadow-lg">
                 <motion.img
                   src="https://i.pinimg.com/736x/7a/98/7b/7a987bf3933dd838604bff3d6b370cc4.jpg"
                   alt="Paysage de Kabylie"

@@ -16,7 +16,7 @@ const Footer = () => {
   const legalLinks = t("footer.legal_links", { returnObjects: true }) as string[];
 
   return (
-    <footer className="bg-foreground text-background rounded-3xl h-[380px] mx-[20px] my-[10px]">
+    <footer className="bg-foreground text-background rounded-[2rem] lg:rounded-[3rem] h-auto mx-[10px] md:mx-[20px] my-[10px] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand + Contact */}
