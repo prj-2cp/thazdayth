@@ -744,7 +744,8 @@ export const fr = {
             btn_schedule: "Programmer",
             modal_title: "Programmer un pressage",
             modal_date: "Date du rendez-vous",
-            modal_confirm: "Confirmer le rendez-vous"
+            modal_confirm: "Confirmer le rendez-vous",
+            olives: "olives"
         },
         clients: {
             search: "Rechercher un client...",

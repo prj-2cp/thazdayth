@@ -744,7 +744,8 @@ export const en = {
             btn_schedule: "Schedule",
             modal_title: "Schedule a pressing",
             modal_date: "Appointment date",
-            modal_confirm: "Confirm appointment"
+            modal_confirm: "Confirm appointment",
+            olives: "olives"
         },
         clients: {
             search: "Search a client...",
