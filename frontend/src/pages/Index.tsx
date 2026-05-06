@@ -14,7 +14,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MagneticButton from "@/components/MagneticButton";
 import Testimonials from "@/components/Testimonials";
-import { useEffect, useRef } from "react";
 import backgroundVideo from "@/assets/backgroundVideo.mp4";
 
 // Helper function to structure our "Values" data for the grid
@@ -36,16 +35,6 @@ const Index = () => {
   const marqueeWords = t("home.region.marquee", { returnObjects: true }) as string[];
   const newsletterTags = t("home.newsletter.tags", { returnObjects: true }) as string[];
 
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(error => {
-        console.error("Video autoplay failed:", error);
-      });
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
       {/* Navbar with increased transparency and reduced height */}
@@ -53,12 +42,15 @@ const Index = () => {
         className="!bg-background/100 backdrop-blur-sm h-[52px] lg:h-[60px]"
       />
 
-      {/* Hero Section */}
+      {/* Hero Section: Using Framer Motion for the entrance animation */}
       <section className="relative h-screen overflow-hidden">
-        {/* Static Background Video */}
-        <div className="absolute inset-0">
+        <motion.div
+          initial={{ scale: 1.1 }} // Starting state (zoomed in)
+          animate={{ scale: 1 }}   // Final state (normal size)
+          transition={{ duration: 1.5, ease: "easeOut" }} // Transition duration and easing
+          className="absolute inset-0"
+        >
           <video
-            ref={videoRef}
             autoPlay
             loop
             muted
@@ -67,16 +59,15 @@ const Index = () => {
           >
             <source src="/backgroundVideo.mp4" type="video/mp4" />
             <source src={backgroundVideo} type="video/mp4" />
+            {/* Fallback image if video doesn't load */}
+            <img
+              src="https://i.pinimg.com/1200x/ab/0b/d2/ab0bd249514ef37d5ae4bca85d7129f2.jpg"
+              alt="Oliveraie de Kabylie"
+              className="w-full h-full object-cover"
+            />
           </video>
-        </div>
 
-        <motion.div
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="absolute inset-0 pointer-events-none"
-        >
-          {/* Overlay was here, removed for diagnosis */}
+          <div className="absolute inset-0 bg-foreground/30" />
         </motion.div>
 
         <div className="relative z-10 h-full flex flex-col justify-end pb-16 lg:pb-24 px-6 lg:px-10 max-w-7xl mx-auto">
