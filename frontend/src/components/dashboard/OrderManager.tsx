@@ -279,14 +279,21 @@ const OrderManager: React.FC<OrderManagerProps> = ({
 
                   <div className="flex flex-wrap items-center justify-center gap-3">
                     <button 
-                      onClick={() => setEditingNoteId(editingNoteId === o._id ? null : o._id)}
+                      onClick={() => {
+                        if (editingNoteId === o._id) {
+                          setEditingNoteId(null);
+                        } else {
+                          setEditingNoteId(o._id);
+                          setTempNoteValue(o.owner_notes || "");
+                        }
+                      }}
                       className={cn(
                         "px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all flex items-center gap-2",
                         editingNoteId === o._id ? "bg-foreground text-background border-foreground" : "bg-secondary/40 text-muted-foreground border-border hover:bg-secondary hover:text-foreground"
                       )}
                     >
                       <MoreHorizontal className="w-3 h-3" />
-                      {t("dashboard.orders.notes")}
+                      {t("dashboard.orders.notes")} {o.owner_notes && <span className="text-primary ml-1 text-lg leading-none">*</span>}
                     </button>
 
                     <button 

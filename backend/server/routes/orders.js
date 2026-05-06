@@ -209,5 +209,18 @@ router.patch('/:id/status', authenticate, ownerOnly, async (req, res) => {
         res.status(500).json({ message: "Erreur serveur." });
     }
 });
+router.patch('/:id/notes', authenticate, ownerOnly, async (req, res) => {
+    const { notes } = req.body;
+    try {
+        const order = await Order.findByIdAndUpdate(req.params.id, { owner_notes: notes }, { returnDocument: 'after' });
+        if (!order) {
+            res.status(404).json({ message: 'Commande introuvable.' });
+            return;
+        }
+        res.json(order);
+    } catch(err) {
+        res.status(500).json({ message: "Erreur serveur." });
+    }
+});
 
 exports.default = router
