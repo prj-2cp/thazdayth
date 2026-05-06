@@ -62,6 +62,15 @@ router.patch("/:id/read", authenticate,
     }
 )
 
+router.delete("/all", authenticate, async (req, res) => {
+    try {
+        await Notifications.deleteMany({ user_id: req.user.id });
+        res.json({ message: 'All notifications deleted' });
+    } catch (err) {
+        res.status(500).json({ message: 'Erreur lors de la suppression des notifications.' });
+    }
+});
+
 router.delete("/:id", authenticate, async (req, res) => {
     try {
         const notification = await Notifications.findOneAndDelete({ _id: req.params.id, user_id: req.user.id });
@@ -72,15 +81,6 @@ router.delete("/:id", authenticate, async (req, res) => {
         res.json({ message: 'Notification deleted' });
     } catch (err) {
         res.status(500).json({ message: 'Erreur lors de la suppression de la notification.' });
-    }
-});
-
-router.delete("/all", authenticate, async (req, res) => {
-    try {
-        await Notifications.deleteMany({ user_id: req.user.id });
-        res.json({ message: 'All notifications deleted' });
-    } catch (err) {
-        res.status(500).json({ message: 'Erreur lors de la suppression des notifications.' });
     }
 });
 
