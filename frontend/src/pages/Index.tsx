@@ -52,7 +52,7 @@ const Index = () => {
         className="!bg-background/100 backdrop-blur-sm h-[52px] lg:h-[60px]"
       />
 
-      {/* Hero Section */}
+      
       <section className="relative h-screen overflow-hidden">
         <div className="absolute inset-0">
           <video
@@ -65,9 +65,9 @@ const Index = () => {
             className="w-full h-full object-cover"
           >
             <source src="/hero-bg.mp4" type="video/mp4" />
-            {/* High-quality Fallback image */}
             <img
-              src="https://images.unsplash.com/photo-1474979266404-7eaacbadcbaf?q=80&w=2000&auto=format&fit=crop"
+              src="https://res.cloudinary.com/lamaricloud/video/upload/v1778081169/backgroundVideo_cptcyu.mp4
+"
               alt="Oliveraie"
               className="w-full h-full object-cover"
             />
