@@ -44,7 +44,8 @@ const ProductManager: React.FC<ProductManagerProps> = ({
   const [productForm, setProductForm] = useState({
     name: "",
     price_per_liter: 0,
-    stock_liters: 0
+    stock_liters: 0,
+    category: "extra_virgin"
   });
 
   const [shippingForm, setShippingForm] = useState({
@@ -66,7 +67,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
       toast.success(editingProduct ? t("dashboard.products.update_success") : t("dashboard.products.create_success"));
       setShowProductModal(false);
       setEditingProduct(null);
-      setProductForm({ name: "", price_per_liter: 0, stock_liters: 0 });
+      setProductForm({ name: "", price_per_liter: 0, stock_liters: 0, category: "extra_virgin" });
       onRefresh();
     } catch (err: any) {}
   };
@@ -207,7 +208,8 @@ const ProductManager: React.FC<ProductManagerProps> = ({
     setProductForm({
       name: product.name,
       price_per_liter: product.price_per_liter,
-      stock_liters: product.stock_liters
+      stock_liters: product.stock_liters,
+      category: product.category || "extra_virgin"
     });
     setShowProductModal(true);
   };
@@ -227,7 +229,7 @@ const ProductManager: React.FC<ProductManagerProps> = ({
               <button
                 onClick={() => {
                   setEditingProduct(null);
-                  setProductForm({ name: "", price_per_liter: 0, stock_liters: 0 });
+                  setProductForm({ name: "", price_per_liter: 0, stock_liters: 0, category: "extra_virgin" });
                   setShowProductModal(true);
                 }}
                 className="flex items-center gap-1 bg-primary text-primary-foreground px-3 py-1.5 rounded-full hover:opacity-90 transition-opacity font-bold text-xs shadow-sm"
