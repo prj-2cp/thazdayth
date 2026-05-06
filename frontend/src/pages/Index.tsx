@@ -56,7 +56,7 @@ const Index = () => {
       <section className="relative h-screen overflow-hidden">
         <div className="absolute inset-0">
           <video
-            ref='https://res.cloudinary.com/lamaricloud/video/upload/v1778081169/backgroundVideo_cptcyu.mp4'
+            src='https://res.cloudinary.com/lamaricloud/video/upload/v1778081169/backgroundVideo_cptcyu.mp4'
             autoPlay
             loop
             muted
