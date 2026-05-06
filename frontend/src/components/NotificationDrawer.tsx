@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bell, X, Check, Info, AlertTriangle } from "lucide-react";
+import { Bell, X, Check, Info, AlertTriangle, Trash2 } from "lucide-react";
 import { useAuth } from "@/Context/AuthContext";
 import { useTranslation } from "react-i18next";
 import API_URL from "@/config";
@@ -122,6 +122,55 @@ const NotificationDrawer = ({
             console.error("Failed to mark all as read:", err);
             fetchNotifications();
         }
+    const deleteNotification = async (e: React.MouseEvent, id: string) => {
+        e.stopPropagation(); // Don't trigger the click handler of the card
+        
+        // Optimistic update
+        const previousNotifications = [...notifications];
+        setNotifications(prev => prev.filter(n => n._id !== id));
+        if (!notifications.find(n => n._id === id)?.is_read) {
+            setUnreadCount(prev => Math.max(0, prev - 1));
+        }
+
+        try {
+            const res = await fetch(`${API_URL}/notifications/${id}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (!res.ok) {
+                setNotifications(previousNotifications);
+                if (onRefresh) onRefresh();
+            } else {
+                if (onRefresh) onRefresh();
+            }
+        } catch (err) {
+            console.error("Failed to delete notification:", err);
+            setNotifications(previousNotifications);
+        }
+    };
+
+    const deleteAllNotifications = async () => {
+        if (!window.confirm(t("notifications.confirm_delete_all") || "Voulez-vous vraiment supprimer toutes vos notifications ?")) return;
+
+        // Optimistic update
+        setNotifications([]);
+        setUnreadCount(0);
+
+        try {
+            const res = await fetch(`${API_URL}/notifications/all`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (res.ok) {
+                if (onRefresh) onRefresh();
+            } else {
+                fetchNotifications();
+                if (onRefresh) onRefresh();
+            }
+        } catch (err) {
+            console.error("Failed to delete all notifications:", err);
+            fetchNotifications();
+        }
     };
 
     return (
@@ -156,6 +205,15 @@ const NotificationDrawer = ({
                                         {t("notifications.mark_all") || "Tout marquer"}
                                     </button>
                                 )}
+                                {notifications.length > 0 && (
+                                    <button
+                                        onClick={deleteAllNotifications}
+                                        className="p-2 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded-full transition-colors"
+                                        title={t("notifications.delete_all") || "Supprimer tout"}
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </button>
+                                )}
                                 <button onClick={onClose} className="p-2 hover:bg-secondary rounded-full transition-colors">
                                     <X className="w-5 h-5" />
                                 </button>
@@ -181,11 +239,19 @@ const NotificationDrawer = ({
                                             }
                                             onClose();
                                         }}
-                                        className={`p-4 rounded-2xl border transition-all cursor-pointer hover:border-primary/40 ${n.is_read ? "border-border bg-background" : "border-primary/20 bg-primary/5 shadow-sm"}`}
+                                        className={`p-4 rounded-2xl border transition-all cursor-pointer group hover:border-primary/40 ${n.is_read ? "border-border bg-background" : "border-primary/20 bg-primary/5 shadow-sm"}`}
                                     >
                                         <div className="flex justify-between items-start mb-1">
                                             <h4 className={`text-sm font-bold ${n.is_read ? "text-foreground" : "text-primary"}`}>{n.title}</h4>
-                                            {!n.is_read && <div className="w-2 h-2 rounded-full bg-primary mt-1.5" />}
+                                            <div className="flex items-center gap-2">
+                                                {!n.is_read && <div className="w-2 h-2 rounded-full bg-primary" />}
+                                                <button
+                                                    onClick={(e) => deleteNotification(e, n._id)}
+                                                    className="p-1.5 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                                                >
+                                                    <Trash2 className="w-3.5 h-3.5" />
+                                                </button>
+                                            </div>
                                         </div>
                                         <p className="text-xs text-muted-foreground leading-relaxed mb-2">{n.message}</p>
                                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
