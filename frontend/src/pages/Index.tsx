@@ -52,11 +52,11 @@ const Index = () => {
         className="!bg-background/100 backdrop-blur-sm h-[52px] lg:h-[60px]"
       />
 
-      
+
       <section className="relative h-screen overflow-hidden">
         <div className="absolute inset-0">
           <video
-            ref={videoRef}
+            ref='https://res.cloudinary.com/lamaricloud/video/upload/v1778081169/backgroundVideo_cptcyu.mp4'
             autoPlay
             loop
             muted
@@ -66,8 +66,7 @@ const Index = () => {
           >
             <source src="/hero-bg.mp4" type="video/mp4" />
             <img
-              src="https://res.cloudinary.com/lamaricloud/video/upload/v1778081169/backgroundVideo_cptcyu.mp4
-"
+              src="https://res.cloudinary.com/lamaricloud/video/upload/v1778081169/backgroundVideo_cptcyu.mp4"
               alt="Oliveraie"
               className="w-full h-full object-cover"
             />
