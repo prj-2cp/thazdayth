@@ -139,7 +139,7 @@ const sendWelcomeEmail = async (email, name) => {
 
                     <tr>
                         <td style="text-align: center; padding: 10px 50px 40px;">
-                            <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}" 
+                    <a href="${process.env.FRONTEND_URL || 'https://thazdayth.vercel.app'}" 
                                style="display: inline-block; background-color: #6f8d20; color: #ffffff; padding: 16px 42px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase;">
                                 Découvrir TAZDAYTH
                             </a>
@@ -247,7 +247,7 @@ const sendNotificationEmail = async (to, title, message) => {
                 <h2 style="color: #4a6741; border-bottom: 2px solid #f9f9f9; padding-bottom: 10px;">${title}</h2>
                 <p style="line-height: 1.6; color: #333; font-size: 16px;">${message}</p>
                 <div style="margin-top: 30px; text-align: center;">
-                    <a href="${process.env.FRONTEND_URL || 'http://localhost:8080'}/suivi" style="color: #4a6741; font-weight: bold; text-decoration: underline;">Voir les détails sur mon compte</a>
+                    <a href="${process.env.FRONTEND_URL || 'https://thazdayth.vercel.app'}/suivi" style="color: #4a6741; font-weight: bold; text-decoration: underline;">Voir les détails sur mon compte</a>
                 </div>
             </div>
         `,
