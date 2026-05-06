@@ -4,9 +4,11 @@
  * Elle inclut une liste interactive d'ingrédients que j'ai implémentée avec React.
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle2, UtensilsCrossed, FileText } from "lucide-react";
+import { X, CheckCircle2, UtensilsCrossed, FileText, Loader2 } from "lucide-react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import { useTranslation } from "react-i18next";
 import SectionReveal from "@/components/SectionReveal";
 import Navbar from "@/components/Navbar";
@@ -41,6 +43,8 @@ const Plats = () => {
   
   // State to manage the checklist of ingredients
   const [checkedIngredients, setCheckedIngredients] = useState<Record<string, boolean>>({});
+  const [isDownloading, setIsDownloading] = useState(false);
+  const printRef = useRef<HTMLDivElement>(null);
 
   const dishes = getDishes(t);
 
@@ -57,8 +61,37 @@ const Plats = () => {
     }));
   };
 
-  const handleDownloadPDF = () => {
-    window.print();
+  const handleDownloadPDF = async () => {
+    if (!printRef.current || !selectedDish) return;
+    
+    setIsDownloading(true);
+    try {
+      const element = printRef.current;
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+        logging: false
+      });
+      
+      const imgData = canvas.toDataURL("image/jpeg", 1.0);
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      });
+
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      
+      pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`Recette-${selectedDish.name.replace(/\s+/g, "-")}.pdf`);
+    } catch (error) {
+      console.error("PDF Error:", error);
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -139,10 +172,15 @@ const Plats = () => {
                 <div className="absolute top-4 right-4 flex gap-2">
                   <button
                     onClick={handleDownloadPDF}
-                    className="w-10 h-10 rounded-full bg-background/90 flex items-center justify-center hover:bg-background transition-colors text-primary"
+                    disabled={isDownloading}
+                    className="w-10 h-10 rounded-full bg-background/90 flex items-center justify-center hover:bg-background transition-colors text-primary disabled:opacity-50"
                     title={t("plats.modal.download_pdf") || "Télécharger PDF"}
                   >
-                    <FileText className="w-5 h-5" />
+                    {isDownloading ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      <FileText className="w-5 h-5" />
+                    )}
                   </button>
                   <button
                     onClick={() => setSelectedDish(null)}
@@ -153,7 +191,7 @@ const Plats = () => {
                 </div>
               </div>
 
-              <div className="p-8 lg:p-12 print-area">
+              <div ref={printRef} className="p-8 lg:p-12 bg-white">
                 <h2 className="text-3xl font-bold mb-3">{selectedDish.name}</h2>
                 <p className="text-muted-foreground leading-relaxed mb-8">
                   {selectedDish.desc}
@@ -253,38 +291,6 @@ const Plats = () => {
       </AnimatePresence>
 
       <Footer />
-
-      <style>{`
-        @media print {
-          body * {
-            visibility: hidden;
-          }
-          .print-area, .print-area * {
-            visibility: visible;
-          }
-          .print-area {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            padding: 20px;
-            background: white !important;
-            color: black !important;
-          }
-          .no-print {
-            display: none !important;
-          }
-          /* Ensure images print */
-          img {
-            max-width: 100% !important;
-            height: auto !important;
-          }
-          /* Better spacing for print */
-          h2 { font-size: 24pt !important; margin-bottom: 10pt !important; }
-          h4 { font-size: 16pt !important; margin-top: 15pt !important; }
-          p, li { font-size: 12pt !important; }
-        }
-      `}</style>
     </div>
   );
 };
