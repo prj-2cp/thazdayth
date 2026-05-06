@@ -6,7 +6,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle2, UtensilsCrossed } from "lucide-react";
+import { X, CheckCircle2, UtensilsCrossed, FileText } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SectionReveal from "@/components/SectionReveal";
 import Navbar from "@/components/Navbar";
@@ -55,6 +55,10 @@ const Plats = () => {
       ...prev,
       [ing]: !prev[ing]
     }));
+  };
+
+  const handleDownloadPDF = () => {
+    window.print();
   };
 
   return (
@@ -132,15 +136,24 @@ const Plats = () => {
                   alt={selectedDish.name}
                   className="w-full h-full object-cover"
                 />
-                <button
-                  onClick={() => setSelectedDish(null)}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/90 flex items-center justify-center hover:bg-background transition-colors"
-                >
-                  <X className="w-5 h-5 text-foreground" />
-                </button>
+                <div className="absolute top-4 right-4 flex gap-2">
+                  <button
+                    onClick={handleDownloadPDF}
+                    className="w-10 h-10 rounded-full bg-background/90 flex items-center justify-center hover:bg-background transition-colors text-primary"
+                    title={t("plats.modal.download_pdf") || "Télécharger PDF"}
+                  >
+                    <FileText className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => setSelectedDish(null)}
+                    className="w-10 h-10 rounded-full bg-background/90 flex items-center justify-center hover:bg-background transition-colors"
+                  >
+                    <X className="w-5 h-5 text-foreground" />
+                  </button>
+                </div>
               </div>
 
-              <div className="p-8 lg:p-12">
+              <div className="p-8 lg:p-12 print-area">
                 <h2 className="text-3xl font-bold mb-3">{selectedDish.name}</h2>
                 <p className="text-muted-foreground leading-relaxed mb-8">
                   {selectedDish.desc}
@@ -240,6 +253,38 @@ const Plats = () => {
       </AnimatePresence>
 
       <Footer />
+
+      <style>{`
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          .print-area, .print-area * {
+            visibility: visible;
+          }
+          .print-area {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            padding: 20px;
+            background: white !important;
+            color: black !important;
+          }
+          .no-print {
+            display: none !important;
+          }
+          /* Ensure images print */
+          img {
+            max-width: 100% !important;
+            height: auto !important;
+          }
+          /* Better spacing for print */
+          h2 { font-size: 24pt !important; margin-bottom: 10pt !important; }
+          h4 { font-size: 16pt !important; margin-top: 15pt !important; }
+          p, li { font-size: 12pt !important; }
+        }
+      `}</style>
     </div>
   );
 };

@@ -318,7 +318,8 @@ export const fr = {
             prep: "Préparation",
             chef_tip: "Conseil du Chef",
             interactive_hint: "Cochez vos ingrédients au fur et à mesure !",
-            link: "Voir la recette et l'histoire →"
+            link: "Voir la recette et l'histoire →",
+            download_pdf: "Télécharger en PDF"
         }
     },
     boutique: {

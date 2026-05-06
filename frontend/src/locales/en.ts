@@ -318,7 +318,8 @@ export const en = {
             prep: "Preparation",
             chef_tip: "Chef's Tip",
             interactive_hint: "Check off your ingredients as you go!",
-            link: "See recipe and history →"
+            link: "See recipe and history →",
+            download_pdf: "Download as PDF"
         }
     },
     boutique: {
