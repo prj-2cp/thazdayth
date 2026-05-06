@@ -48,7 +48,7 @@ const Index = () => {
           initial={{ scale: 1.1 }} // Starting state (zoomed in)
           animate={{ scale: 1 }}   // Final state (normal size)
           transition={{ duration: 1.5, ease: "easeOut" }} // Transition duration and easing
-          className="absolute inset-0"
+          className="absolute inset-0 bg-red-500"
         >
           <video
             autoPlay
