@@ -14,7 +14,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MagneticButton from "@/components/MagneticButton";
 import Testimonials from "@/components/Testimonials";
-import backgroundVideo from "@/assets/backgroundVideo.mp4";
+import { useRef, useEffect } from "react";
 
 // Helper function to structure our "Values" data for the grid
 const getValues = (t: any) => [
@@ -27,6 +27,16 @@ const getValues = (t: any) => [
 const Index = () => {
   // Hook i18n pour la gestion multi-langue (FR, EN, KAB)
   const { t } = useTranslation();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Force play for some mobile browsers and Vercel environments
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.log("Autoplay blocked or failed:", error);
+      });
+    }
+  }, []);
 
   // Fetching text data from translation JSON files
   const values = getValues(t);
@@ -51,13 +61,15 @@ const Index = () => {
           className="absolute inset-0"
         >
           <video
+            ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
+            preload="auto"
             className="w-full h-full object-cover"
           >
-            <source src={backgroundVideo} type="video/mp4" />
+            <source src="/backgroundVideo.mp4" type="video/mp4" />
             {/* Fallback image if video doesn't load */}
             <img
               src="https://i.pinimg.com/1200x/ab/0b/d2/ab0bd249514ef37d5ae4bca85d7129f2.jpg"
