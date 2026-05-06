@@ -48,7 +48,7 @@ const Index = () => {
           initial={{ scale: 1.1 }} // Starting state (zoomed in)
           animate={{ scale: 1 }}   // Final state (normal size)
           transition={{ duration: 1.5, ease: "easeOut" }} // Transition duration and easing
-          className="absolute inset-0 bg-red-500"
+          className="absolute inset-0"
         >
           <video
             autoPlay
@@ -57,7 +57,6 @@ const Index = () => {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="/backgroundVideo.mp4" type="video/mp4" />
             <source src={backgroundVideo} type="video/mp4" />
             {/* Fallback image if video doesn't load */}
             <img
