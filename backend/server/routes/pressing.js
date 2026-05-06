@@ -148,21 +148,21 @@ router.patch('/:id/appointment', authenticate, ownerOnly, [
             updateFields.bring_olives_date = new Date(req.body.bring_olives_date);
         if (req.body.collect_oil_date)
             updateFields.collect_oil_date = new Date(req.body.collect_oil_date);
-            
+
         const request = await PressingRequest.findByIdAndUpdate(req.params.id, updateFields, { new: true });
         if (!request) {
             res.status(404).json({ message: 'Demande introuvable.' });
             return;
         }
-        
+
         let datesMessage = '';
         if (req.body.bring_olives_date)
             datesMessage += `\nApport des olives : ${new Date(req.body.bring_olives_date).toLocaleDateString()}`;
         if (req.body.collect_oil_date)
             datesMessage += `\nRécupération d'huile : ${new Date(req.body.collect_oil_date).toLocaleDateString()}`;
-            
+
         await createNotification(request.user_id, 'Dates de pressage programmées', `Vos dates ont été fixées : ${datesMessage}`, request._id);
-        
+
         res.json(request);
     }
     catch (err) {
@@ -206,7 +206,11 @@ router.delete('/:id', authenticate, ownerOnly, async (req, res) => {
             res.status(404).json({ message: 'Demande introuvable.' });
             return;
         }
-        res.json({ message: 'Demande supprimée.' });
+        const notifTitle = 'Demande de pressage annulée';
+        const notifContent = 'Votre demande de pressage a été annulée.';
+        await createNotification(request.user_id, notifTitle, notifContent, request._id);
+
+        res.json({ message: 'Demande effacée.' });
     }
     catch (err) {
         res.status(500).json({ message: 'Erreur serveur.' });
