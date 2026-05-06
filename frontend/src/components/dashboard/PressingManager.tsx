@@ -47,6 +47,16 @@ const PressingManager: React.FC<PressingManagerProps> = ({
         method: 'PATCH',
         body: payload
       });
+      
+      // If status is pending, move it to accepted (In Process)
+      const requestData = pressingRequests.find(r => r._id === id);
+      if (requestData && requestData.status === 'pending') {
+          await request(`/pressing/${id}/status`, {
+              method: 'PATCH',
+              body: { status: 'accepted' }
+          });
+      }
+
       toast.success(t("dashboard.pressing.update_status"));
       setDateEditingId(null);
       onRefresh();
@@ -252,12 +262,28 @@ const PressingManager: React.FC<PressingManagerProps> = ({
                    >
                       {t("dashboard.common.save")}
                    </button>
+                   
+                   {/* Status Badge */}
+                   <div className="mt-4 flex items-center gap-2">
+                      <span className={cn(
+                        "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
+                        r.status === 'completed' 
+                          ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" 
+                          : "bg-amber-500/10 text-amber-600 border border-amber-500/20"
+                      )}>
+                        {r.status === 'completed' ? t("dashboard.pressing.status_completed") : t("dashboard.pressing.status_accepted") || "EN PROCESSUS"}
+                      </span>
+                   </div>
+
                     <div className="flex gap-2 mt-4 w-full">
                         <button 
-                          onClick={() => updatePressingStatus(r._id, 'completed')}
-                          className="flex-1 p-3 bg-[#6B8E23] text-white hover:bg-[#556B2F] rounded-xl transition-all font-black text-[11px] uppercase tracking-widest text-center shadow-sm"
+                          onClick={() => updatePressingStatus(r._id, r.status === 'completed' ? 'accepted' : 'completed')}
+                          className={cn(
+                            "flex-1 p-3 rounded-xl transition-all font-black text-[11px] uppercase tracking-widest text-center shadow-sm",
+                            r.status === 'completed' ? "bg-[#E2E1D8] text-[#8B7E66] hover:bg-[#6B8E23] hover:text-white" : "bg-[#6B8E23] text-white hover:bg-[#556B2F]"
+                          )}
                         >
-                          {t("dashboard.pressing.status_completed")}
+                          {r.status === 'completed' ? (t("dashboard.pressing.mark_in_process") || "Remettre en cours") : t("dashboard.pressing.status_completed")}
                         </button>
                         {!isArchived && (
                           <button 
