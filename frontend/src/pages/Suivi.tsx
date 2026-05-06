@@ -435,7 +435,9 @@ const Suivi = () => {
                                                         <div className="space-y-1 w-full text-right mb-4">
                                                             <div className="flex justify-between lg:justify-end lg:gap-8 items-center text-sm text-muted-foreground">
                                                                 <span className="text-[10px] font-bold uppercase tracking-widest">{t("suivi.sections.subtotal")}</span>
-                                                                <span className="font-semibold">{((order.total_price || 0) - (order.shipping?.cost || 0)).toLocaleString()} DA</span>
+                                                                <span className="font-semibold">
+                                                                    {(order.items.reduce((sum, item) => sum + (item.subtotal || 0), 0)).toLocaleString()} DA
+                                                                </span>
                                                             </div>
                                                             {order.shipping.type === 'delivery' && (
                                                                 <div className="flex justify-between lg:justify-end lg:gap-8 items-center text-sm text-muted-foreground">
@@ -446,7 +448,10 @@ const Suivi = () => {
                                                         </div>
                                                         <div className="text-right">
                                                             <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">{t("suivi.sections.total")}</p>
-                                                            <p className="text-4xl font-black text-primary leading-none">{order.total_price?.toLocaleString() || "0"} <span className="text-sm font-bold uppercase ml-1">DA</span></p>
+                                                            <p className="text-4xl font-black text-primary leading-none">
+                                                                {(order.total_price || (order.items.reduce((sum, item) => sum + (item.subtotal || 0), 0) + (order.shipping?.cost || 0))).toLocaleString()} 
+                                                                <span className="text-sm font-bold uppercase ml-1">DA</span>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
