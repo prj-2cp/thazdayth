@@ -49,18 +49,23 @@ const Index = () => {
           transition={{ duration: 1.5, ease: "easeOut" }} // Transition duration and easing
           className="absolute inset-0"
         >
-          <div className="absolute inset-0 pointer-events-none">
-            <iframe
-              className="w-full h-full object-cover scale-[1.35]" // Scale to hide borders
-              src="https://www.youtube.com/embed/ZY-3P62bitE?autoplay=1&mute=1&loop=1&playlist=ZY-3P62bitE&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1"
-              title="Thazdayth Background Video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
-          </div>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="/backgroundVideo.mp4" type="video/mp4" />
+            {/* Fallback image if video doesn't load */}
+            <img
+              src="https://i.pinimg.com/1200x/ab/0b/d2/ab0bd249514ef37d5ae4bca85d7129f2.jpg"
+              alt="Oliveraie de Kabylie"
+              className="w-full h-full object-cover"
+            />
+          </video>
 
-          <div className="absolute inset-0 bg-foreground/30" />
+          <div className="absolute inset-0 bg-foreground/20" />
         </motion.div>
 
         <div className="relative z-10 h-full flex flex-col justify-end pb-16 lg:pb-24 px-6 lg:px-10 max-w-7xl mx-auto">
