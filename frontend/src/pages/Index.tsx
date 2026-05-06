@@ -52,14 +52,9 @@ const Index = () => {
         className="!bg-background/100 backdrop-blur-sm h-[52px] lg:h-[60px]"
       />
 
-      {/* Hero Section: Using Framer Motion for the entrance animation */}
+      {/* Hero Section */}
       <section className="relative h-screen overflow-hidden">
-        <motion.div
-          initial={{ scale: 1.1 }} // Starting state (zoomed in)
-          animate={{ scale: 1 }}   // Final state (normal size)
-          transition={{ duration: 1.5, ease: "easeOut" }} // Transition duration and easing
-          className="absolute inset-0"
-        >
+        <div className="absolute inset-0">
           <video
             ref={videoRef}
             autoPlay
@@ -69,17 +64,17 @@ const Index = () => {
             preload="auto"
             className="w-full h-full object-cover"
           >
-            <source src="/backgroundVideo.mp4" type="video/mp4" />
-            {/* Fallback image if video doesn't load */}
+            <source src="/hero-bg.mp4" type="video/mp4" />
+            {/* High-quality Fallback image */}
             <img
-              src="https://i.pinimg.com/1200x/ab/0b/d2/ab0bd249514ef37d5ae4bca85d7129f2.jpg"
-              alt="Oliveraie de Kabylie"
+              src="https://images.unsplash.com/photo-1474979266404-7eaacbadcbaf?q=80&w=2000&auto=format&fit=crop"
+              alt="Oliveraie"
               className="w-full h-full object-cover"
             />
           </video>
 
           <div className="absolute inset-0 bg-foreground/30" />
-        </motion.div>
+        </div>
 
         <div className="relative z-10 h-full flex flex-col justify-end pb-16 lg:pb-24 px-6 lg:px-10 max-w-7xl mx-auto">
           <motion.p
