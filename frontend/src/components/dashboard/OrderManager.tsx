@@ -223,7 +223,7 @@ const OrderManager: React.FC<OrderManagerProps> = ({
                     o.status === 'cancelled' ? "bg-red-500/10 text-red-600" :
                     "bg-primary/10 text-primary"
                   )}>
-                    {t(`dashboard.orders.status_${o.status}`)}
+                    {t(`dashboard.orders.status_${o.status.replace('-', '_')}`)}
                   </div>
                 </div>
 
