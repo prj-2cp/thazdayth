@@ -5,7 +5,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Search } from "lucide-react";
+import { X, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SectionReveal from "@/components/SectionReveal";
 import Navbar from "@/components/Navbar";
@@ -24,6 +24,22 @@ const Region = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const images = [heroImg, oliveImg5, oliveImg2, "/region1.jpg", "/region2.jpg", "/region3.jpg", "/Oliviers-Bouira-e1613418625492.jpg"];
+
+  const selectedIndex = selectedImage ? images.indexOf(selectedImage) : -1;
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedIndex !== -1) {
+      setSelectedImage(images[(selectedIndex + 1) % images.length]);
+    }
+  };
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedIndex !== -1) {
+      setSelectedImage(images[(selectedIndex - 1 + images.length) % images.length]);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -211,7 +227,6 @@ const Region = () => {
       </section>
 
       {/* Zoom Modal */}
-      {/* Zoom Modal: Using AnimatePresence so Framer Motion can detect when the element leaves the DOM */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -222,20 +237,38 @@ const Region = () => {
             onClick={() => setSelectedImage(null)}
           >
             <motion.div
-              layoutId={`img-${images.indexOf(selectedImage)}`} // Matches the layoutId from the list for the transition animation
-              className="relative max-w-5xl w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl"
+              layoutId={`img-${images.indexOf(selectedImage)}`}
+              className="relative max-w-6xl w-full h-full max-h-[90vh] flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={selectedImage}
                 alt="Enlarged Kabylie"
-                className="w-full h-full object-cover"
+                className="max-w-full max-h-full object-contain rounded-3xl shadow-2xl"
               />
+
+              {/* Close Button */}
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-6 right-6 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors shadow-lg"
+                className="absolute top-0 right-0 md:top-4 md:right-4 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors shadow-lg z-10"
               >
                 <X className="w-6 h-6 text-foreground" />
+              </button>
+
+              {/* Prev Button */}
+              <button
+                onClick={handlePrev}
+                className="absolute left-0 md:left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors shadow-lg z-10"
+              >
+                <ChevronLeft className="w-6 h-6 text-foreground" />
+              </button>
+
+              {/* Next Button */}
+              <button
+                onClick={handleNext}
+                className="absolute right-0 md:right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors shadow-lg z-10"
+              >
+                <ChevronRight className="w-6 h-6 text-foreground" />
               </button>
             </motion.div>
           </motion.div>
