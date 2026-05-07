@@ -19,49 +19,37 @@ const getSteps = (t: any) => [
         num: "01",
         title: t("process.step1.title"),
         desc: t("process.step1.desc"),
-        video: "/VID-20260306-WA0332 (1).mp4",
+        image: "/images/process/reception-et-tri.jpg",
     },
     {
         num: "02",
         title: t("process.step2.title"),
         desc: t("process.step2.desc"),
-        video: "/VID-20260306-WA0601.mp4",
+        image: "/images/process/lavage-des-olives.jpg",
     },
     {
         num: "03",
         title: t("process.step3.title"),
         desc: t("process.step3.desc"),
-        video: "/VID-20260306-WA0604.mp4",
+        image: "/images/process/malaxage.jpg",
     },
     {
         num: "04",
         title: t("process.step4.title"),
         desc: t("process.step4.desc"),
-        video: "/VID-20260306-WA0607.mp4",
+        image: "/images/process/pressage.jpg",
     },
     {
         num: "05",
         title: t("process.step5.title"),
         desc: t("process.step5.desc"),
-        video: "/VID-20260307-WA0000.mp4",
+        image: "/images/process/filtration.jpg",
     },
     {
         num: "06",
         title: t("process.step6.title"),
         desc: t("process.step6.desc"),
-        video: "/VID-20260306-WA0332 (1).mp4",
-    },
-    {
-        num: "07",
-        title: t("process.step7.title"),
-        desc: t("process.step7.desc"),
-        video: "/VID-20260306-WA0601.mp4",
-    },
-    {
-        num: "08",
-        title: t("process.step8.title"),
-        desc: t("process.step8.desc"),
-        video: "/VID-20260306-WA0604.mp4",
+        image: "/images/process/stockage.jpg",
     },
 ];
 
@@ -90,7 +78,7 @@ const Processus = () => {
     const [activeStep, setActiveStep] = useState(0);
     const [hasCompletedProcess, setHasCompletedProcess] = useState(false);
     const [isProcessLocked, setIsProcessLocked] = useState(false);
-    
+
     // Track global scroll to detect when user is back at the top
     const { scrollY } = useScroll();
 
@@ -105,8 +93,8 @@ const Processus = () => {
             );
             setActiveStep(index);
 
-            // Lock the section as soon as the user reaches the end (Step 8)
-            // This collapses the 800vh height immediately, so scrolling back up is fast.
+            // Lock the section as soon as the user reaches the end (Step 6)
+            // This collapses the 600vh height immediately, so scrolling back up is fast.
             if (v > 0.98) {
                 setHasCompletedProcess(true);
                 setIsProcessLocked(true);
@@ -155,7 +143,7 @@ const Processus = () => {
                     <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-12 leading-relaxed">
                         {t("process.hero.desc")}
                     </p>
-                    
+
                     <button
                         onClick={() => openVideo("https://www.youtube.com/embed/gA52WYQZWjU?autoplay=1&si=KgXh__N6NywOzyW0", "process.video.title", "process.video.desc")}
                         className="group flex items-center gap-6"
@@ -173,9 +161,9 @@ const Processus = () => {
 
 
             {/* 8-Step Sticky Scroll Section */}
-            <section 
-                ref={containerRef} 
-                className={`relative transition-all duration-1000 ${isProcessLocked ? "h-auto py-20 bg-secondary/5" : "h-[800vh]"}`}
+            <section
+                ref={containerRef}
+                className={`relative transition-all duration-1000 ${isProcessLocked ? "h-auto py-20 bg-secondary/5" : "h-[600vh]"}`}
             >
                 <div className={`${isProcessLocked ? "relative" : "sticky top-0 h-screen"} flex items-center overflow-hidden`}>
                     <div className="container px-6 mx-auto">
@@ -209,11 +197,10 @@ const Processus = () => {
                                 {/* Progress Indicator */}
                                 <div className="absolute -left-12 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-3">
                                     {steps.map((_, i) => (
-                                        <div 
+                                        <div
                                             key={i}
-                                            className={`w-1 transition-all duration-700 rounded-full ${
-                                                i === activeStep ? "h-10 bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)]" : "h-3 bg-primary/10"
-                                            }`}
+                                            className={`w-1 transition-all duration-700 rounded-full ${i === activeStep ? "h-10 bg-primary shadow-[0_0_15px_rgba(var(--primary),0.5)]" : "h-3 bg-primary/10"
+                                                }`}
                                         />
                                     ))}
                                 </div>
@@ -232,12 +219,9 @@ const Processus = () => {
                                             transition={{ duration: 1, ease: "easeInOut" }}
                                             className="w-full h-full"
                                         >
-                                            <video
-                                                src={steps[activeStep].video}
-                                                autoPlay
-                                                muted
-                                                loop
-                                                playsInline
+                                            <img
+                                                src={steps[activeStep].image}
+                                                alt={steps[activeStep].title}
                                                 className="w-full h-full object-cover"
                                             />
                                         </motion.div>
@@ -301,7 +285,7 @@ const Processus = () => {
                         className="fixed inset-0 z-[70] bg-background/95 backdrop-blur-xl flex items-center justify-center p-6"
                         onClick={() => setVideoOpen(false)}
                     >
-                        <button 
+                        <button
                             onClick={() => setVideoOpen(false)}
                             className="absolute top-6 right-6 z-[80] text-foreground hover:rotate-90 transition-transform"
                         >

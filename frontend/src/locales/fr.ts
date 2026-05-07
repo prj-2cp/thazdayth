@@ -155,27 +155,19 @@ export const fr = {
             desc: "Les olives sont lavées avec de l’eau dans une machine. Cela permet d’enlever la poussière, la terre et les petits cailloux.",
         },
         step3: {
-            title: "3️ Broyage (trituration)",
-            desc: "Les olives sont écrasées dans un broyeur (souvent à marteaux). On obtient une pâte d’olive composée de pulpe, noyaux broyés, eau végétale et huile.",
-        },
-        step4: {
-            title: "4️ Malaxage",
+            title: "3️ Malaxage",
             desc: "La pâte est mélangée lentement dans un malaxeur pendant environ 20 à 40 minutes. Cette étape permet aux petites gouttes d’huile de se regrouper pour faciliter l’extraction.",
         },
-        step5: {
-            title: "5️ Pressage",
+        step4: {
+            title: "4️ Pressage",
             desc: "La pâte est placée sur des scourtins (filtres) empilés dans une presse hydraulique. La machine exerce une forte pression pour extraire le moût (mélange d’huile et d’eau).",
         },
-        step6: {
-            title: "6️ Séparation",
-            desc: "Le liquide obtenu contient de l’huile d’olive et de l’eau végétale. On les sépare par décantation ou centrifugation.",
-        },
-        step7: {
-            title: "7️ Filtration",
+        step5: {
+            title: "5️ Filtration",
             desc: "L’huile passe dans des filtres pour enlever les impuretés et les petits résidus solides restants.",
         },
-        step8: {
-            title: "8️Stockage",
+        step6: {
+            title: "6️ Stockage",
             desc: "L’huile est conservée dans des cuves en acier inoxydable à l’abri de la lumière, de l’air et de la chaleur, prête pour la mise en bouteille.",
         },
         video: {

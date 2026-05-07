@@ -155,27 +155,19 @@ export const kab = {
             desc: "Azemmur yettwassired s waman deg tmacint. Ayagi ittekkes-as lɣubbaṛ, akal d yedɣaɣen imecṭuḥen.",
         },
         step3: {
-            title: "3️Aɛedji (Trituration)",
-            desc: "Azemmur yettwaɛejen deg tmacint n uṣraɛ. Ad d-neṭṭef aɛeqjin n uzemmur i d-yettawin zzit d waman n nniyya.",
-        },
-        step4: {
-            title: "4️ Amellex (Mélange)",
+            title: "3️ Amellex (Mélange)",
             desc: "Aɛeqjin yettwamelleɣ cwiṭ cwiṭ deg tmacint n uṣmid azal n 20 ɣer 40 n tminutin akken ttimiqtin n zzit ad d-nejmaɛent.",
         },
-        step5: {
-            title: "5️ Aɛṣar",
+        step4: {
+            title: "4️ Aɛṣar",
             desc: "Aɛeqjin yettwaserkeb ɣef iskurtiyen (iǧewwaqen) deg tmacint n uɛṣar. Tamacint tzeɛɛek-it akken ad d-tefke zzit d waman n uzemmur.",
         },
-        step6: {
-            title: "6️ Afra n zzit d waman",
-            desc: "Zzit d waman i d-yeffɣen s tmacint fernen cwiṭ cwiṭ azal n lbenna n uzemmur n nniyya.",
-        },
-        step7: {
-            title: "7️ Aṣfi",
+        step5: {
+            title: "5️ Aṣfi",
             desc: "Zzit tetteɛeddi ɣef iseffayen akken ad yekkes akk ayen n diri i d-yegran deg-s.",
         },
-        step8: {
-            title: "8️cd  Aḥraz",
+        step6: {
+            title: "6️ Aḥraz",
             desc: "Zzit tetteḥraz deg teryal n uzzal (inox) di lkanun akken ur tt-tettḥaz ara tafat neɣ lḥama, iwakken ad tili d taheyyit i uɛemmer.",
         },
         video: {

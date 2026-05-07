@@ -155,27 +155,19 @@ export const en = {
             desc: "The olives are washed with water in a machine. This allows for the removal of dust, soil, and small stones.",
         },
         step3: {
-            title: "3️ Crushing (Trituration)",
-            desc: "The olives are crushed in a mill (often a hammer mill). An olive paste is obtained, composed of pulp, crushed pits, vegetable water, and oil.",
-        },
-        step4: {
-            title: "4️ Malaxage (Mixing)",
+            title: "3️ Malaxage (Mixing)",
             desc: "The paste is mixed slowly in a malaxer for about 20 to 40 minutes. This step allows small oil droplets to group together to facilitate extraction.",
         },
-        step5: {
-            title: "5️ Pressing",
+        step4: {
+            title: "4️ Pressing",
             desc: "The paste is placed on scourtins (filters) stacked in a hydraulic press. The machine exerts heavy pressure to extract a liquid called must (a mixture of oil and water).",
         },
-        step6: {
-            title: "6️ Oil / Water Separation",
-            desc: "The resulting liquid contains olive oil and vegetable water. They are separated by decantation or centrifugation.",
-        },
-        step7: {
-            title: "7️ Filtration",
+        step5: {
+            title: "5️ Filtration",
             desc: "The oil passes through filters to remove remaining impurities and small solid residues.",
         },
-        step8: {
-            title: "8️ Storage",
+        step6: {
+            title: "6️ Storage",
             desc: "The oil is stored in stainless steel tanks away from light, air, and heat, ready for bottling.",
         },
         video: {
