@@ -5,12 +5,13 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SectionReveal from "@/components/SectionReveal";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackButton from "@/components/BackButton";
+import { cn } from "@/lib/utils";
 // import heroImg from "@/assets/background-main-image.jpg";
 import oliveImg2 from "@/assets/olive-img-2.jpg";
 import oliveImg5 from "@/assets/olive-img-5.jpg";
@@ -162,23 +163,46 @@ const Region = () => {
         </div>
       </section>
 
-      {/* Image gallery with zoom effect on click */}
+      {/* Premium Bento Gallery */}
       <section className="py-24 px-6 lg:px-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <SectionReveal>
+           <div className="text-center mb-16">
+             <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">{t("region.gallery.title")}</h2>
+             <div className="w-24 h-1 bg-primary mx-auto rounded-full" />
+           </div>
+        </SectionReveal>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[300px] md:auto-rows-[250px] grid-flow-dense">
           {images.map((img, i) => (
-            <SectionReveal key={i} delay={i * 0.1}>
+            <SectionReveal 
+              key={i} 
+              delay={i * 0.1}
+              className={cn(
+                 "relative rounded-3xl overflow-hidden cursor-pointer group shadow-xl",
+                 i === 0 ? "md:col-span-2 md:row-span-2" :
+                 i === 3 ? "md:col-span-2 md:row-span-1" :
+                 i === 4 ? "md:col-span-1 md:row-span-2" :
+                 i === 5 ? "md:col-span-2 md:row-span-2" :
+                 i === 6 ? "md:col-span-1 md:row-span-2" :
+                 "md:col-span-1 md:row-span-1"
+              )}
+            >
               <motion.div
-                layoutId={`img-${i}`} // layoutId allows Framer Motion to animate the image transition to the modal
+                layoutId={`img-${i}`}
                 onClick={() => setSelectedImage(img)}
-                className="relative aspect-[4/5] rounded-3xl overflow-hidden cursor-pointer group shadow-xl"
+                className="w-full h-full"
               >
                 <img
                   src={img}
                   alt="Kabylie Landscape"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="text-white text-xs font-bold uppercase tracking-widest">{t("gallery.view")}</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                  <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <span className="text-white text-sm font-bold uppercase tracking-widest flex items-center gap-2">
+                      <Search className="w-4 h-4" /> {t("region.gallery.view")}
+                    </span>
+                  </div>
                 </div>
               </motion.div>
             </SectionReveal>
